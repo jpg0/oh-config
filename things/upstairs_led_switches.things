@@ -1,0 +1,27 @@
+Thing mqtt:topic:mosquitto:upledmain  "MQTT Thing: Upstairs LED Switch Main" (mqtt:broker:mosquitto) {
+    Channels:
+        Type switch : relay "relay" [ 
+            commandTopic = "cmnd/sonoff-8E5EA2/POWER",
+            stateTopic = "stat/sonoff-8E5EA2/POWER"]
+
+        Type switch : switch "switch" [ 
+            stateTopic = "cmnd/sonoff-8E5EA2-click/POWER1",
+            postCommand = "true"]
+        
+        Type number : rssi "RSSI" [ stateTopic = "tele/sonoff-8E5EA2/STATE", transformationPattern="JSONPATH:$.Wifi.RSSI" ]
+        Type switch : reachable "Reachable" [ stateTopic = "tele/sonoff-8E5EA2/LWT", transformationPattern="MAP:reachable.map" ]
+}
+
+Thing mqtt:topic:mosquitto:upledsecond  "MQTT Thing: Upstairs LED Switch Secondary" (mqtt:broker:mosquitto) {
+    Channels:
+        Type switch : relay "relay" [ 
+            commandTopic = "cmnd/sonoff-83C893/POWER",
+            stateTopic = "stat/sonoff-83C893/POWER"]
+
+        Type switch : switch "switch" [ 
+            stateTopic = "cmnd/sonoff-83C893-click/POWER1",
+            postCommand = "true"]
+        
+        Type number : rssi "RSSI" [ stateTopic = "tele/sonoff-83C893/STATE", transformationPattern="JSONPATH:$.Wifi.RSSI" ]
+        Type switch : reachable "Reachable" [ stateTopic = "tele/sonoff-83C893/LWT", transformationPattern="MAP:reachable.map" ]
+}

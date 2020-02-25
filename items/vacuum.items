@@ -1,0 +1,35 @@
+Group  gVacuum     "Xiaomi Robot Vacuum"      <fan>
+Group  gVacuumStat "Status Details"           <status> (gVacuum)
+Group  gVacuumConsumables "Consumables Usage"        <line-increase> (gVacuum)
+Group  gVacuumDND  "Do Not Disturb Settings"  <moon> (gVacuum)
+Group  gVacuumHistory "Cleaning History"         <calendar> (gVacuum)
+
+String VacuumActionControl  "Vacuum Control"          {channel="miio:vacuum:1c18311a:actions#control" }
+String VacuumActionCommand  "Vacuum Command"          {channel="miio:vacuum:1c18311a:actions#commands" }
+
+Number VacuumStatusBat    "Battery Level [%1.0f%%]" <battery>   (gVacuum,gVacuumStat) {channel="miio:vacuum:1c18311a:status#battery" }
+Number VacuumStatusArea    "Cleaned Area [%1.0fm²]" <zoom>   (gVacuum,gVacuumStat) {channel="miio:vacuum:1c18311a:status#clean_area" }
+Number VacuumStatusTime    "Cleaning Time [%1.0fmin]" <clock>   (gVacuum,gVacuumStat) {channel="miio:vacuum:1c18311a:status#clean_time" }
+String VacuumStatusError    "Error [%s]"  <error>  (gVacuum,gVacuumStat) {channel="miio:vacuum:1c18311a:status#error_code" }
+Number VacuumStatusFanPow    "Fan Power [%1.0f%%]"  <signal>   (gVacuumStat) {channel="miio:vacuum:1c18311a:status#fan_power" } 
+Number VacuumStatusClean    "In Cleaning Status [%1.0f]"   <switch>  (gVacuumStat) {channel="miio:vacuum:1c18311a:status#in_cleaning" }
+Switch VacuumStatusDND    "DND Activated"    (gVacuumStat) {channel="miio:vacuum:1c18311a:status#dnd_enabled" }
+Number VacuumStatusStatus    "Status [%1.0f]"  <status>  (gVacuumStat) {channel="miio:vacuum:1c18311a:status#state"} 
+
+Number VacuumConsumableMain    "Main Brush [%1.0f]"    (gVacuumConsumables) {channel="miio:vacuum:1c18311a:consumables#main_brush_time"}
+Number VacuumConsumableSide    "Side Brush [%1.0f]"    (gVacuumConsumables) {channel="miio:vacuum:1c18311a:consumables#side_brush_time"}
+Number VacuumConsumableFilter    "Filter Time[%1.0f]"    (gVacuumConsumables) {channel="miio:vacuum:1c18311a:consumables#filter_time" }
+Number VacuumConsumableSensor    "Sensor [%1.0f]"    (gVacuumConsumables) {channel="miio:vacuum:1c18311a:consumables#sensor_dirt_time"}
+
+Switch VacuumDndFunction   "DND Function" <moon>   (gVacuumDND) {channel="miio:vacuum:1c18311a:dnd#dnd_function"}
+String VacuumDndStart   "DND Start Time [%s]" <clock>   (gVacuumDND) {channel="miio:vacuum:1c18311a:dnd#dnd_start"}
+String VacuumDndEnd   "DND End Time [%s]"   <clock-on>  (gVacuumDND) {channel="miio:vacuum:1c18311a:dnd#dnd_end"}
+
+Number VacuumHistoryArea    "Total Cleaned Area [%1.0fm²]" <zoom>    (gVacuumHistory) {channel="miio:vacuum:1c18311a:history#total_clean_area"}
+String VacuumHistoryTime    "Total Clean Time [%s]"   <clock>     (gVacuumHistory) {channel="miio:vacuum:1c18311a:history#total_clean_time"}
+Number VacuumHistoryCount    "Total # Cleanings [%1.0f]"  <office>  (gVacuumHistory) {channel="miio:vacuum:1c18311a:history#total_clean_count"}
+
+//String VacuumNetSSID    "Network SSID [%s]"  <network>  (gVacuum,gVacuumNetwork) {channel="miio:generic:1c18311a:network#ssid" }
+//String VacuumNetBSSID    "Network BSSID [%s]"  <network>  (gVacuum,gVacuumNetwork) {channel="miio:generic:1c18311a:network#bssid" }
+//Number VacuumNetRSSI    "Network RSSI [%1.0f]"  <network>  (gVacuum,gVacuumNetwork) {channel="miio:generic:1c18311a:network#rssi" }
+//Number VacuumNetLife    "Uptime [%1.0f]"  <clock>  (gVacuum,gVacuumNework) {channel="miio:generic:1c18311a:network#life" }

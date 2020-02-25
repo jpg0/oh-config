@@ -1,0 +1,15 @@
+Group gTimeOfDay
+
+String vTimeOfDay "Current Time of Day [%s]" <tod> (gTimeOfDay)
+
+DateTime vMorning_Time "Morning [%1$tH:%1$tM]" <sunrise> (gTimeOfDay)
+
+DateTime vSunrise_Time "Day [%1$tH:%1$tM]" <sun> (gTimeOfDay) { channel="astro:sun:home:rise#start" }
+
+DateTime vSunset_Time "Evening [%1$tH:%1$tM]" <sunset> (gTimeOfDay) { channel="astro:sun:home:set#start" }
+    
+DateTime vNight_Time "Night [%1$tH:%1$tM]" <moon> (gTimeOfDay)
+	
+//DateTime vBed_Time "Bed [%1$tH:%1$tM]" <bedroom_blue> (gTimeOfDay)
+
+DateTime vPresunset_Time "Pre-Sunset [ %1$tH:%1$tM]" <sunset> (gTimeOfDay) { channel="astro:sun:minus90:set#start" }

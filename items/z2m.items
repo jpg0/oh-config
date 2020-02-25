@@ -1,0 +1,3 @@
+Switch Z2MPermitJoin "Permit Joining Zigbee Network" { 
+    channel="mqtt:topic:mosquitto:zigbee_bridge:permit_join", expire="120s,command=OFF" }
+    

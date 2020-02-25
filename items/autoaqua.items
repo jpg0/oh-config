@@ -1,0 +1,8 @@
+Switch Hose_Switch "Hose Switch" ["Tasmota"] { autoupdate="false" }
+
+Switch Hose_Contact { channel="mqtt:topic:mosquitto:autoaqua:contact", autoupdate="false" }
+Switch Hose_Motor ["Switchable"] { channel="mqtt:topic:mosquitto:autoaqua:motor", autoupdate="false" }
+
+Switch Hose_Switch_Reachable "Hose Switch: reachable" (gReachable) { channel="mqtt:topic:mosquitto:autoaqua:reachable" }
+    
+Number Hose_Switch_RSSI "Hose Switch: RSSI [%d %%]" (gRSSI) { channel="mqtt:topic:mosquitto:autoaqua:rssi" }

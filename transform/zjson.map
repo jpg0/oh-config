@@ -1,0 +1,4 @@
+ON={"state"\:"ON"}
+OFF={"state"\:"OFF"}
+1={"state"\:"ON"}
+0={"state"\:"OFF"}

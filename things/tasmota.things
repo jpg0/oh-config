@@ -1,0 +1,10 @@
+Thing mqtt:topic:mosquitto:tasmota  "MQTT Thing: Tasmota Devices"
+     (mqtt:broker:mosquitto)
+{
+    Channels:
+        Type string : status5 "Tasmota Status"
+            [
+                trigger = "true",
+                stateTopic = "stat/+/STATUS5"
+            ]
+}

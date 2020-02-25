@@ -1,0 +1,7 @@
+Switch UpstairsBathroomLight_Relay "Upstairs Bathroom Light Relay" { channel="mqtt:topic:mosquitto:upbathlight:relay" }
+
+Switch UpstairsBathroomLight_Switch "Upstairs Bathroom Light" { channel="mqtt:topic:mosquitto:upbathlight:switch" }
+
+Switch UpstairsBathroomLight_Reachable "UpstairsBathroomLight: reachable" (gReachable) { channel="mqtt:topic:mosquitto:upbathlight:reachable" }
+    
+Number UpstairsBathroomLight_RSSI "UpstairsBathroomLight: RSSI [%d %%]" (gRSSI) { channel="mqtt:topic:mosquitto:upbathlight:rssi" }

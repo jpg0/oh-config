@@ -1,0 +1,5 @@
+Switch vDisableTransistionalLightColors "Disable Transitional Light Colours" (gRules)
+
+Group gRules "Rules"
+
+String vRollersScene { expire="1s" }

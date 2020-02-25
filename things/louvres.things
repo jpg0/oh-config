@@ -1,0 +1,39 @@
+Thing mqtt:topic:mosquitto:louvres_s  "MQTT Thing: Upstairs Louvres (Small)" (mqtt:broker:mosquitto) {
+    Channels:
+        Type switch : openclose "openclose" [ 
+            commandTopic = "cmnd/sonoff-9770A4/Backlog",
+            on="power1 on; delay 60; power1 off;",
+            off="power2 on; delay 120; power2 off;"]
+
+        Type switch : opening "opening" [ 
+            stateTopic = "stat/sonoff-9770A4/POWER1"]
+
+        Type switch : closing "closing" [ 
+            stateTopic = "stat/sonoff-9770A4/POWER2"]
+
+        Type string : click "clicks" [ 
+            stateTopic = "stat/sonoff-9770A4/click"]
+        
+        Type number : rssi "RSSI" [ stateTopic = "tele/sonoff-9770A4/STATE", transformationPattern="JSONPATH:$.Wifi.RSSI" ]
+        Type switch : reachable "Reachable" [ stateTopic = "tele/sonoff-9770A4/LWT", transformationPattern="MAP:reachable.map" ]
+}
+ 
+Thing mqtt:topic:mosquitto:louvres_l  "MQTT Thing: Upstairs Louvres (Large)" (mqtt:broker:mosquitto) {
+    Channels:
+        Type switch : openclose "openclose" [ 
+            commandTopic = "cmnd/sonoff-97B3AF/Backlog",
+            off="power1 on; delay 120; power1 off;",
+            on="power2 on; delay 60; power2 off;"]
+
+        Type string : click "clicks" [ 
+            stateTopic = "stat/sonoff-97B3AF/click"]
+
+        Type switch : opening "opening" [ 
+            stateTopic = "stat/sonoff-97B3AF/POWER2"]
+
+        Type switch : closing "closing" [ 
+            stateTopic = "stat/sonoff-97B3AF/POWER1"]
+        
+        Type number : rssi "RSSI" [ stateTopic = "tele/sonoff-97B3AF/STATE", transformationPattern="JSONPATH:$.Wifi.RSSI" ]
+        Type switch : reachable "Reachable" [ stateTopic = "tele/sonoff-97B3AF/LWT", transformationPattern="MAP:reachable.map" ]
+}

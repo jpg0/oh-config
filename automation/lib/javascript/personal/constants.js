@@ -1,0 +1,14 @@
+const { HSBType } = require('@runtime/Defaults');
+
+let WARM_WHITE_COLOR = new HSBType("47,72,100");
+let PURE_RED_COLOR = new HSBType("0,100,100");
+
+let NIGHTTIME_LIGHT_COLOR = PURE_RED_COLOR;
+let DAYTIME_LIGHT_COLOR = WARM_WHITE_COLOR;
+
+module.exports = {
+    NIGHTTIME_LIGHT_COLOR,
+    PURE_RED_COLOR,
+    DAYTIME_LIGHT_COLOR,
+    WARM_WHITE_COLOR
+}

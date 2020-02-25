@@ -1,0 +1,26 @@
+Thing mqtt:topic:mosquitto:hvac  "MQTT Thing: Daikin HVAC Unit"
+     (mqtt:broker:mosquitto)
+{
+    Channels:
+        Type switch : power "A/C Power" [
+            stateTopic = "/stat/hvac/intesis/001DC9832295/settings/onoff", transformationPattern="MAP:caps.map",
+            commandTopic = "/cmnd/hvac/intesis/001DC9832295/settings/onoff", on="on", off="off"
+        ]
+        Type string : mode "A/C Mode" [
+            stateTopic = "/stat/hvac/intesis/001DC9832295/settings/mode",
+            commandTopic = "/cmnd/hvac/intesis/001DC9832295/settings/mode",
+            allowedStates="cool,heat,auto,fan,dry"
+        ]
+        Type number : fanspeed "A/C Fan Speed" [
+            stateTopic = "/stat/hvac/intesis/001DC9832295/settings/fansp",
+            commandTopic = "/cmnd/hvac/intesis/001DC9832295/settings/fansp" 
+        ]
+        Type number : ambienttemp "A/C Ambient Temperature" [
+            stateTopic = "/stat/hvac/intesis/001DC9832295/settings/fansp",
+            commandTopic = "/cmnd/hvac/intesis/001DC9832295/settings/fansp" 
+        ]
+        Type number : setptemp "A/C SETPTEMP" [
+            stateTopic = "/stat/hvac/intesis/001DC9832295/settings/setptemp",
+            commandTopic = "/cmnd/hvac/intesis/001DC9832295/settings/setptemp" 
+        ]
+}

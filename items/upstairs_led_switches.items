@@ -1,0 +1,15 @@
+Switch UpstairsLEDSwitchMain_Relay "Upstairs LED Switch Main Relay" { channel="mqtt:topic:mosquitto:upledmain:relay" }
+
+Switch UpstairsLEDSwitchMain_Switch "Upstairs LED Switch Main" { channel="mqtt:topic:mosquitto:upledmain:switch" }
+
+Switch UpstairsLEDSwitchMain_Reachable "Upstairs LED Switch Main: reachable" (gReachable) { channel="mqtt:topic:mosquitto:upledmain:reachable" }
+    
+Number UpstairsLEDSwitchMain_RSSI "Upstairs LED Switch Main: RSSI [%d %%]" (gRSSI) { channel="mqtt:topic:mosquitto:upledmain:rssi" }
+
+Switch UpstairsLEDSwitchSecond_Relay "Upstairs LED Switch Secondary Relay" { channel="mqtt:topic:mosquitto:upledsecond:relay" }
+
+Switch UpstairsLEDSwitchSecond_Switch "Upstairs LED Switch Secondary" { channel="mqtt:topic:mosquitto:upledsecond:switch" }
+
+Switch UpstairsLEDSwitchSecond_Reachable "Upstairs LED Switch Secondary: reachable" (gReachable) { channel="mqtt:topic:mosquitto:upledsecond:reachable" }
+    
+Number UpstairsLEDSwitchSecond_RSSI "Upstairs LED Switch Secondary: RSSI [%d %%]" (gRSSI) { channel="mqtt:topic:mosquitto:upledsecond:rssi" }

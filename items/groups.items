@@ -1,0 +1,67 @@
+Group gZ2M "Zigbee2MQTT Devices"
+
+Group gMeasurements "All Measurements"
+
+Group:Switch:OR(ON,OFF) gLivingRoom "Living Room Lights" <light> ["Lighting"]
+Group:Switch:OR(ON,OFF) gBedroom "Bedroom Lights" <light> ["Lighting"]
+
+Group:Number:AVG  gKidsRoomsTemperature "Kids Rooms Temperature (Average)"
+Group:Number:AVG  gLivingRoomTemperature "Living Room Temperature"
+Group:Number:AVG  gUpstairsBedroomTemperature "Upstairs Bedroom Temperature"
+
+Group gLyrasRoom "Lyra's Room" (gKidsRooms)
+Group gFelixsRoom "Felix's Room" (gKidsRooms)
+Group gIndisRoom "Indi's Room" (gKidsRooms)
+
+Group gKidsRooms "Kids' Rooms"
+
+Group gAlerted "Alerted Items"
+
+Group gTemperature "All Temperatures"
+Group gBattery "All Battery Levels"
+Group gHumidity "All Humidity Levels"
+Group gPressure "All Pressure Levels"
+
+Group gLastUpdated "All Last Updated"
+
+Group gIlluminance "All Illuminance"
+Group gOccupancy "All Occupancy"
+
+Group gColorLights "Coloured Lights"
+Group gEveningLights "Evening Lights"
+Group gTransitionalLights "Transitional Lights"
+
+Group:String gRoller "Rollers"
+Group:String gUpstairsLargeBlinds "Upstairs Large Blinds" (gUpstairsBlinds)
+Group:String gUpstairsToiletBlinds "Upstairs Toilet Blinds" (gUpstairsBlinds)
+Group:String gUpstairsDoorScreens "Upstairs Door Screens" (gUpstairsScreens)
+Group:String gUpstairsDoorBlinds "Upstairs Door Blinds" (gUpstairsBlinds)
+Group:String gUpstairsSmallBlinds "Upstairs Small Blinds" (gUpstairsBlinds)
+Group:String gUpstairsLargeScreens "Upstairs Large Screens" (gUpstairsScreens)
+Group:String gUpstairsScreens "Upstairs Screens"
+Group:String gUpstairsBlinds "Upstairs Blinds"
+
+Group:Contact:OR(OPEN, CLOSED) gOpenings "Openings" <door>
+
+Group:Contact:OR(OPEN, CLOSED) gDoors "Doors" <door> (gOpenings)
+Group:Contact:OR(OPEN, CLOSED) gWindows "Windows" <window> (gOpenings)
+
+Group:Contact:OR(OPEN, CLOSED) gKitchenDoors "Kitchen Doors" <door> (gDoors, gKitchenOpenings)
+Group:Contact:OR(OPEN, CLOSED) gKitchenWindows "Kitchen Windows" <window> (gWindows, gKitchenOpenings)
+Group:Contact:OR(OPEN, CLOSED) gKitchenOpenings "Kitchen Openings" <door> (gOpenings)
+
+Group:Contact:OR(OPEN, CLOSED) gKidsRoomsDoors "Kids' Rooms Doors" <door> (gDoors, gKidsRoomsOpenings)
+Group:Contact:OR(OPEN, CLOSED) gKidsRoomsWindows "Kids' Rooms Windows" <window> (gWindows, gKidsRoomsOpenings)
+Group:Contact:OR(OPEN, CLOSED) gKidsRoomsOpenings "Kids' Rooms Openings" <door> (gOpenings)
+
+Group:Contact:OR(OPEN, CLOSED) gGamesRoomDoors "Games Room Doors" <door> (gDoors, gGamesRoomOpenings)
+Group:Contact:OR(OPEN, CLOSED) gGamesRoomWindows "Games Room Windows" <window> (gWindows, gGamesRoomOpenings)
+Group:Contact:OR(OPEN, CLOSED) gGamesRoomOpenings "Games Room Openings" <door> (gOpenings)
+
+Group:Contact:OR(OPEN, CLOSED) gGrannyFlatDoors "Granny Flat Doors" <door> (gOpenings)
+
+Group:Contact:OR(OPEN, CLOSED) gUpstairsOpenings "Upstairs Openings" <window> (gOpenings)
+Group:Contact:OR(OPEN, CLOSED) gUpstairsWindows "Upstairs Windows" <window> (gWindows, gUpstairsOpenings)
+Group:Contact:OR(OPEN, CLOSED) gUpstairsDoors "Upstairs Doors" <door> (gDoors, gUpstairsOpenings)
+
+Group:Switch:OR(ON,OFF) gXmasLights "Xmas Lights" <light> ["Lighting"]

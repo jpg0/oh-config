@@ -1,0 +1,12 @@
+Thing mqtt:topic:mosquitto:autoaqua  "MQTT Thing: AutoAqua ESP8266 Hose Control" (mqtt:broker:mosquitto) {
+    Channels:
+        Type switch : motor "motor" [ 
+            stateTopic = "stat/sonoff-67557A/POWER1", 
+            commandTopic = "cmnd/sonoff-67557A/POWER1"]
+
+        Type switch : contact "contact" [ 
+            stateTopic = "stat/sonoff-67557A/POWER2"]
+        
+        Type number : rssi "RSSI" [ stateTopic = "tele/sonoff-67557A/STATE", transformationPattern="JSONPATH:$.Wifi.RSSI" ]
+        Type switch : reachable "Reachable" [ stateTopic = "tele/sonoff-67557A/LWT", transformationPattern="MAP:reachable.map" ]
+}

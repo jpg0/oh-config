@@ -1,0 +1,5 @@
+Group gLightColors
+Color vDaytime_Light_Color (gLightColors)
+Color vNighttime_Light_Color (gLightColors)
+Color vCurrent_Light_Color "Current Light Colour (Virtual)" (gLightColors)
+Color vTransition_Light_Color "Colour to transition thru to prevent bright initial lights at night" (gLightColors)

@@ -1,0 +1,13 @@
+Thing mqtt:topic:mosquitto:upbathlight  "MQTT Thing: Upstairs Bathroom Light" (mqtt:broker:mosquitto) {
+    Channels:
+        Type switch : relay "relay" [ 
+            commandTopic = "cmnd/sonoff-B122E0/POWER",
+            stateTopic = "stat/sonoff-B122E0/POWER"]
+
+        Type switch : switch "switch" [ 
+            stateTopic = "cmnd/sonoff-B122E0-click/POWER1",
+            postCommand = "true"]
+        
+        Type number : rssi "RSSI" [ stateTopic = "tele/sonoff-B122E0/STATE", transformationPattern="JSONPATH:$.Wifi.RSSI" ]
+        Type switch : reachable "Reachable" [ stateTopic = "tele/sonoff-B122E0/LWT", transformationPattern="MAP:reachable.map" ]
+}

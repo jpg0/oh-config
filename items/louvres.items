@@ -1,0 +1,31 @@
+
+//switch to trigger bulk open/close
+Switch UpstairsLouvresSmall "Louvres (Small)" ["Tasmota"] { channel="mqtt:topic:mosquitto:louvres_s:openclose" }
+//click item from tasmota
+String UpstairsLouvresSmall_Click "Louvres (Small) Clicks" <window> { channel="mqtt:topic:mosquitto:louvres_s:click", expire="2s" }
+//contact proxy for openings
+Contact UpstairsLouvresSmall_Contact "Louvres (Small) Contact"
+//Switch reporting *current* opening motion
+Switch UpstairsLouvresSmall_Opening "Louvres (Small) Opening Motion" { channel="mqtt:topic:mosquitto:louvres_s:opening" }
+//Switch reporting *current* closing motion
+Switch UpstairsLouvresSmall_Closing "Louvres (Small) Closing Motion" { channel="mqtt:topic:mosquitto:louvres_s:closing" }
+
+Switch UpstairsLouvresSmall_Reachable "UpstairsLouvresSmall: reachable" (gReachable) { channel="mqtt:topic:mosquitto:louvres_s:reachable" }
+    
+Number UpstairsLouvresSmall_RSSI "UpstairsLouvresSmall: RSSI [%d %%]" (gRSSI) { channel="mqtt:topic:mosquitto:louvres_s:rssi" }
+
+
+
+
+Switch UpstairsLouvresLarge "Louvres (Large)" ["Tasmota"] { channel="mqtt:topic:mosquitto:louvres_l:openclose" }
+
+String UpstairsLouvresLarge_Click "Louvres (Large) Clicks" <window> { channel="mqtt:topic:mosquitto:louvres_l:click", expire="2s" }
+ 
+Contact UpstairsLouvresLarge_Contact "Louvres (Large) Contact"
+
+Switch UpstairsLouvresLarge_Opening "Louvres (Large) Opening Motion" { channel="mqtt:topic:mosquitto:louvres_l:opening" }
+Switch UpstairsLouvresLarge_Closing "Louvres (Large) Closing Motion" { channel="mqtt:topic:mosquitto:louvres_l:closing" }
+
+Switch UpstairsLouvresLarge_Reachable "UpstairsLouvresLarge: reachable" (gReachable) { channel="mqtt:topic:mosquitto:louvres_l:reachable" }
+    
+Number UpstairsLouvresLarge_RSSI "UpstairsLouvresLarge: RSSI [%d %%]" (gRSSI) { channel="mqtt:topic:mosquitto:louvres_l:rssi" }

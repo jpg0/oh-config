@@ -1,0 +1,15 @@
+Thing mqtt:topic:mosquitto:rf_bridge  "MQTT Thing: Sonoff RF Bridge"
+     (mqtt:broker:mosquitto) @ "Hallway"
+{
+    Channels:
+        Type string : status "Incoming RF"
+            [
+                trigger = "true",
+                stateTopic = "tele/sonoff-8E7A68/RESULT"
+            ]
+        Type string : command "Outgoing RF from OH"
+            [
+                trigger = "true",
+                stateTopic = "cmnd/rf"
+            ]
+}

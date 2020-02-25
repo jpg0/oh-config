@@ -1,0 +1,6 @@
+Bridge mqtt:broker:mosquitto "MQTT Broker: Mosquitto"
+[
+    host="localhost",
+    port=1883,
+    secure="AUTO"
+]
