@@ -95,10 +95,6 @@ let Slider = function({ item, label, icon, labelColor, valueColor, visibility, f
 
 let Sitemap = function({ name, label}, children = []) {
     return widgetFactory.newSitemap(name, label, null, children);
-    // return SitemapBuilder.create(name)
-    // .withLabel(label)
-    // .withWidgets(children)
-    // .buildProxy();
 };
 
 module.exports = {

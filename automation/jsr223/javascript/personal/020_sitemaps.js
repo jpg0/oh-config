@@ -17,21 +17,19 @@ new CallbackSitemapProvider(Sitemap({name:"default", label:"Home"}, [
         Frame({label:"Main"}, [ 
             Switch({item:'vTimeOfDay', label:"[]", mappings:{ MORNING:"Morning", DAY:"Day", SUNSET:"Sunset", EVENING:"Evening", NIGHT:"Night"} }),
             Switch({item:'gLivingRoom', icon:"light"}),
-            Text({label:"A/C [%s]", item:"HVAC_House", icon:"climate", 
-                children: [
-                    Switch({item:"HVAC_House", icon:"climate"}),
-                    Switch({item:"HVAC_Mode", mappings:{cool:"Cool", heat:"Heat", auto:"Auto", fan:"Fan", dry:"Dry"}, icon:'flow'}),
-                    Switch({item:"HVAC_FanSpeed", label:"Fan Speed [%s]", mappings:["Low","Med","High"]}),
-                    Setpoint({item:"HVAC_LowTemp", label:"Heat from.. [%.1f °C]", step:1, minValue:16, maxValue:30, visibility:['HVAC_Mode==heat','HVAC_Mode==auto']}),
-                    Setpoint({item:"HVAC_HighTemp", label:"Cool to.. [%.1f °C]", step:1, minValue:16, maxValue:30, visibility:['HVAC_Mode==cool','HVAC_Mode==auto']}),
-                    Text({item:"HVAC_AmbientTemp", label:"Ambient Temperature [%.1f °C]", icon:"temperature"}),
-                    Switch({item:"KitchenDuct_Switch"}),
-                    Switch({item:"GamesDuct_Switch"}),
-                    Switch({item:"UpstairsDuct_Switch"}),
-                    Switch({item:"KidsRoomsDuct_Switch"}),
-                ]
-            })
-        ]),
+            Text({label:"A/C [%s]", item:"HVAC_House", icon:"climate"}, [ 
+                Switch({item:"HVAC_House", icon:"climate"}),
+                Switch({item:"HVAC_Mode", mappings:{cool:"Cool", heat:"Heat", auto:"Auto", fan:"Fan", dry:"Dry"}, icon:'flow'}),
+                Switch({item:"HVAC_FanSpeed", label:"Fan Speed [%s]", mappings:["Low","Med","High"]}),
+                Setpoint({item:"HVAC_LowTemp", label:"Heat from.. [%.1f °C]", step:1, minValue:16, maxValue:30, visibility:['HVAC_Mode==heat','HVAC_Mode==auto']}),
+                Setpoint({item:"HVAC_HighTemp", label:"Cool to.. [%.1f °C]", step:1, minValue:16, maxValue:30, visibility:['HVAC_Mode==cool','HVAC_Mode==auto']}),
+                Text({item:"HVAC_AmbientTemp", label:"Ambient Temperature [%.1f °C]", icon:"temperature"}),
+                Switch({item:"KitchenDuct_Switch"}),
+                Switch({item:"GamesDuct_Switch"}),
+                Switch({item:"UpstairsDuct_Switch"}),
+                Switch({item:"KidsRoomsDuct_Switch"}),
+            ])
+        ]), 
         Frame({label:"Living Room"}, [
             Default({item:"TVLight_Light", label:"TV Light", icon:"light"}),
             Default({item:"FloorLamp_Light", label:"Floor Lamp", icon:"light"}),
@@ -155,11 +153,7 @@ new CallbackSitemapProvider(Sitemap({name:"default", label:"Home"}, [
         Frame({label:"System"}, [
             Default({item:'Z2MPermitJoin', label:"Allow Joining Zigbee"}),
             Switch({item:'vCurrent_Light_Color', label:"Reset Light Colours", mappings:{"0,0,0":"Reset"}}),
-            Group({item:'gRules'}
-                //{{#each data.activationitems}}
-                //Group item={{safe this.itemName}} label="{{unquote @key}}" icon="switch"
-                //{{/each}}
-            ),
+            Group({item:'gRules'}),
         ]),
         Frame({label:"All"}, [
             Text({label:"Temperatures", icon:"temperature"}, [

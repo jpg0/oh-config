@@ -9,7 +9,7 @@ class XiaomiZigbeeEndDeviceTAI extends zigbeetai.ZigbeeTAI {
         let lastUpdatedItem = items.createItem(`${this.id}_LastUpdated`, 'DateTime', 'clock', ['gLastUpdated'], `${this.id} Last Seen [%1$ta %1$tR]`);
         this.items.push(lastUpdatedItem);
 
-        let measurementGroupItem = items.createItem(`${this.id}_Measurements`, 'Group', null, ['gMeasurements'], `${this.id}: All measurements`);
+        let measurementGroupItem = items.createItem(`g${this.id}_Measurements`, 'Group', null, ['gMeasurements'], `${this.id}: All measurements`);
         this.items.push(measurementGroupItem);
 
 
@@ -91,7 +91,7 @@ class MijiaTemperatureTAI extends XiaomiZigbeeEndDeviceTAI {
         super.buildObjects();
 
         this.linkItemToChannel(
-            items.createItem(`${this.id}_Temperature`, 'Number', 'temperature', [...this.groups, 'gTemperature',`g${this.id}_Measurements`], `${this.id} Temperature [%.1f °C]`),
+            items.createItem(`${this.id}_Temperature`, 'Number', 'temperature', [...this.groups, 'gTemperature',`g${this.id}_Measurements`], `${this.name} Temperature [%.1f °C]`),
             this.withNewMQTTChannel("temperature", "Number", "number", {
                 stateTopic: `${this.mqttRoot}/${this.zigbeeId}`,
                 transformationPattern: "JSONPATH:$.temperature"
