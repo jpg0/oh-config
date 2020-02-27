@@ -1,6 +1,8 @@
 const zigbeetai = require('./zigbeetai');
-const { items, metadata } = require('ohj');
+const { items, metadata, rules, triggers } = require('ohj');
 const log = require('ohj').log('zigbeebulbtai');
+const constants = require('constants');
+
 
 class ZigbeeColorBulbTAI extends zigbeetai.ZigbeeTAI {
     buildObjects() {
@@ -18,7 +20,7 @@ class ZigbeeColorBulbTAI extends zigbeetai.ZigbeeTAI {
         let realItem = items.createItem(`${this.itemPrefix}${this.id}_Light_Real`, 'Color', 'light', [], `${this.name} Light (Real)`);
         this.linkItemToChannel(realItem, colorChannel);
 
-        let proxyItem = items.createItem(`${this.itemPrefix}${this.id}_Light`, 'Color', 'light', this.groups, `${this.name} Light`, ["ColorLight"]);
+        let proxyItem = items.createItem(`${this.itemPrefix}${this.id}_Light`, 'Color', 'light', groups, `${this.name} Light`, ["ColorLight"]);
         this.metadata.push(metadata.createMetadata(proxyItem.name, 'zigbeeId', this.zigbeeId));
         this.metadata.push(metadata.createMetadata(proxyItem.name, 'proxyFor', realItem.name));
         this.items.push(proxyItem);
@@ -39,11 +41,11 @@ class ZigbeeDualColorBulbTAI extends zigbeetai.ZigbeeTAI {
     }
 
     buildObjects() {
-        let colorItem = items.createItem(`${this.itemPrefix}${this.id}_Light_RGB`, 'Color', 'light', [], `${this.name} Light RGB (Real)`);
-        this.linkItemToChannel(colorItem, this.buildColorChannel());
+        this.colorItem = items.createItem(`${this.itemPrefix}${this.id}_Light_RGB`, 'Color', 'light', [], `${this.name} Light RGB (Real)`);
+        this.linkItemToChannel(this.colorItem, this.buildColorChannel());
 
-        let whiteItem = items.createItem(`${this.itemPrefix}${this.id}_Light_WW`, 'Dimmer', 'light', [], `${this.name} Light WW (Real)`);
-        this.linkItemToChannel(whiteItem, this.buildWhiteChannel());
+        this.whiteItem = items.createItem(`${this.itemPrefix}${this.id}_Light_WW`, 'Dimmer', 'light', [], `${this.name} Light WW (Real)`);
+        this.linkItemToChannel(this.whiteItem, this.buildWhiteChannel());
 
         let groups = [...this.groups];
         if (this.zigbeeGroupId) {
@@ -52,11 +54,11 @@ class ZigbeeDualColorBulbTAI extends zigbeetai.ZigbeeTAI {
             groups.push('gColorLights');
         }
 
-        let proxyItem = items.createItem(`${this.itemPrefix}${this.id}_Light`, 'Color', 'light', groups, `${this.name} Light`, ["DualLEDs"]);
-        this.metadata.push(metadata.createMetadata(proxyItem.name, 'proxyForDimmer', whiteItem.name));
-        this.metadata.push(metadata.createMetadata(proxyItem.name, 'proxyForColor', colorItem.name));
-        this.metadata.push(metadata.createMetadata(proxyItem.name, 'zigbeeId', this.zigbeeId));
-        this.items.push(proxyItem);
+        this.proxyItem = items.createItem(`${this.itemPrefix}${this.id}_Light`, 'Color', 'light', groups, `${this.name} Light`, ["DualLEDs"]);
+        this.metadata.push(metadata.createMetadata(this.proxyItem.name, 'proxyForDimmer', this.whiteItem.name));
+        this.metadata.push(metadata.createMetadata(this.proxyItem.name, 'proxyForColor', this.colorItem.name));
+        this.metadata.push(metadata.createMetadata(this.proxyItem.name, 'zigbeeId', this.zigbeeId));
+        this.items.push(this.proxyItem);
     }
 
     buildColorChannel() {
@@ -71,6 +73,45 @@ class ZigbeeDualColorBulbTAI extends zigbeetai.ZigbeeTAI {
             commandTopic: `${this.mqttRoot}/${this.zigbeeId}/white/set`,
             transformationPatternOut: "JS:z2m_dual_ww.js"
         })
+    }
+
+    activateRules() {
+        super.activateRules();
+    
+        rules.JSRule({
+            name: `multiplex dual leds for ${this.proxyItem.name}`,
+            triggers: [triggers.ItemCommandTrigger(this.proxyItem.name)],
+            execute: (args) => {
+                let receivedCommand = args.receivedCommand;
+                log.debug("multiplexing proxy for {} received command {}", this.proxyItem.name, receivedCommand);
+    
+    
+                if (receivedCommand.toString() === "ON") {
+                    receivedCommand = items.getItem('vCurrent_Light_Color').rawState;
+                }
+    
+    //            //if warm white, then set to full brightness WW LEDs, and turn off RGB
+                if(receivedCommand.toString() === 'OFF') {
+                    this.colorItem.sendCommand('OFF');
+                } else {
+                    let warmWhiteHsb = constants.WARM_WHITE_COLOR;
+    
+                    //is warm white if hue & sat match
+                    if (receivedCommand.getHue().equals(warmWhiteHsb.getHue()) && receivedCommand.getSaturation().equals(warmWhiteHsb.getSaturation())) {
+                        //setting the white strip appears to turn off the RGB one, so just set it
+                        if (receivedCommand.getBrightness() === 0) { //cannot cope with brightness 0, so just turn off if we get it
+                            this.whiteItem.sendCommand('OFF');
+                        } else {
+                            this.whiteItem.sendCommand(receivedCommand.getBrightness().toString());
+                        }
+                    } else { //else it's no warm white so use RGB exclusively
+                        this.whiteItem.sendCommand('OFF');
+                        this.colorItem.sendCommand(receivedCommand.toString());
+                    }
+                }
+            }
+        });
+
     }
 }
 

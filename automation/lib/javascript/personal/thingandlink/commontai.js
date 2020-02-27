@@ -37,6 +37,10 @@ class BaseTAI {
 
     }
 
+    activateRules() {
+        
+    }
+
     addToItemsProvider(itemsProvider) {
         this.seal(false);
         itemsProvider.addCallback(() => this.items.map(i => i.rawItem));

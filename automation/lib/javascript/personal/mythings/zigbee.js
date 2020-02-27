@@ -1,5 +1,7 @@
-const { items } = require('ohj');
+const { items, fluent, actions } = require('ohj');
+const log = require('ohj').log('zigbee');
 const { ZigbeeColorBulbTAI, ZigbeeDualColorBulbTAI } = require('thingandlink').device;
+const mqtt = actions.get("mqtt", "mqtt:broker:mosquitto");
 
 class ZigbeeDualColorBulbGroupTAI extends ZigbeeDualColorBulbTAI {
     constructor(config) {
@@ -11,12 +13,32 @@ class ZigbeeDualColorBulbGroupTAI extends ZigbeeDualColorBulbTAI {
     }
 
     buildObjects() {
-        let groupItem = items.createItem(`gz${this.id}`, 'Group', 'light', ['gZigbeeGroups'], `${this.name} Light Group`,);
-        this.addMetadataToItem(groupItem, 'zigbeeGroupId', this.id);
-        this.addMetadataToItem(groupItem, 'zigbeeProxyItemName', `zg${this.id}_Light`);
-        this.items.push(groupItem);
+        this.groupItem = items.createItem(`gz${this.id}`, 'Group', 'light', ['gZigbeeGroups'], `${this.name} Light Group`,);
+        this.addMetadataToItem(this.groupItem, 'zigbeeGroupId', this.id);
+        this.addMetadataToItem(this.groupItem, 'zigbeeProxyItemName', `zg${this.id}_Light`);
+        this.items.push(this.groupItem);
 
         super.buildObjects();
+    }
+
+    activateRules() {
+        super.activateRules();
+
+        //first create the group
+        mqtt.publishMQTT("zigbee2mqtt/bridge/config/remove_group", this.id);
+        mqtt.publishMQTT("zigbee2mqtt/bridge/config/add_group", this.id);
+    
+        log.debug("Recreated zigbee group {}", this.id);
+    
+        //add members to the group
+        for(let zigbeeItem of this.groupItem.members) {
+            mqtt.publishMQTT(`zigbee2mqtt/bridge/group/${this.id}/add`, zigbeeItem.getMetadataValue('zigbeeId'));
+            log.debug("Added {} to zigbee group {}", zigbeeItem.name, this.id);
+        }
+    
+        let {when,item,postIt} = fluent;
+        //wire up proxy item so that when it receive 
+        when(item(`zg${this.id}_Light`).receivedCommand()).then(postIt().toItems(items.getItem(`gz${this.id}`).members));
     }
 }
 
@@ -30,22 +52,41 @@ class ZigbeeColorBulbGroupTAI extends ZigbeeColorBulbTAI {
     }
 
     buildObjects() {
-        let groupItem = items.createItem(`gz${this.id}`, 'Group', 'light', ['gZigbeeGroups'], `${this.name} Light Group`,);
-        this.addMetadataToItem(groupItem, 'zigbeeGroupId', this.id);
-        this.addMetadataToItem(groupItem, 'zigbeeProxyItemName', `zg${this.id}_Light`);
-        this.items.push(groupItem);
+        this.groupItem = items.createItem(`gz${this.id}`, 'Group', 'light', ['gZigbeeGroups'], `${this.name} Light Group`,);
+        this.addMetadataToItem(this.groupItem, 'zigbeeGroupId', this.id);
+        this.addMetadataToItem(this.groupItem, 'zigbeeProxyItemName', `zg${this.id}_Light`);
+        this.items.push(this.groupItem);
 
         super.buildObjects();
 
     }
-}
 
+    activateRules() {
+        super.activateRules();
+
+        //first create the group
+        mqtt.publishMQTT("zigbee2mqtt/bridge/config/remove_group", this.id);
+        mqtt.publishMQTT("zigbee2mqtt/bridge/config/add_group", this.id);
+    
+        log.debug("Recreated zigbee group {}", this.id);
+    
+        //add members to the group
+        for(let zigbeeItem of this.groupItem.members) {
+            mqtt.publishMQTT(`zigbee2mqtt/bridge/group/${this.id}/add`, zigbeeItem.getMetadataValue('zigbeeId'));
+            log.debug("Added {} to zigbee group {}", zigbeeItem.name, this.id);
+        }
+    
+        //wire up proxy item so that when it receive 
+        let {when,item,postIt} = fluent;
+        when(item(`zg${this.id}_Light`).receivedCommand()).then(postIt().toItems(items.getItem(`gz${this.id}`).members));
+    }
+}
 
 module.exports = [
     new ZigbeeColorBulbGroupTAI({name: 'LivingRoomLights', groupId: 'LivingRoomLights', groups: ['gLivingRoom']}),
 
     new ZigbeeColorBulbTAI({name: 'LivingRoom Corner', zigbeeId: '0x0017880104250673', zigbeeGroupId: "LivingRoomLights", groups: ["gColorLights","gLivingRoom"]}),
-    new ZigbeeColorBulbTAI({name: 'TVLight', zigbeeId: '0x00158d0001dd7f3e', zigbeeGroupId: "LivingRoomLights", groups: ["gColorLights","gLivingRoom","gTransitionalLights"]}),
+    new ZigbeeColorBulbTAI({name: 'TVLight', zigbeeId: '0x00158d0001dd7f3e', zigbeeGroupId: "LivingRoomLights", groups: ["gColorLights","gLivingRoom"]}),
     
     new ZigbeeColorBulbTAI({name: 'FloorLamp', zigbeeId: '0x00158d0001dd7f00', groups: ["gColorLights","gEveningLights"]}),
 

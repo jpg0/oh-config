@@ -10,8 +10,10 @@ class ZigbeeTAI extends commontai.MQTTTAI {
         this.name = config.name;
         this.thingBuilder.withLabel(this.name);
         this.zigbeeId = config.zigbeeId;
-        log.debug("Setting zigbeeGroupId for {} as {}", this.name, config.zigbeeGroupId);
-        this.zigbeeGroupId = config.zigbeeGroupId;
+        if(config.zigbeeGroupId) {
+            log.debug("Setting zigbeeGroupId for {} as {}", this.name, config.zigbeeGroupId);
+            this.zigbeeGroupId = config.zigbeeGroupId;
+        }
         this.itemPrefix = config.itemPrefix || '';
     }
 

@@ -12,7 +12,7 @@ const {
     Slider } = require('sitemap');
 
 const { items } = require('ohj');
- 
+
 new CallbackSitemapProvider(Sitemap({name:"default", label:"Home"}, [
         Frame({label:"Main"}, [ 
             Switch({item:'vTimeOfDay', label:"[]", mappings:{ MORNING:"Morning", DAY:"Day", SUNSET:"Sunset", EVENING:"Evening", NIGHT:"Night"} }),

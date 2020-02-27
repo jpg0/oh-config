@@ -1,3 +1,3 @@
 const { addToSystem } = require('thingandlink');
 
-addToSystem(require('mythings').all); 
+addToSystem(require('mythings').all);

@@ -3,6 +3,8 @@ const { triggers, items, rules } = require('ohj');
 const log = require('ohj').log('last_updated');
 const { DateTimeType } = require('@runtime/Defaults');
 
+//todo: move to TAI?
+
 rules.JSRule({
     name: "Last_Updated Updater",
     description: "Updates the 'Last Updated' item for remote end devices",
@@ -20,10 +22,10 @@ rules.JSRule({
 
         //update the last updated
         let now = new DateTimeType();
-        let lastUpdatedItem = items.getItem(lastUpdatedItemName)
+        let lastUpdatedItem = items.getItem(lastUpdatedItemName, true)
 
         if(!lastUpdatedItem) {
-            log.error(`Cannot find last updated item named ${lastUpdatedItemName} for trigger item ${triggerItemName}`);
+            log.warn(`Cannot find last updated item named ${lastUpdatedItemName} for trigger item ${triggerItemName}`);
             return;
         }
 

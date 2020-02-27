@@ -4,6 +4,8 @@ then set the color to the transition color and then 500ms later, pass on the upd
 enabled, then just proxy the command thru.
 */
 
+//todo: move to TAI definitions
+
 const { items, rules, triggers } = require('ohj');
 const log = require('ohj').log('color_lights');
 
@@ -27,4 +29,3 @@ for(let item of items.getItemsByTag('ColorLight')) {
         }
     });
 }
- 
