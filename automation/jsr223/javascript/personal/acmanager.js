@@ -83,6 +83,12 @@ const doExecute = function () {
                 log.debug("Zone {} marked for heating", zoneName);
                 break;
             }
+            case 'fan': {
+                mode = "fan"; //cool or heat will override this, but the vent will remain open
+                zoneCmds.toOpen.push(zone);
+                log.debug("Zone {} marked for ventilation", zoneName);
+                break;
+            }
             case null: {
                 zoneCmds.toClose.push(zone);
                 log.debug("Zone {} marked as within bounds", zoneName);

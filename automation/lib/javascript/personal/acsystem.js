@@ -53,7 +53,8 @@ class HVACZone {
             ) {
                 return {
                     min: zoneRuleData[2],
-                    max: zoneRuleData[3]
+                    max: zoneRuleData[3],
+                    ventilate: zoneRuleData.length > 4 && zoneRuleData[4]
                 };
             }
         }
@@ -67,7 +68,7 @@ class HVACZone {
     /**
      * 
      * @param {DateTime} time the time to check
-     * @returns heat/cool/null
+     * @returns heat/cool/fan/null
      */
     shouldHeatOrCoolWithBounds(bounds, respectSealed = true) {
         let currentTemp = this.currentTemperature;
@@ -89,9 +90,16 @@ class HVACZone {
                 this.notifyOpen('cool', this.label, this.unsealedItems);
                 return null;
             }
-        } else {
+        } else { //within bounds
             this.notifyOpenNotRequired();
-            return null;
+
+            //possibly ventilate
+            if(bounds.ventilate) {
+                //todo: maybe don't ventilate if other zones require cool/heat
+                return 'fan';
+            } else {
+                return null;
+            }   
         }
     }
 
@@ -112,7 +120,7 @@ class HVACZone {
     notifyClosed(operation) {
         let previous = comms.updateStatus(`hvacopen_${this._safeName}`, 'closed');
         if(previous == 'open') {
-            comms.notify(`Closed, activating ${operation}ing...`);
+            comms.notify(`Sealed ${label}, activating ${operation}ing...`);
         }
     }
 
@@ -306,7 +314,7 @@ exports.Zones = {
         "gUpstairsOpenings",
         [
             ["06:15", "07:45", 18, 24],
-            ["20:00", "06:15", 15, 20]
+            ["20:00", "06:15", 15, 20, true] //true -> ventilate if possible
         ],
         [
             ["08:15", "20:00", 18, 35] //passive HVAC desires

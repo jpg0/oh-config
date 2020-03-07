@@ -7,9 +7,19 @@ Thing mqtt:topic:mosquitto:rf_bridge  "MQTT Thing: Sonoff RF Bridge"
                 trigger = "true",
                 stateTopic = "tele/sonoff-8E7A68/RESULT"
             ]
-        Type string : command "Outgoing RF from OH"
+        Type string : dataCommand "Outgoing Data RF from OH"
             [
                 trigger = "true",
-                stateTopic = "cmnd/rf"
+                stateTopic = "cmnd/rf/data"
+            ]
+        Type string : rawRf "Raw RF Commands"
+            [
+                trigger = "true",
+                stateTopic = "stat/rf/raw/#"
+            ]
+        Type string : dataRf "Data RF Commands"
+            [
+                trigger = "true",
+                stateTopic = "stat/rf/data/#"
             ]
 }

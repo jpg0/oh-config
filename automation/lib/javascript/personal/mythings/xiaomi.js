@@ -34,6 +34,8 @@ module.exports = [
 
     new AqaraSwitchTAI({name: "FrontGardenIrrigation", zigbeeId: "0x00158d0002482134", groups:["gOutdoor","gIrrigation"]}),
     new AqaraSwitchTAI({name: "Upstairs Toilet", zigbeeId: "0x00158d000358c895", groups:["gUpstairs"]}),
+    new AqaraSwitchTAI({name: "3D Printer", zigbeeId: "0x00158d0001dad447"}),
+    
 
     new MijiaTemperatureTAI({name: "Indi's Room", zigbeeId: "0x00158d00020ec983", groups: ["gKidsRoomsTemperature"]}),
     new AqaraTemperatureTAI({name: "Lyra's Room", zigbeeId: "0x00158d0002437c6e", groups: ["gKidsRoomsTemperature"]}),

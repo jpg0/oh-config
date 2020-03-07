@@ -33,4 +33,4 @@ rules.JSRule({
 
         log.debug("Recorded last update as {} to {} by {}", now, lastUpdatedItemName, triggerItemName);
     }
-})
+});

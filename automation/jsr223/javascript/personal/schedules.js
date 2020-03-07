@@ -31,19 +31,16 @@ try {
         when(cron("0 15 19 * * ? *")).then(send("300,100,25" ).toItem("Indis_Closet_Light"), inGroup("Kids Rooms Lights"));
         when(cron("0 00 07 * * ? *")).then(sendOff().          toItem("Indis_Closet_Light"), inGroup("Kids Rooms Lights"));
 
+        //Ooler
+        when(cron("0 00 20 * * ? *")).then(sendOn().toItem("Ooler_Switch"), inGroup("Ooler"));
+        when(cron("0 30 3 * * ? *")).then(sendOff().toItem("Ooler_Switch"), inGroup("Ooler"));
+
         //Upstairs Toilet
         when(cron("0 00 21 * * ? *")).then(sendOff().toItem("Upstairs_Toilet_Switch"), inGroup("Upstairs Toilet"));
         when(cron("0 00 8 * * ? *")).then(sendOn().toItem("Upstairs_Toilet_Switch"), inGroup("Upstairs Toilet"));
         when(item('UpstairsBathroomLight_Switch').changed())
             .if(() => new Date().getHours() == 7)
             .then(sendOn().toItem("Upstairs_Toilet_Switch"), inGroup("Upstairs Toilet"));
-
-        //
-        when(cron("0 30 20 * * ? *")).then(sendOff().toItem("gXmasLights"), inGroup("Xmas Lights"));
-        when(cron("0 00 7 * * ? *")).then(sendOn().toItem("gXmasLights"), inGroup("Xmas Lights"));
-
-        when(cron("0 00 20 * * ? *")).then(sendOn().toItem("Ooler_Switch"), inGroup("Ooler"));
-        when(cron("0 00 4 * * ? *")).then(sendOff().toItem("Ooler_Switch"), inGroup("Ooler"));
         
     }
 } catch(e) {

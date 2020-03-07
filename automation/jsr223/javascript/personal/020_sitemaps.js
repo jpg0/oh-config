@@ -1,5 +1,5 @@
 const {     
-    CallbackSitemapProvider,
+    SitemapProvider,
     Sitemap,
     Text,
     Switch,
@@ -11,9 +11,11 @@ const {
     Group,
     Slider } = require('sitemap');
 
-const { items } = require('ohj');
+const { items, osgi, utils } = require('ohj');
 
-new CallbackSitemapProvider(Sitemap({name:"default", label:"Home"}, [
+const log = require('ohj').log('020_sitemaps');
+
+osgi.registerService(SitemapProvider([Sitemap({name:"default", label:"Home"}, [
         Frame({label:"Main"}, [ 
             Switch({item:'vTimeOfDay', label:"[]", mappings:{ MORNING:"Morning", DAY:"Day", SUNSET:"Sunset", EVENING:"Evening", NIGHT:"Night"} }),
             Switch({item:'gLivingRoom', icon:"light"}),
@@ -118,6 +120,8 @@ new CallbackSitemapProvider(Sitemap({name:"default", label:"Home"}, [
             ])
         ]),
         Frame({label:"Other"}, [
+            Switch({item:'Red_Hand', label:"Red Hand", icon:"light"}),
+            Switch({item:'3D_Printer_Switch'}),
             Default({item:'Indis_Closet_Light', label:"Indi's Closet", icon:"light"}),
             Text({label:"Sony Bravia"}, [
                 Selection({item:'Bravia_IR', mappings:{"Channel-Up":"Channel Up","Channel-Down":"Channel Down",Left:"Left"}}),
@@ -176,4 +180,4 @@ new CallbackSitemapProvider(Sitemap({name:"default", label:"Home"}, [
             Group({item:'gPressure', label:"Pressure", icon:"pressure"}),
         ]),
     ]
-)).register(); 
+)]), utils.typeBySuffix('model.sitemap.SitemapProvider').class.getName());
