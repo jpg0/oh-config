@@ -19,6 +19,7 @@ osgi.registerService(SitemapProvider([Sitemap({name:"default", label:"Home"}, [
         Frame({label:"Main"}, [ 
             Switch({item:'vTimeOfDay', label:"[]", mappings:{ MORNING:"Morning", DAY:"Day", SUNSET:"Sunset", EVENING:"Evening", NIGHT:"Night"} }),
             Switch({item:'gLivingRoom', icon:"light"}),
+            Switch({item:'GarageSideDoor_Switch', label:"Garage Side Door", icon:"frontdoor"}),
             Text({label:"A/C [%s]", item:"HVAC_House", icon:"climate"}, [ 
                 Switch({item:"HVAC_House", icon:"climate"}),
                 Switch({item:"HVAC_Mode", mappings:{cool:"Cool", heat:"Heat", auto:"Auto", fan:"Fan", dry:"Dry"}, icon:'flow'}),
