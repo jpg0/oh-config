@@ -2,9 +2,12 @@
 const { rules, triggers, items } = require('ohj');
 const log = require('ohj').log('lighting_colors');
 const constants = require('constants');
-const { HSBType, PercentType } = require('@runtime/Defaults');
+const color = require('color');
 
-var getColor = function (periodInDay) {
+let currentLightColorItem = items.getItem('vCurrent_Light_Color');
+let todItem = items.getItem('vTimeOfDay');
+
+let getColorForPeriod = function (periodInDay) {
     switch (periodInDay) {
         case "NIGHT":
         case "EVENING":
@@ -13,54 +16,83 @@ var getColor = function (periodInDay) {
             return constants.DAYTIME_LIGHT_COLOR;
     }
 };
- 
-var calculateNewState = function (/*HSBType*/ fromColor, /*HSBType*/ toColor) {
-    if (typeof fromColor === 'undefined' || fromColor.toString() === 'NULL') {
-        var brightness = 0;
-    } else {
-        var brightness = Math.min(toColor.getBrightness(), fromColor.getBrightness());
+
+rules.JSRule({
+    name: "Update Current Light Color",
+    description: "Updates the current light color",
+    triggers: [triggers.ItemStateChangeTrigger(todItem.name)],
+    execute: () => applyColorForCurrentPeriod()
+});
+
+let updateColor = function (/*item*/ fromItem) {
+    let toColor = targetColorForItem(fromItem);
+    let fromColor = fromItem.state || "0,0,0";
+    let to = color.create(toColor);
+    let from = color.create(fromColor);
+    log.debug(`merging color: ${from}->${to}`);
+
+    return color.hsb(to.set('hsv.v', Math.min(to.get('hsv.v'), from.get('hsv.v'))));
+}
+
+let turnOn = function(item) {
+    item.sendCommandIfDifferent(targetColorForItem(item));
+}
+
+let targetColorForItem = function(item) {
+    
+    let lightColor = currentLightColorItem.state;
+
+    if(item.tags.includes("NightDim")) {
+        lightColor = color.transform(lightColor, c => c.darken());
     }
 
-    return new HSBType(
-        toColor.getHue(),
-        toColor.getSaturation(),
-        new PercentType(brightness));
+    return lightColor;
+}
+
+let applyColorForCurrentPeriod = function(){
+    var newColor = getColorForPeriod(todItem.state);
+    log.info("Setting light color to {} based on tod: {}", newColor.toString(), todItem.state);
+    currentLightColorItem.sendCommand(newColor.toString());
 }
 
 rules.JSRule({
     name: "Propagate Current Light Color",
     description: "Propagates or resets the current light color",
     triggers: [
-        triggers.ItemStateChangeTrigger('vCurrent_Light_Color')
+        triggers.ItemStateChangeTrigger(currentLightColorItem.name)
     ],
-    execute: function () {
-        var currentColor = items.getItem('vCurrent_Light_Color');
+    execute: () => {
+        log.debug("Current light color is {}", currentLightColorItem.state);
 
-        log.debug("Current light color is  " + currentColor.state);
-
-        if (currentColor.state === '0,0,0') { // special command indicating a reset
-            var tod = items.getItem('vTimeOfDay').state;
-            var newColor = getColor(tod);
-            log.info("resetting light color to {} based on tod: {}", newColor.toString(), tod);
-            items.getItem('vCurrent_Light_Color').sendCommand(newColor.toString());
+        if (currentLightColorItem.state === '0,0,0') { // special command indicating a reset
+            applyColorForCurrentPeriod();
         } else {
             for(let colorLight of items.getItem('gColorLights').descendents) {
-                colorLight.sendCommand(calculateNewState(colorLight.rawState, currentColor.rawState).toString());
+                colorLight.sendCommandIfDifferent(updateColor(colorLight));
             }
         }
     }
 });
 
-rules.JSRule({
-    name: "Update Current Light Color",
-    description: "Updates the current light color",
-    triggers: [
-        triggers.ItemStateChangeTrigger('vTimeOfDay')
-    ],
-    execute: function () {
-        var tod = items.getItem('vTimeOfDay').state.toString();
-        var newState = getColor(tod);
-        log.info("Setting current light colour to " + newState + " for " + tod);
-        items.getItem('vCurrent_Light_Color').sendCommand(newState.toString());
-    }
-}); 
+
+
+for(let item of items.getItemsByTag('ColorLight')) {
+
+    let target = items.getItem(item.getMetadataValue('proxyFor'));
+
+    rules.JSRule({
+        name: `proxy light ${item.name}`,
+        description: `proxies commands to light ${item.name}, possibly introducing a transition`,
+        triggers: [triggers.ItemCommandTrigger(item.name)],
+        execute: function(args){
+            let receivedCommand = args.receivedCommand.toString();
+            log.debug("proxy for {} received command {}", item.name, receivedCommand);
+            
+            if(receivedCommand === 'ON') { //use the current light colour
+                target.sendCommand(targetColorForItem(item));
+            } else {
+                target.sendCommand(receivedCommand);
+            }
+        }
+    });
+}

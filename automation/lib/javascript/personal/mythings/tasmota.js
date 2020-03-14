@@ -28,7 +28,7 @@ module.exports = [
     new TasmotaTAI({name: 'Flamingo', mqttId: 'sonoff-3B47B7'}),
     new TasmotaTAI({name: 'Unused', mqttId: 'sonoff-3B4A56'}),
     new TasmotaTAI({name: 'PoolPump', mqttId: 'sonoff-3ED374', groups:['gGarage']}),
-    new TasmotaTAI({name: 'UpstairsDoorLatch', mqttId: 'sonoff-3B4127', groups:["gUpstairs"]}),
+    new TasmotaTAI({name: 'UpstairsDoorLatch', mqttId: 'sonoff-56D77C', groups:["gUpstairs"]}),
     new HallwayLightsTAI(),
     
     new FourChannelTasmotaTAI({name: "ACDucts", mqttId: "sonoff-CAA8AF"}),

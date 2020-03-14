@@ -21,6 +21,16 @@ class BaseTAI {
             this.groups = [];
         }
 
+        if(typeof config.tags != 'undefined') {
+            if(typeof config.tags == 'string') {
+                this.tags = [config.tags];
+            } else {
+                this.tags = config.tags;
+            }
+        } else {
+            this.tags = [];
+        }
+
         if(typeof config.label != 'undefined') {
             this.label = config.label;
         }

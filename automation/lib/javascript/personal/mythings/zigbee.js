@@ -93,7 +93,7 @@ module.exports = [
     new ZigbeeColorBulbTAI({name: 'Indis Closet', zigbeeId: '0x0017880103cfc584', groups: ["gIndisRoom"]}),
     new ZigbeeColorBulbTAI({name: 'Hallway', zigbeeId: '0x0017880104190686', groups: ["gColorLights"]}),
 
-    new ZigbeeColorBulbTAI({name: 'Upstairs Toilet', zigbeeId: '0x0017880106bc3445', groups: ["gColorLights","gUpstairs","gTransitionalLights"]}),
+    new ZigbeeColorBulbTAI({name: 'Upstairs Toilet', zigbeeId: '0x0017880106bc3445', groups: ["gColorLights","gUpstairs","gTransitionalLights"], tags:['NightDim']}),
     new ZigbeeColorBulbTAI({name: 'Upstairs Closet', zigbeeId: '0x0017880104985398', groups: ["gColorLights","gUpstairs"]}),
 
     new ZigbeeColorBulbTAI({name: 'Bedside 1', zigbeeId: '0x0017880104184075', groups: ["gColorLights"]}),
