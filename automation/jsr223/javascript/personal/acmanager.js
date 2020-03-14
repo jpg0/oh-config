@@ -84,7 +84,10 @@ const doExecute = function () {
                 break;
             }
             case 'fan': {
-                mode = "fan"; //cool or heat will override this, but the vent will remain open
+                if(mode === null) {               
+                    mode = "fan"; //cool or heat will override this, but the vent will remain open
+                }
+
                 zoneCmds.toOpen.push(zone);
                 log.debug("Zone {} marked for ventilation", zoneName);
                 break;
@@ -118,8 +121,8 @@ const doExecute = function () {
 
         items.getItem('HVAC_House').sendCommandIfDifferent("ON") && log.info("Turning on AC")
         items.getItem('HVAC_Mode').sendCommandIfDifferent(mode) && log.info("Setting AC Mode to {}", mode)
-        items.getItem('HVAC_FanSpeed').sendCommandIfDifferent(fanspeed) && log.info("Setting AC Fanspeed to {}", fanspeed)
-        items.getItem('HVAC_SetTemp').sendCommandIfDifferent(temp) && log.info("Setting AC temp to {}", temp)
+        items.getItem('HVAC_FanSpeed').sendCommandIfDifferent(fanspeed) && log.debug("Setting AC Fanspeed to {}", fanspeed)
+        items.getItem('HVAC_SetTemp').sendCommandIfDifferent(temp) && log.debug("Setting AC temp to {}", temp)
     }
 };
 

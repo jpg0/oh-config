@@ -104,10 +104,8 @@ class HVACZone {
     }
 
     notifyOpen(operation, label, unsealedItems) {
-        let itemsStr = unsealedItems.map(i => i.label).join(', ');
-        if(label.endsWith(" Contact")) {
-            label = label.slice(0, -8);
-        }
+        let itemsStr = unsealedItems.map(i => i.label.endsWith(" Contact") ? i.label.slice(0, -8) : i.label).join(', ');
+
         let message = `Want to ${operation} ${label}, but ${itemsStr} ${unsealedItems.length==1?'is':'are'} open`;
 
         let previous = comms.updateStatus(`hvacopen_${this._safeName}`, 'open');
@@ -120,7 +118,7 @@ class HVACZone {
     notifyClosed(operation) {
         let previous = comms.updateStatus(`hvacopen_${this._safeName}`, 'closed');
         if(previous == 'open') {
-            comms.notify(`Sealed ${label}, activating ${operation}ing...`);
+            comms.notify(`Sealed ${this.label}, activating ${operation}ing...`);
         }
     }
 
@@ -251,9 +249,8 @@ class UpstairsHVACZone extends HVACZone {
     }
 
     setDoorLatchActive(isActive) {
-        log.debug("Setting door latch active as {}", isActive);
         let cmd = isActive ? "ON" : "OFF";
-        items.getItem('UpstairsDoorLatch_Switch').sendCommand(cmd);
+        items.getItem('UpstairsDoorLatch_Switch').sendCommandIfDifferent(cmd) && log.debug("Setting door latch active as {}", isActive);
     }
 
     setDuctState(isOpen) {
@@ -275,7 +272,8 @@ class UpstairsHVACZone extends HVACZone {
     }
 
     setShadesOpen(isOpen) {
-        items.getItem('gUpstairsScreens').sendCommandIfDifferent(isOpen ? 'up' : 'down');
+        let cmd = isOpen ? 'up' : 'down';
+        items.getItem('gUpstairsScreens').sendCommandIfDifferent(cmd) && log.debug("Setting shades as {}", cmd);;;
     }
 }
 
@@ -305,7 +303,9 @@ exports.Zones = {
         "Main_Bedroom_Temperature",
         "GamesDuct_Switch",
         "gGamesRoomOpenings",
-        []
+        [
+            ["18:30", "21:30", 22, 27]
+        ]
     ),
     "Upstairs": new UpstairsHVACZone(
         "Upstairs",
@@ -314,7 +314,8 @@ exports.Zones = {
         "gUpstairsOpenings",
         [
             ["06:15", "07:45", 18, 24],
-            ["20:00", "06:15", 15, 20, true] //true -> ventilate if possible
+            ["20:00", "21:30", 15, 20],
+            ["21:30", "06:15", 15, 20, true] //true -> ventilate if possible
         ],
         [
             ["08:15", "20:00", 18, 35] //passive HVAC desires
