@@ -4,6 +4,7 @@
   "description": "This directory holds personal libraries.",
   "main": "index.js",
   "dependencies": {
+    "chroma-js": "^2.1.0",
     "cronstrue": "^1.84.0",
     "http": "^0.0.0",
     "js-joda": "^1.11.0",
