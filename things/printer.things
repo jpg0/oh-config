@@ -1,0 +1,10 @@
+Thing mqtt:topic:mosquitto:octoprint  "MQTT Thing: Octoprint"
+     (mqtt:broker:mosquitto) @ "Garage"
+{
+    Channels:
+        Type string : status "Incoming"
+            [
+                trigger = "true",
+                stateTopic = "octoPrint/event/#"
+            ]
+}
