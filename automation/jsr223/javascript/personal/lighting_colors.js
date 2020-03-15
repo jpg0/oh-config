@@ -34,16 +34,12 @@ let updateColor = function (/*item*/ fromItem) {
     return color.hsb(to.set('hsv.v', Math.min(to.get('hsv.v'), from.get('hsv.v'))));
 }
 
-let turnOn = function(item) {
-    item.sendCommandIfDifferent(targetColorForItem(item));
-}
-
 let targetColorForItem = function(item) {
     
     let lightColor = currentLightColorItem.state;
 
     if(item.tags.includes("NightDim")) {
-        lightColor = color.transform(lightColor, c => c.darken());
+        lightColor = color.transform(lightColor, c => c.darken().darken());
     }
 
     return lightColor;
