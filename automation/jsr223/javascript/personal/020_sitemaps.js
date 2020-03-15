@@ -19,7 +19,9 @@ osgi.registerService(SitemapProvider([Sitemap({name:"default", label:"Home"}, [
         Frame({label:"Main"}, [ 
             Switch({item:'vTimeOfDay', label:"[]", mappings:{ MORNING:"Morning", DAY:"Day", SUNSET:"Sunset", EVENING:"Evening", NIGHT:"Night"} }),
             Switch({item:'gLivingRoom', icon:"light"}),
-            Switch({item:'GarageSideDoor_Switch', label:"Garage Side Door", icon:"frontdoor"}),
+            Switch({item:'GarageSideDoor_Switch', label:"Garage Side Door", icon:"frontdoor", mappings:{ON:"Unlock"}, valueColor:["GarageSideDoor_Switch==ON=red","GarageSideDoor_Switch==OFF=green"]}),           
+            Switch({label:"Rollers", item:'vRollersScene', mappings:{UP:"Up", DOWN:"Down", SHADE:"Shade", MORNING:"Morning"}}),
+
             Text({label:"A/C [%s]", item:"HVAC_House", icon:"climate"}, [ 
                 Switch({item:"HVAC_House", icon:"climate"}),
                 Switch({item:"HVAC_Mode", mappings:{cool:"Cool", heat:"Heat", auto:"Auto", fan:"Fan", dry:"Dry"}, icon:'flow'}),
