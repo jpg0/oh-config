@@ -2,9 +2,9 @@ const { AqaraButtonTAI, AqaraMotionTAI, AqaraContactTAI, AqaraSwitchTAI, MijiaTe
 
 module.exports = [
     new AqaraButtonTAI({ name: "Kitchen 1", zigbeeId: "0x00158d00027b8569" }),
-    new AqaraButtonTAI({ name: "Bedside X", zigbeeId: "0x00158d0002c6123c" }),
-    new AqaraButtonTAI({ name: "Bedside 1", zigbeeId: "0x00158d000215a93e" }),
-    new AqaraButtonTAI({ name: "Bedside 2", zigbeeId: "0x00158d0001eb6262" }),
+    // new AqaraButtonTAI({ name: "Bedside X", zigbeeId: "0x00158d0002c6123c" }),
+    new AqaraButtonTAI({ name: "Bedside 1 old", zigbeeId: "0x00158d000215a93e" }),
+    // new AqaraButtonTAI({ name: "Bedside 2", zigbeeId: "0x00158d0001eb6262" }),
     new AqaraButtonTAI({ name: "Indis Closet", zigbeeId: "0x00158d0002c6123c" }),
 
     new AqaraMotionTAI({ name: "Garage Side Door", zigbeeId: "0x00158d00023d91ed" }),

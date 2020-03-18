@@ -1,6 +1,6 @@
 const { items, fluent, actions } = require('ohj');
 const log = require('ohj').log('zigbee');
-const { ZigbeeColorBulbTAI, ZigbeeDualColorBulbTAI } = require('thingandlink').device;
+const { ZigbeeColorBulbTAI, ZigbeeDualColorBulbTAI, ZigbeeButtonTAI, HueDimmerTAI } = require('thingandlink').device;
 const mqtt = actions.get("mqtt", "mqtt:broker:mosquitto");
 
 class ZigbeeDualColorBulbGroupTAI extends ZigbeeDualColorBulbTAI {
@@ -105,4 +105,8 @@ module.exports = [
     new ZigbeeDualColorBulbTAI({name: 'KitchenLEDs.1.2', zigbeeId: '0x00124b001d43d06f', groups: 'gKitchenLeds', zigbeeGroupId: 'KitchenLeds'}),
     new ZigbeeDualColorBulbTAI({name: 'KitchenLEDs.2.1', zigbeeId: '0x00124b001ba703ec', groups: 'gKitchenLeds', zigbeeGroupId: 'KitchenLeds'}),
     new ZigbeeDualColorBulbTAI({name: 'KitchenLEDs.2.2', zigbeeId: '0x00124b001d43d193', groups: 'gKitchenLeds', zigbeeGroupId: 'KitchenLeds'}),
+
+    new ZigbeeButtonTAI({name: 'Bedside 2', zigbeeId: '0x04cf8cdf3c75c279'}),
+
+    new HueDimmerTAI({name: "Bedside 1", zigbeeId: '0x0017880104f1435e'}),
 ];

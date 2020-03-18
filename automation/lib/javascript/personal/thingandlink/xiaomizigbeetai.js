@@ -167,5 +167,6 @@ module.exports = {
     AqaraContactTAI,
     AqaraSwitchTAI,
     MijiaTemperatureTAI,
-    AqaraTemperatureTAI
+    AqaraTemperatureTAI,
+    XiaomiZigbeeEndDeviceTAI
 };

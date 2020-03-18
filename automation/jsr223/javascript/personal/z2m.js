@@ -22,7 +22,7 @@ rules.JSRule({
                 if (event.type === "device_connected") {
                     let message = event.message;
                     log.info("device " + message + " connected to z2m network!");
-                    comms.notify("z2m - device joined - " + JSON.stringify(message));
+                    comms.notify("z2m - device joined - " + JSON.stringify(message), 'system');
                 }
             }
         }

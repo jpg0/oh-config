@@ -27,12 +27,15 @@ let updateStatus = (statusId, statusValue, messageIfChanged) => {
     return previous;
 }
 
-
-let doSend = function(message) {
-    actions.thingActions("telegram","telegram:telegramBot:mrgilbot").sendTelegram(message);
+let doSend = function(message, kind) {
+    try {
+        actions.thingActions("telegram",`telegram:telegramBot:comms-${kind}`).sendTelegram(message);
+    } catch (e) {
+        log.error(`Failed to send comms to ${kind} `, e);
+    }
 }
-let notify = (message) => {
-    doSend(message);
+let notify = (message, kind='general') => {
+    doSend(message, kind);
 }
 
 

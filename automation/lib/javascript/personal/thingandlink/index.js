@@ -33,6 +33,8 @@ module.exports = {
         ...require('./zigbeebulbtai'),
         ...require('./xiaomizigbeetai'),
         ...require('./rollertai'),
-        ...require('./433tai')
+        ...require('./433tai'),
+        ...require('./zigbeebuttontai'),
+        ...require('./huezigbeetai'),
     }
 }

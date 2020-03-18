@@ -99,6 +99,8 @@ const doExecute = function () {
         }
     }
 
+    log.debug("Setting HVAC mode to {}", mode);
+
     if (zoneCmds.toOpen.length == 0) { //don't close the last duct
         zoneCmds.toOpen.push(zoneCmds.toClose.shift());
         zoneCmds.allClosed = true;

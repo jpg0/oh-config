@@ -38,7 +38,7 @@ let targetColorForItem = function(item) {
     
     let lightColor = currentLightColorItem.state;
 
-    if(item.tags.includes("NightDim")) {
+    if(todItem.state === constants.NIGHTTIME_LIGHT_COLOR && item.tags.includes("NightDim")) {
         lightColor = color.transform(lightColor, c => c.darken().darken());
     }
 
