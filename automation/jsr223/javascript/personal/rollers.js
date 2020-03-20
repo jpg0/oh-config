@@ -30,7 +30,7 @@ rules.JSRule({
         let scene = items.getItem('vRollersScene').state;
 
         if (scene != "UNDEF") {
-            log.info("Setting scene for rollers: {}]", scene);
+            log.info("Setting scene for rollers: {}", scene);
 
             let desiredState = sceneMapping[scene];
             rollerssystem.setState(desiredState);
