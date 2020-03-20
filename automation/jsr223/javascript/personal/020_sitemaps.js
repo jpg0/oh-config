@@ -92,15 +92,14 @@ osgi.registerService(SitemapProvider([Sitemap({name:"default", label:"Home"}, [
             Default({item:'Bedside_1_Light'}),
             Default({item:'Bedside_2_Light'}),
             Default({item:'Upstairs_Toilet_Light'}),
-            // {{!-- Text label="Roller Blinds / Screens" icon="rollershutter" {
-            //     {{#each data.items}}
-            //         {{#ifeq type "neo_roller"}}
-            //             Text item={{safe ctx}}_Roller
-            //             Switch item={{safe ctx}}_Roller label="[%s]" mappings=[UP="Up", DOWN="Down",FAV="Fav", STOP="Stop"]
-            //         {{/ifeq}}
-            //     {{/each}}
-            // } --}}
-    
+
+            Text({label:"Roller Blinds / Screens", icon:"rollershutter"},
+                items.getItem('gRoller').members.flatMap(i => [
+                    Text({item:i.name}),
+                    Switch({item:i.name, label:"[%s]", mappings:{UP:"Up", DOWN:"Down", FAV:"Fav", STOP:"Stop"}})
+                ])
+            ),
+                
             Default({item:'Upstairs_Closet_Light'}),
             Switch({item:'UpstairsLouvresSmall_Click', label:"Small Louvres [CLOSED]",  mappings:{open:"Open",close:"Close"}, visibility:['UpstairsLouvresSmall_Contact==CLOSED']}),
             Switch({item:'UpstairsLouvresSmall_Click', label:"Small Louvres [OPEN]",  mappings:{open:"Open",close:"Close"}, visibility:['UpstairsLouvresSmall_Contact==OPEN']}),
@@ -156,6 +155,7 @@ osgi.registerService(SitemapProvider([Sitemap({name:"default", label:"Home"}, [
                 Group({item:'gVacuumHistory'}),
                 //Group  item=gVacuumNetwork
             ]),
+            Group({item:'gOpenings'}),
         ]),
         Frame({label:"System"}, [
             Default({item:'Z2MPermitJoin', label:"Allow Joining Zigbee"}),
@@ -166,13 +166,7 @@ osgi.registerService(SitemapProvider([Sitemap({name:"default", label:"Home"}, [
             Text({label:"Temperatures", icon:"temperature"}, [
                 ...items.getItem('gTemperature').members.map( 
                     i => Default({item: i.name, valueColor: [`${i.name.slice(0, -12)}_LastUpdated<3600="green"`, `${i.name.slice(0, -12)}_LastUpdated<10800="orange"`, `${i.name.slice(0, -12)}_LastUpdated>10800="red"`]})
-                    ),
-                    // {{#each data.items}}
-                    //     {{#ifeq type "xiaomi_zigbee_switch"}}
-                    //         Default item={{safe ctx}}_Switch_Temperature
-                    //     {{/ifeq}}
-                    // {{/each}}
-                
+                ),
                 Text({label:"History"}, [
                         Webview({height:20, url:"http://192.168.1.10:3000/d/D_K9e0RRk/default?orgId=1&panelId=2&fullscreen&kiosk"})
                 ]),
