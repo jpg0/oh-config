@@ -99,8 +99,6 @@ const doExecute = function () {
         }
     }
 
-    log.debug("Setting HVAC mode to {}", mode);
-
     if (zoneCmds.toOpen.length == 0) { //don't close the last duct
         zoneCmds.toOpen.push(zoneCmds.toClose.shift());
         zoneCmds.allClosed = true;
@@ -117,6 +115,9 @@ const doExecute = function () {
     if (zoneCmds.allClosed) {
         items.getItem('HVAC_House').sendCommandIfDifferent("OFF") && log.info("Turning off AC");
     } else {
+        log.debug("Setting HVAC mode to {}", mode);
+
+
         var fanspeed = calculateFanspeed(zoneCmds.toOpen.length, LocalTime.now());
 
         var temp = mode == "heat" ? 30 : 18;
