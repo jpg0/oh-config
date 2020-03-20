@@ -36,5 +36,6 @@ module.exports = {
         ...require('./433tai'),
         ...require('./zigbeebuttontai'),
         ...require('./huezigbeetai'),
+        ...require('./commontai'),
     }
 }
