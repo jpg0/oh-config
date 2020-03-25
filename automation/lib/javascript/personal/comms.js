@@ -27,9 +27,19 @@ let updateStatus = (statusId, statusValue, messageIfChanged) => {
     return previous;
 }
 
+let chats = {
+    general: -295213257,
+    system: -481316266
+}
+
 let doSend = function(message, kind) {
     try {
-        actions.thingActions("telegram",`telegram:telegramBot:comms-${kind}`).sendTelegram(message);
+        let chatId = chats[kind];
+
+        if(typeof chatId == 'number') {
+            actions.thingActions("telegram",`telegram:telegramBot:comms`).sendTelegram(chatId, message);
+        }
+
     } catch (e) {
         log.error(`Failed to send comms to ${kind} `, e);
     }
