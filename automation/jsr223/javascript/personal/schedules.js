@@ -9,9 +9,9 @@ try {
         when(cron("0 0 15 * * ?")) .then(sendOn(). toItem("PoolPump_Switch", inGroup("Pool Pump")));
         when(cron("0 0 17 * * ?")).then(sendOff().toItem("PoolPump_Switch", inGroup("Pool Pump")));
 
-        //Living Room Lights
-        when(timeOfDay("PRESUNSET")).then(sendOn().toItem("gLivingRoom"), inGroup("LivingRoom Lights"));
-        when(cron("0 20 21 * * ?")).then(sendOff().toItem("gLivingRoom"), inGroup("LivingRoom Lights"));
+        //Evening Lights
+        when(timeOfDay("PRESUNSET")).then(sendOn().toItem("gEveningLights"), inGroup("Evening Lights"));
+        when(cron("0 20 21 * * ?")).then(sendOff().toItem("gEveningLights"), inGroup("Evening Lights"));
 
         //Bedside Lights
         when(timeOfDay("SUNSET")).then(sendOn().toItem("Bedside_1_Light"), inGroup("Bedside Lights"));
