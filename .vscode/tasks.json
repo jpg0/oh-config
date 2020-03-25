@@ -6,7 +6,7 @@
         {
             "label": "genconf",
             "type": "shell",
-            "command": "genconf",
+            "command": "sudo /usr/local/bin/genconf",
             "problemMatcher": [],
             "group": {
                 "kind": "build",
