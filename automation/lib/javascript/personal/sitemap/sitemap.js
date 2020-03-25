@@ -4,8 +4,8 @@ const { AbstractProvider } = require('ohj').provider;
 const { ColorArrays, Mappings, Visibility} = require('./statement');
 
 let SitemapProviderClass = utils.typeBySuffix('model.sitemap.SitemapProvider');
-let SitemapBuilder = Java.type('org.openhab.api.sitemap.builder.EMFLessSitemapBuilder');
-let WidgetFactory = Java.type('org.openhab.api.sitemap.builder.WidgetFactory');
+
+const log = require('ohj').log('sitemap');
 
 let factory = require('@runtime/sitemap').factory;
 

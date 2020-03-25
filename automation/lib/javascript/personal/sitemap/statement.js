@@ -1,5 +1,5 @@
-let widgetFactory = Java.type('org.openhab.api.sitemap.builder.WidgetFactory').create();
-
+//let widgetFactory = Java.type('org.openhab.api.sitemap.builder.WidgetFactory').create();
+let widgetFactory = require('@runtime/sitemap').factory;
 
 //LastUpdated<3600="green" 
 //<3600="green" 
