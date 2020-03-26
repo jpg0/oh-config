@@ -51,5 +51,9 @@ let notify = (message, kind='general') => {
 
 module.exports = {
     notify,
-    updateStatus
+    updateStatus,
+    
+    SYSTEM: 'system',
+    GENERAL: 'general',
+    
 }
