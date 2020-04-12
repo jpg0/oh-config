@@ -1,18 +1,37 @@
 const items = require('ohj').items;
 
+const { when, item } = require('ohj').fluent;
+
+
+const ALERTED_ITEMS_TAG = "__alerted_item__";
+const ALERTED_ITEMS_ITEM_NAME = "vLastAlerted";
+const { DateTimeType } = require('@runtime/Defaults');
+
+
+let lastAlertedItem = items.replaceItem(ALERTED_ITEMS_ITEM_NAME, 'DateTime', null, [], 'Time Last Alerted')
+
+
 module.exports = {
-    ALERTED_ITEMS_TAG: "__alerted_item__",
-    ALERTED_ITEMS_ITEM_NAME: "gAlerted",
 
     setAlerted:(item, isAlerted) => {
         if(typeof item === 'string') {
             item = items.getItem(item);
         }
 
-        if(isAlerted) {
-            item.addTags(this.ALERTED_ITEMS_TAG);
-        } else {
-            item.removeTags(this.ALERTED_ITEMS_TAG);
+        let isCurrentlyAlerted = item.tags.includes(ALERTED_ITEMS_TAG);
+
+        if(isAlerted !== isCurrentlyAlerted) {
+
+            if(isAlerted) {
+                item.addTags(ALERTED_ITEMS_TAG);
+            } else {
+                item.removeTags(ALERTED_ITEMS_TAG);
+            }
+
+            log.info("Updating alerted to {} for {}", isAlerted, item.name);
+            lastAlertedItem.sendCommand(new DateTimeType());
         }
-    }
+    },
+    getAlertedItems: () => items.getItemsByTag(ALERTED_ITEMS_TAG),
+    onChanged: (callback) => when(item(lastAlertedItem.name).changed()).then(callback)
 }

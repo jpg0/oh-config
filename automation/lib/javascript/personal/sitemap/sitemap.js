@@ -10,7 +10,7 @@ const log = require('ohj').log('sitemap');
 let factory = require('@runtime/sitemap').factory;
 
 class CallbackSitemapProvider extends AbstractProvider {
-    constructor(sitemap){
+    constructor(sitemapName, sitemapProvider){
         super(SitemapProviderClass);
         this.sitemap = sitemap;
     }
@@ -114,4 +114,6 @@ module.exports = {
     Group,
     Slider,
     Sitemap,
+
+    ...require('./singletons'),
 }

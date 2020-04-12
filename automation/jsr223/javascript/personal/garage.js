@@ -6,7 +6,7 @@ with(fluent.withToggle) {
 
     when(timeOfDay('NIGHT')).if(stateOfItem('Garage_Car_Door_Contact').is('OPEN')).
         then(sendOn().toItem('GarageCarDoor_Switch'), inGroup('Garage'))
-
+ 
     when(item('Garage_Car_Door_Contact').changed().to('CLOSED')).
         or(item('Garage_Side_Door_Occupancy').changed().to('CLOSED')).
         then(sendOff().toItem('GarageLights_Switch'));

@@ -12,4 +12,4 @@ DateTime vNight_Time "Night [%1$tH:%1$tM]" <moon> (gTimeOfDay)
 	
 //DateTime vBed_Time "Bed [%1$tH:%1$tM]" <bedroom_blue> (gTimeOfDay)
 
-DateTime vPresunset_Time "Pre-Sunset [ %1$tH:%1$tM]" <sunset> (gTimeOfDay) { channel="astro:sun:minus90:set#start" }
+//DateTime vPresunset_Time "Pre-Sunset [ %1$tH:%1$tM]" <sunset> (gTimeOfDay) { channel="astro:sun:minus90:set#start" }

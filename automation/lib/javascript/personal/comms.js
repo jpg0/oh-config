@@ -29,7 +29,7 @@ let updateStatus = (statusId, statusValue, messageIfChanged) => {
 
 let chats = {
     general: -295213257,
-    system: -481316266
+    system: -437913290
 }
 
 let doSend = function(message, kind) {
@@ -41,7 +41,7 @@ let doSend = function(message, kind) {
         }
 
     } catch (e) {
-        log.error(`Failed to send comms to ${kind} `, e);
+        require('ohj').log('comms', () => null).error(`Failed to send comms to ${kind} [${e}] `, e);
     }
 }
 let notify = (message, kind='general') => {

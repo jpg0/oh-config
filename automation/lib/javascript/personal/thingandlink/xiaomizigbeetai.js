@@ -5,9 +5,11 @@ const log = require('ohj').log('xiaomizigbeetai');
 class XiaomiZigbeeEndDeviceTAI extends zigbeetai.ZigbeeTAI {
     buildObjects(){
         super.buildObjects();
+
+        this.groups.push('gHasLastUpdated');
         
-        let lastUpdatedItem = items.createItem(`${this.id}_LastUpdated`, 'DateTime', 'clock', ['gLastUpdated'], `${this.id} Last Seen [%1$ta %1$tR]`);
-        this.items.push(lastUpdatedItem);
+        this.lastUpdatedItem = items.createItem(`${this.id}_LastUpdated`, 'DateTime', 'clock', ['gLastUpdated'], `${this.id} Last Seen [%1$ta %1$tR]`);
+        this.items.push(this.lastUpdatedItem);
 
         let measurementGroupItem = items.createItem(`g${this.id}_Measurements`, 'Group', null, ['gMeasurements'], `${this.id}: All measurements`);
         this.items.push(measurementGroupItem);
@@ -20,10 +22,17 @@ class XiaomiZigbeeEndDeviceTAI extends zigbeetai.ZigbeeTAI {
             transformationPattern: "JSONPATH:$.battery"
         });
 
-        this.metadata.push(metadata.createMetadata(batteryItem.name, 'lastupdated_item', lastUpdatedItem.name));
-
         this.linkItemToChannel(batteryItem, batteryChannel);
 
+    }
+
+    linkItemToChannel(item, channel, config) {
+        super.linkItemToChannel(item, channel, config);
+        this.setLastUpdatedItem(item);
+    }
+
+    setLastUpdatedItem(forItem) {
+        this.metadata.push(metadata.createMetadata(forItem.name, 'lastupdated_item', this.lastUpdatedItem.name));
     }
 }
 
@@ -52,9 +61,7 @@ class AqaraMotionTAI extends XiaomiZigbeeEndDeviceTAI {
             this.withNewMQTTChannel("Illuminance", "Number", "number", {
                 stateTopic: `${this.mqttRoot}/${this.zigbeeId}`,
                 transformationPattern: "JSONPATH:$.illuminance"
-            }), {
-                lastupdated_item:`${this.id}_LastUpdated`
-            }
+            })
         );
 
         this.linkItemToChannel(
@@ -62,9 +69,7 @@ class AqaraMotionTAI extends XiaomiZigbeeEndDeviceTAI {
             this.withNewMQTTChannel("Occupancy", "Contact", "contact", {
                 stateTopic: `${this.mqttRoot}/${this.zigbeeId}`,
                 transformationPattern: "JS:occupancy.js"
-            }), {
-                lastupdated_item:`${this.id}_LastUpdated`
-            }
+            })
         );
     }
 }
@@ -79,7 +84,6 @@ class AqaraContactTAI extends XiaomiZigbeeEndDeviceTAI {
                 stateTopic: `${this.mqttRoot}/${this.zigbeeId}`,
                 transformationPattern: "JS:z2m_contact.js"
             }), {
-                lastupdated_item: `${this.id}_LastUpdated`,
                 zigbeeId: this.zigbeeId
             }
         )
@@ -96,7 +100,6 @@ class MijiaTemperatureTAI extends XiaomiZigbeeEndDeviceTAI {
                 stateTopic: `${this.mqttRoot}/${this.zigbeeId}`,
                 transformationPattern: "JSONPATH:$.temperature"
             }), {
-                lastupdated_item: `${this.id}_LastUpdated`,
                 zigbeeId: this.zigbeeId
             }
         );
@@ -107,7 +110,6 @@ class MijiaTemperatureTAI extends XiaomiZigbeeEndDeviceTAI {
                 stateTopic: `${this.mqttRoot}/${this.zigbeeId}`,
                 transformationPattern: "JSONPATH:$.humidity"
             }), {
-                lastupdated_item: `${this.id}_LastUpdated`,
                 zigbeeId: this.zigbeeId
             }
         );
@@ -124,7 +126,6 @@ class AqaraTemperatureTAI extends MijiaTemperatureTAI {
                 stateTopic: `${this.mqttRoot}/${this.zigbeeId}`,
                 transformationPattern: "JSONPATH:$.pressure"
             }), {
-                lastupdated_item: `${this.id}_LastUpdated`,
                 zigbeeId: this.zigbeeId
             }
         );

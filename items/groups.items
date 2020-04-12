@@ -23,6 +23,7 @@ Group gHumidity "All Humidity Levels"
 Group gPressure "All Pressure Levels"
 
 Group gLastUpdated "All Last Updated"
+Group gHasLastUpdated "All With Last Update"
 
 Group gIlluminance "All Illuminance"
 Group gOccupancy "All Occupancy"

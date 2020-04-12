@@ -3,7 +3,7 @@ const { AqaraButtonTAI, AqaraMotionTAI, AqaraContactTAI, AqaraSwitchTAI, MijiaTe
 module.exports = [
     new AqaraButtonTAI({ name: "Kitchen 1", zigbeeId: "0x00158d00027b8569" }),
     // new AqaraButtonTAI({ name: "Bedside X", zigbeeId: "0x00158d0002c6123c" }),
-    new AqaraButtonTAI({ name: "Bedside 1 old", zigbeeId: "0x00158d000215a93e" }),
+    new AqaraButtonTAI({ name: "Front Door", zigbeeId: "0x00158d000215a93e" }),
     // new AqaraButtonTAI({ name: "Bedside 2", zigbeeId: "0x00158d0001eb6262" }),
     new AqaraButtonTAI({ name: "Indis Closet", zigbeeId: "0x00158d0002c6123c" }),
 
@@ -48,4 +48,6 @@ module.exports = [
     new AqaraTemperatureTAI({name: "Main Bedroom", zigbeeId: "0x00158d000247cb6c"}),
     new AqaraTemperatureTAI({name: "Felix's Room", zigbeeId: "0x00158d0002437c63", groups: ["gKidsRoomsTemperature"]}),
     new AqaraTemperatureTAI({name: "Granny Flat", zigbeeId: "0x00158d00023f5031"}),
+    new AqaraTemperatureTAI({name: "Kid's Bathroom", zigbeeId: "0x00158d0002437c38"}),
+    new AqaraTemperatureTAI({name: "Upstairs Closet", zigbeeId: "0x00158d00036bfe92"}),
 ]

@@ -42,7 +42,8 @@ var update = function () {
 
   var day_start = getTimeFromItem('vSunrise_Time', now_dt);
   var sunset_start = getTimeFromItem('vSunset_Time', now_dt);
-  var presunset_start = getTimeFromItem('vPresunset_Time', now_dt);
+  var presunset_start = sunset_start.minusMinutes(90); //calculate presunset as I cannot get an item to correctly adopt the time
+  //var presunset_start = getTimeFromItem('vPresunset_Time', now_dt);
 
   var now = now_dt.toLocalTime();
 

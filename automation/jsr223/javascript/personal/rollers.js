@@ -37,4 +37,3 @@ rules.JSRule({
         }
     }
 });
- 
