@@ -45,6 +45,13 @@ function registerSitemap() {
                     Switch({item:"GamesDuct_Switch"}),
                     Switch({item:"UpstairsDuct_Switch"}),
                     Switch({item:"KidsRoomsDuct_Switch"}),
+                    Text({label:'Temperature Control'}, ["Living", "Kids", "Games", "Upstairs"].map(zoneName => 
+                        Text({label:zoneName}, [
+                            Text({item:`vMaxTemp${zoneName}`, label:`${zoneName} Max [%.1f °C]`, icon:"temperature"}),
+                            Text({item:`vMinTemp${zoneName}`, label:`${zoneName} Min [%.1f °C]`, icon:"temperature"}),
+                            Text({item:`vOverrideEnd${zoneName}`, label:`${zoneName} Override End [%f]`, icon:'time'}),
+                        ])
+                    ))
                 ])
             ]), 
             Frame({label:"Living Room"}, [

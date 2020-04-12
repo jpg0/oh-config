@@ -1,7 +1,7 @@
 const log = require('ohj').log("acmanager");
 const { items, rules, fluent, triggers } = require('ohj');
 const acsystem = require('acsystem');
- 
+
 const LocalTime = require('js-joda').LocalTime;
 
 //first wire up the switches

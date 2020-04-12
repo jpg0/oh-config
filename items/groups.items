@@ -2,6 +2,8 @@ Group gZ2M "Zigbee2MQTT Devices"
 
 Group gMeasurements "All Measurements"
 
+Group gZoneTemps "Zone Temperature Details"
+
 Group:Switch:OR(ON,OFF) gLivingRoom "Living Room Lights" <light> ["Lighting"]
 Group:Switch:OR(ON,OFF) gBedroom "Bedroom Lights" <light> ["Lighting"]
 

@@ -40,31 +40,6 @@ class HVACZone {
         return items.getItem(this.openingsItemName).descendents.filter(i => i.state != 'CLOSED');
     }
 
-    boundsAtTimeForConfig(time, boundsConfig) {
-        for (let zoneRuleData of boundsConfig) {
-            let from = LocalTime.parse(zoneRuleData[0]);
-            let to = LocalTime.parse(zoneRuleData[1]);
-
-            log.debug("Checking bound " + JSON.stringify(zoneRuleData));
-
-            if (
-                (from.isBefore(time) && to.isAfter(time)) || //span within day
-                ((from.isAfter(to)) && ((from.isBefore(time)) || (to.isAfter(time)))) //spanning days
-            ) {
-                return {
-                    min: zoneRuleData[2],
-                    max: zoneRuleData[3],
-                    ventilate: zoneRuleData.length > 4 && zoneRuleData[4]
-                };
-            }
-        }
-        return {};
-    }
-
-    boundsAt(time) {
-        return this.boundsAtTimeForConfig(time, this.boundsConfig);
-    }
-
     /**
      * 
      * @param {DateTime} time the time to check
@@ -130,25 +105,17 @@ class HVACZone {
         return this.label.replace(/[^A-Za-z0-9_-]/, '_');
     }
 
-    shouldHeatOrCoolAt(time) {
-        return this.shouldHeatOrCoolWithBounds(this.boundsAt(time));
-    }
     /**
      * 
      * @param {DateTime} time the time to check
      * @returns heat/cool/null
      */
     shouldHeatOrCoolNow() {
-        let time = LocalTime.now();
-        return this.shouldHeatOrCoolAt(time);
+        return this.shouldHeatOrCoolWithBounds(this.boundsConfig.boundsNow());
     }
 }
 
 class UpstairsHVACZone extends HVACZone {
-    constructor(label, temperatureItemName, ductItemName, openingsItemName, boundsConfig, passiveBoundsConfig) {
-        super(label, temperatureItemName, ductItemName, openingsItemName, boundsConfig);
-        this.passiveBoundsConfig = passiveBoundsConfig;
-    }
 
     processPassiveHVAC(isActiveHVACEnabled) {
         if(typeof isActiveHVACEnabled === 'undefined') {
@@ -169,7 +136,7 @@ class UpstairsHVACZone extends HVACZone {
             this.setDoorLatchActive(true);
 
             if(this.isPassiveHVACEnabled) { //all passive HVAC
-                let passiveBounds = this.boundsAtTimeForConfig(LocalTime.now(), this.passiveBoundsConfig);
+                let passiveBounds = this.boundsConfig.passiveBoundsNow();
                 let coolOrHeat = this.shouldHeatOrCoolWithBounds(passiveBounds, false);
 
                 switch(coolOrHeat) {
@@ -223,10 +190,6 @@ class UpstairsHVACZone extends HVACZone {
         }
     }
 
-    getPassiveBoundsNow() {
-        return this.boundsAtTimeForConfig(LocalTime.now(), this.passiveBoundsConfig);
-    }
-
     get outdoorTemperature() {
         return items.getItem('Outside_Upstairs_Temperature').state;
     }
@@ -277,51 +240,12 @@ class UpstairsHVACZone extends HVACZone {
     }
 }
 
-exports.Zones = {
-    "Living": new HVACZone(
-        "Living Room",
-        "gLivingRoomTemperature",
-        "KitchenDuct_Switch",
-        "gKitchenOpenings",
-        [
-            ["06:30", "21:00", 19, 30]
-        ]
-    ),
-    "Kids": new HVACZone(
-        "Kids Rooms",
-        "gKidsRoomsTemperature",
-        "KidsRoomsDuct_Switch",
-        "gKidsRoomsOpenings",
-        [ //heatup rate of 0.2C/min
-            ["06:15", "07:15", 20, 30],
-            ["18:15", "19:45", 20, 23],
-            ["19:45", "06:15", 15, 23]
-        ]
-    ),
-    "Games": new HVACZone(
-        "Games Room",
-        "Main_Bedroom_Temperature",
-        "GamesDuct_Switch",
-        "gGamesRoomOpenings",
-        [
-            ["18:30", "21:30", 22, 27]
-        ]
-    ),
-    "Upstairs": new UpstairsHVACZone(
-        "Upstairs",
-        "gUpstairsBedroomTemperature",
-        "UpstairsDuct_Switch",
-        "gUpstairsOpenings",
-        [
-            ["06:15", "07:45", 18, 24],
-            ["20:00", "21:30", 15, 20],
-            ["21:30", "06:15", 15, 20, true] //true -> ventilate if possible
-        ],
-        [
-            ["08:15", "20:00", 18, 35] //passive HVAC desires
-        ]
-    )
-};
+let SLEEP_TIME_START = LocalTime.parse("20:00");
+let SLEEP_TIME_END = LocalTime.parse("08:00");
 
-exports.SLEEP_TIME_START = LocalTime.parse("20:00");
-exports.SLEEP_TIME_END = LocalTime.parse("08:00");
+module.exports = {
+    HVACZone,
+    UpstairsHVACZone,
+    SLEEP_TIME_START,
+    SLEEP_TIME_END,
+}
