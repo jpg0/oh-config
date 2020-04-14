@@ -7,10 +7,10 @@ const comms = require('comms');
 
 class HVACZone {
     constructor(label, temperatureItemName, ductItemName, openingsItemName, boundsConfig) {
-        this.label = label;
-        this.temperatureItemName = temperatureItemName;
-        this.ductItemName = ductItemName;
-        this.openingsItemName = openingsItemName;
+        this.label = label; //API
+        this.temperatureItemName = temperatureItemName; //API
+        this.ductItemName = ductItemName; //API
+        this.openingsItemName = openingsItemName; //API
         this.boundsConfig = boundsConfig;
     }
 
@@ -113,6 +113,11 @@ class HVACZone {
     shouldHeatOrCoolNow() {
         return this.shouldHeatOrCoolWithBounds(this.boundsConfig.boundsNow());
     }
+
+    get isActiveHVACEnabled() {
+        //todo: Kitchen will always be ON
+        return items.getItem(this.ductItemName).state == 'ON';
+    }
 }
 
 class UpstairsHVACZone extends HVACZone {
@@ -192,10 +197,6 @@ class UpstairsHVACZone extends HVACZone {
 
     get outdoorTemperature() {
         return items.getItem('Outside_Upstairs_Temperature').state;
-    }
-
-    get isActiveHVACEnabled() {
-        return items.getItem(this.ductItemName).state == 'ON';
     }
 
     get isPassiveHVACEnabled() {
