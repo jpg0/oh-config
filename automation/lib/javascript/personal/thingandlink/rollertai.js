@@ -34,7 +34,7 @@ class NeoRollerTAI extends commontai.MQTTTAI {
 
     buildChannel() {
         return this.withNewMQTTChannel(`STATE`, 'state', 'string', {
-            commandTopic: `/cmnd/blinds/neo/192.168.1.103/3900370002504b464d323820/${this.rfCode}`
+            commandTopic: `/cmnd/blinds/neo/192.168.100.15/3900370002504b464d323820/${this.rfCode}`
         });
     }
 }

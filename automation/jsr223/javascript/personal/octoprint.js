@@ -26,6 +26,7 @@
 
 let log = require('ohj').log("octoprint");
 let { rules, triggers, items } = require('ohj');
+let comms = require('comms');
 
 let printerPowerSwitch = items.getItem('3D_Printer_Switch');
 
@@ -46,6 +47,7 @@ rules.JSRule({
                 case 'PrintDone':
                 case 'PrintCancelled':
                     printerPowerSwitch.sendCommand('OFF');
+                    comms.notify(octoprintEvent._event, comms.SYSTEM);
                     break;
             }
 

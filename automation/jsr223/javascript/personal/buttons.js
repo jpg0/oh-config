@@ -6,7 +6,7 @@ const comms = require('comms');
 
 with(fluent) {
 
-    when(item('Doorbell_Button').changed().to('ON')).then(() => {
+    when(item('Doorbell_Button').changed().from('OFF').to('ON')).then(() => {
         comms.notify("Doorbell!");
     }, inGroup("House"));
 
@@ -14,18 +14,7 @@ with(fluent) {
         then(sendToggle().toItem('zgLivingRoomLights_Light'), inGroup("Kitchen"));
 
     when(item('Indis_Closet_Button').changed().to("single")).then(sendToggle().toItem('Indis_Closet_Light'), inGroup("Kids Bedrooms"));
-    when(item('Indis_Closet_Button').changed().to("long")).then(send(constants.DAYTIME_LIGHT_COLOR).toItem('Indis_Closet_Light'), inGroup("Kids Bedrooms"));   
-
-
-    // when(item('Bedside_1_Button').changed().to('single')).then(sendToggle().toItem('Bedside_1_Light'), inGroup("Upstairs"));
-    // when(item('Bedside_1_Button').changed().to('triple')).then(() => {
-    //     let rollers = items.getItem('vRollersScene');
-    //     if(rollers.previousState == "DOWN") { 
-    //         rollers.sendCommand("UP");
-    //     } else {
-    //         rollers.sendCommand("DOWN");
-    //     }
-    // });
+    when(item('Indis_Closet_Button').changed().to("long")).then(send(constants.DAYTIME_LIGHT_COLOR.toString()).toItem('Indis_Closet_Light'), inGroup("Kids Bedrooms"));   
 
     when(item('Front_Door_Button').changed().to('single')).then(sendOn().toItem('GarageSideDoor_Switch'));
 

@@ -14,11 +14,17 @@ rules.JSRule({
     description: "Check we have recent contact with registered zigbee devices",
     triggers: [triggers.GenericCronTrigger("0 0 * * * ? *"),], //every hour
     execute: () => {
+        log.debug("Checking for any devices that we have lost contact with...");
         let now = JSJoda.LocalDateTime.now();
 
         lastupdated.allItems().forEach( i => {
-            let lastUpdated = JSJoda.LocalDateTime.parse(lastupdated.lastUpdatedItemForItem(i).state || DATETIMETYPE_MIN, ISO8601Formatter);
-            alerteditems.setAlerted(i, lastUpdated.plus(DURATION_TOO_OLD).isBefore(now))
+            let lastUpdatedString = lastupdated.lastUpdatedItemForItem(i).state;
+            if(!lastUpdatedString || lastUpdatedString == 'NULL') {
+                lastUpdatedString = DATETIMETYPE_MIN;
+            }
+            let lastUpdatedDate = JSJoda.LocalDateTime.parse(lastUpdatedString, ISO8601Formatter);
+            let maxDurationWithoutContact = lastupdated.maxDurationWithoutContact(i);
+            alerteditems.setAlerted(i, lastUpdatedDate.plus(JSJoda.Duration.parse(maxDurationWithoutContact)).isBefore(now))
         });
     }
 });

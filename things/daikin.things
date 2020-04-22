@@ -16,8 +16,8 @@ Thing mqtt:topic:mosquitto:hvac  "MQTT Thing: Daikin HVAC Unit"
             commandTopic = "/cmnd/hvac/intesis/001DC9832295/settings/fansp" 
         ]
         Type number : ambienttemp "A/C Ambient Temperature" [
-            stateTopic = "/stat/hvac/intesis/001DC9832295/settings/fansp",
-            commandTopic = "/cmnd/hvac/intesis/001DC9832295/settings/fansp" 
+            stateTopic = "/stat/hvac/intesis/001DC9832295/settings/ambtemp",
+            commandTopic = "/cmnd/hvac/intesis/001DC9832295/settings/ambtemp" 
         ]
         Type number : setptemp "A/C SETPTEMP" [
             stateTopic = "/stat/hvac/intesis/001DC9832295/settings/setptemp",

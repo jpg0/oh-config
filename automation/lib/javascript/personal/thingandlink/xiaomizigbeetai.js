@@ -1,15 +1,24 @@
 const zigbeetai = require('./zigbeetai');
 const { items, metadata } = require('ohj');
 const log = require('ohj').log('xiaomizigbeetai');
+const { Duration } = require('js-joda');
 
 class XiaomiZigbeeEndDeviceTAI extends zigbeetai.ZigbeeTAI {
+    init(config) {
+        super.init(config);
+        this.maxDurationWithoutContact = config.maxDurationWithoutContact;
+    }
+
     buildObjects(){
         super.buildObjects();
 
         this.groups.push('gHasLastUpdated');
         
         this.lastUpdatedItem = items.createItem(`${this.id}_LastUpdated`, 'DateTime', 'clock', ['gLastUpdated'], `${this.id} Last Seen [%1$ta %1$tR]`);
-        this.items.push(this.lastUpdatedItem);
+        if(this.maxDurationWithoutContact) { 
+            this.addMetadataToItem(this.lastUpdatedItem, require('lastupdated').MAX_DURATION_WITHOUT_CONTACT_KEY, this.maxDurationWithoutContact.toString());
+        }
+    this.items.push(this.lastUpdatedItem);
 
         let measurementGroupItem = items.createItem(`g${this.id}_Measurements`, 'Group', null, ['gMeasurements'], `${this.id}: All measurements`);
         this.items.push(measurementGroupItem);
@@ -37,6 +46,13 @@ class XiaomiZigbeeEndDeviceTAI extends zigbeetai.ZigbeeTAI {
 }
 
 class AqaraButtonTAI extends XiaomiZigbeeEndDeviceTAI {
+    init(config) {
+        super.init({
+            ...config,
+            maxDurationWithoutContact: Duration.ofDays(14)
+        });
+    }
+
     buildObjects(){
         super.buildObjects();
 
@@ -53,6 +69,13 @@ class AqaraButtonTAI extends XiaomiZigbeeEndDeviceTAI {
 }
 
 class AqaraMotionTAI extends XiaomiZigbeeEndDeviceTAI {
+    init(config) {
+        super.init({
+            ...config,
+            maxDurationWithoutContact: Duration.ofDays(3)
+        });
+    }
+
     buildObjects(){
         super.buildObjects();
 
@@ -75,6 +98,13 @@ class AqaraMotionTAI extends XiaomiZigbeeEndDeviceTAI {
 }
 
 class AqaraContactTAI extends XiaomiZigbeeEndDeviceTAI {
+    init(config) {
+        super.init({
+            ...config,
+            maxDurationWithoutContact: Duration.ofDays(3)
+        });
+    }
+
     buildObjects(){
         super.buildObjects();
 
@@ -91,6 +121,11 @@ class AqaraContactTAI extends XiaomiZigbeeEndDeviceTAI {
 }
 
 class MijiaTemperatureTAI extends XiaomiZigbeeEndDeviceTAI {
+    init(config) {
+        super.init(config);
+        this.maxDurationWithoutContact = config.maxDurationWithoutContact || Duration.ofDays(1);
+    }
+
     buildObjects(){
         super.buildObjects();
 
@@ -117,6 +152,11 @@ class MijiaTemperatureTAI extends XiaomiZigbeeEndDeviceTAI {
 }
 
 class AqaraTemperatureTAI extends MijiaTemperatureTAI {
+    init(config) {
+        super.init(config);
+        this.maxDurationWithoutContact = config.maxDurationWithoutContact || Duration.ofDays(1);
+    }
+
     buildObjects(){
         super.buildObjects();
 
@@ -133,6 +173,11 @@ class AqaraTemperatureTAI extends MijiaTemperatureTAI {
 }
 
 class AqaraSwitchTAI extends zigbeetai.ZigbeeTAI {
+    init(config) {
+        super.init(config);
+        this.maxDurationWithoutContact = config.maxDurationWithoutContact || Duration.ofDays(1);
+    }
+
     buildObjects(){
         super.buildObjects();
 

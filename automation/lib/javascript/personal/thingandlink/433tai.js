@@ -23,6 +23,12 @@ class Button433TAI extends commontai.MQTTTAI {
             on: this.rfCode
         })
     }
+
+    activateRules() {
+        super.activateRules();
+        //abuse this post-contruction hook to set state
+        item.postUpdate('OFF');
+    }
 }
 
 // class Relay433TAI extends commontai.MQTTTAI {

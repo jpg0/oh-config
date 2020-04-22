@@ -1,6 +1,8 @@
 const { DateTimeType } = require('@runtime/Defaults');
 const { items } = require('ohj');
 const log = require('ohj').log('lastupdated');
+const { Duration } = require('js-joda');
+
 
 
 let lastUpdatedItemForItem = (fromItem) => {
@@ -27,7 +29,10 @@ let lastUpdatedItemForItem = (fromItem) => {
     return lastUpdatedItem;
 }
 
+const MAX_DURATION_WITHOUT_CONTACT_KEY = 'maxDurationWithoutContact';
+
 module.exports = {
+    MAX_DURATION_WITHOUT_CONTACT_KEY,
     lastUpdatedItemForItem,
     update: (item) => {
         let toUpdate = lastUpdatedItemForItem(item);
@@ -39,5 +44,5 @@ module.exports = {
         log.debug("Recorded last update as {} to {} by {}", now, toUpdate, item);
     },
     allItems: () => items.getItem('gHasLastUpdated').members,
-
+    maxDurationWithoutContact: (item) => item.getMetadataValue(MAX_DURATION_WITHOUT_CONTACT_KEY) || Duration.ofDays(1)
 }

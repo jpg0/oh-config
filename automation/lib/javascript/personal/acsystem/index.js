@@ -27,11 +27,11 @@ module.exports = {
         ),
         "Games": new HVACZone(
             "Games Room",
-            "Main_Bedroom_Temperature",
+            "gGamesRoomTemperature",
             "GamesDuct_Switch",
             "gGamesRoomOpenings",
             new ZoneTemperatureBounds("Games", [
-                ["18:30", "21:30", 22, 27]
+                ["18:30", "21:30", 20, 27]
             ])
         ),
         "Upstairs": new UpstairsHVACZone(

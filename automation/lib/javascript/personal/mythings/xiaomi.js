@@ -39,15 +39,18 @@ module.exports = [
 
     new MijiaTemperatureTAI({name: "Indi's Room", zigbeeId: "0x00158d00020ec983", groups: ["gKidsRoomsTemperature"]}),
     new AqaraTemperatureTAI({name: "Lyra's Room", zigbeeId: "0x00158d0002437c6e", groups: ["gKidsRoomsTemperature"]}),
-    new AqaraTemperatureTAI({name: "Living Room 1", zigbeeId: "0x00158d00022ccab7", groups: ["gLivingRoomTemperature"]}),
+    new AqaraTemperatureTAI({name: "Living Room 1", zigbeeId: "0x00158d0004445bd5", groups: ["gLivingRoomTemperature"]}),
     new AqaraTemperatureTAI({name: "Living Room 2", zigbeeId: "0x00158d00032142a1", groups: ["gLivingRoomTemperature"]}),
     new AqaraTemperatureTAI({name: "Upstairs Bedroom Bed", zigbeeId: "0x00158d00034d1d79", groups: ["gUpstairsBedroomTemperature"]}),
     new AqaraTemperatureTAI({name: "Office", zigbeeId: "0x00158d000245a8d7"}),
     new AqaraTemperatureTAI({name: "Outside", zigbeeId: "0x00158d00023f383f"}),
     new AqaraTemperatureTAI({name: "Outside Upstairs", zigbeeId: "0x00158d00036b66d0"}),
-    new AqaraTemperatureTAI({name: "Main Bedroom", zigbeeId: "0x00158d000247cb6c"}),
+    new AqaraTemperatureTAI({name: "Games Room 1", zigbeeId: "0x00158d000247cb6c", groups: ["gGamesRoomTemperature"]}),
+    new AqaraTemperatureTAI({name: "Games Room 2", zigbeeId: "0x00158d00022ccab7", groups: ["gGamesRoomTemperature"]}),
+
     new AqaraTemperatureTAI({name: "Felix's Room", zigbeeId: "0x00158d0002437c63", groups: ["gKidsRoomsTemperature"]}),
     new AqaraTemperatureTAI({name: "Granny Flat", zigbeeId: "0x00158d00023f5031"}),
     new AqaraTemperatureTAI({name: "Kid's Bathroom", zigbeeId: "0x00158d0002437c38"}),
     new AqaraTemperatureTAI({name: "Upstairs Closet", zigbeeId: "0x00158d00036bfe92"}),
+    
 ]
