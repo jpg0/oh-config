@@ -28,7 +28,8 @@ let log = require('ohj').log("octoprint");
 let { rules, triggers, items } = require('ohj');
 let comms = require('comms');
 
-let printerPowerSwitch = items.getItem('3D_Printer_Switch');
+let isPrintingItem = items.replaceItem('IsPrinting', 'Switch', null, [], 'Is Currently Printing');
+let isPrintClientOpenItem = items.replaceItem('IsPrintClientOpen', 'Switch', null, [], 'Is printer client currently open');
 
 rules.JSRule({
     name: "octoprint_power",
@@ -42,17 +43,41 @@ rules.JSRule({
 
             switch(octoprintEvent._event) {
                 case 'PrintStarted':
-                    printerPowerSwitch.sendCommand('ON');
+                    items.getItem(isPrintingItem.name).postUpdate('ON')
                     break;
                 case 'PrintDone':
                 case 'PrintCancelled':
-                    printerPowerSwitch.sendCommand('OFF');
+                    items.getItem(isPrintingItem.name).postUpdate('OFF')
                     comms.notify(octoprintEvent._event, comms.SYSTEM);
                     break;
-            }
+                case 'ClientOpened':
+                    items.getItem(isPrintClientOpenItem.name).postUpdate('ON')
+                    break;
+                case 'ClientClosed':
+                    items.getItem(isPrintClientOpenItem.name).postUpdate('OFF')
+                    break;
+                }
 
         } catch (error) {
             log.error(`Failed to execute rule ${this.name}; ${error} at line ${error.lineNumber}`);
         }
     }
 });
+
+with(require('ohj').fluent){
+    let printerPowerSwitch = items.getItem('3D_Printer_Switch');
+
+
+    when(item(isPrintingItem.name)    .changed().from('OFF').to('ON')).
+        then(sendOn().toItem(printerPowerSwitch.name));
+    when(item(isPrintClientOpenItem.name).changed().from('OFF').to('ON'))
+        .then(sendOn().toItem(printerPowerSwitch.name));
+
+    when(item(isPrintingItem.name)    .changed().from('ON').to('OFF'))
+        .if(stateOfItem(isPrintClientOpenItem.name).in('OFF'))
+        .then(sendOff().toItem(printerPowerSwitch.name));
+
+    when(item(isPrintClientOpenItem.name).changed().from('ON').to('OFF'))
+        .if(stateOfItem(isPrintingItem.name).in('OFF'))
+        .then(sendOff().toItem(printerPowerSwitch.name));
+}
