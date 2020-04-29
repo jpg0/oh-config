@@ -42,7 +42,7 @@ module.exports = {
             new ZoneTemperatureBounds("Upstairs", [
                 ["06:15", "07:45", 18, 24],
                 ["20:00", "21:30", 15, 20],
-                ["21:30", "06:15", 15, 20, true] //true -> ventilate if possible
+                ["21:30", "06:15", 15, 19, true] //true -> ventilate if possible
             ],
             [
                 ["08:15", "20:00", 18, 35] //passive HVAC desires

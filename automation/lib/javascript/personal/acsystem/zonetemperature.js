@@ -3,7 +3,6 @@ const log = require('ohj').log('zonetemperature');
 const JSJoda = require('js-joda');
 const { rules, triggers, items } = require('ohj');
 
-
 const ISO8601Formatter = JSJoda.DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSS[xxxx][xxxxx]");
 
 

@@ -37,7 +37,7 @@ function registerSitemap() {
                 Text({label:"A/C [%s]", item:"HVAC_House", icon:"climate"}, [ 
                     Switch({item:"HVAC_House", icon:"climate"}),
                     Switch({item:"HVAC_Mode", mappings:{cool:"Cool", heat:"Heat", auto:"Auto", fan:"Fan", dry:"Dry"}, icon:'flow'}),
-                    Switch({item:"HVAC_FanSpeed", label:"Fan Speed [%s]", mappings:["Low","Med","High"]}),
+                    Switch({item:"HVAC_FanSpeed", label:"Fan Speed [%s]", mappings:{1:"Low",2:"Med",3:"High"}}),
                     Setpoint({item:"HVAC_LowTemp", label:"Heat from.. [%.1f °C]", step:1, minValue:16, maxValue:30, visibility:['HVAC_Mode==heat','HVAC_Mode==auto']}),
                     Setpoint({item:"HVAC_HighTemp", label:"Cool to.. [%.1f °C]", step:1, minValue:16, maxValue:30, visibility:['HVAC_Mode==cool','HVAC_Mode==auto']}),
                     Text({item:"HVAC_AmbientTemp", label:"Ambient Temperature [%.1f °C]", icon:"temperature"}),
@@ -84,6 +84,8 @@ function registerSitemap() {
                 Default({item:'Bedside_1_Light'}),
                 Default({item:'Bedside_2_Light'}),
                 Default({item:'Upstairs_Toilet_Light'}),
+
+                Default({item:'BedPump_Switch'}),
 
                 Text({label:"Roller Blinds / Screens", icon:"rollershutter"},
                     items.getItem('gRoller').members.flatMap(i => [
