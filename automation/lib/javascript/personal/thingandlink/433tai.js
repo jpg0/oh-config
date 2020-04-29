@@ -10,11 +10,11 @@ class Button433TAI extends commontai.MQTTTAI {
     buildObjects() {
         super.buildObjects();
         let channel = this.buildChannel();
-        let item = items.createItem(`${this.id}_Button`, 'Switch', undefined, this.groups, `${this.name} Button`);
-        this.linkItemToChannel(item, channel);
+        this.item = items.createItem(`${this.id}_Button`, 'Switch', undefined, this.groups, `${this.name} Button`);
+        this.linkItemToChannel(this.item, channel);
 
-        this.metadata.push(metadata.createMetadata(item.name, 'expire', "1s,OFF"));
-        this.items.push(item);
+        this.metadata.push(metadata.createMetadata(this.item.name, 'expire', "1s,OFF"));
+        this.items.push(this.item);
     }
 
     buildChannel() {
@@ -27,7 +27,7 @@ class Button433TAI extends commontai.MQTTTAI {
     activateRules() {
         super.activateRules();
         //abuse this post-contruction hook to set state
-        item.postUpdate('OFF');
+        this.item.postUpdate('OFF');
     }
 }
 
