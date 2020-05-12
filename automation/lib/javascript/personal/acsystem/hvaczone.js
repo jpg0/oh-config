@@ -6,30 +6,15 @@ const LocalTime = require('js-joda').LocalTime;
 const comms = require('comms');
 
 class HVACZone {
-    constructor(label, temperatureItemName, ductItemName, openingsItemName, boundsConfig) {
-        this.label = label; //API
-        this.temperatureItemName = temperatureItemName; //API
-        this.ductItemName = ductItemName; //API
-        this.openingsItemName = openingsItemName; //API
+    constructor(options, boundsConfig) {
+        this.label = options.label; //API
+        this.temperatureItemName = options.temperature; //API
+        this.openingsItemName = options.openings; //API
         this.boundsConfig = boundsConfig;
     }
 
     get currentTemperature() {
         return items.getItem(this.temperatureItemName).state;
-    }
-
-    /**
-     * Sets whether the ducts are open or not
-     * @param {Boolean} isOpen whether to set open (true=open, false=closed)
-     * @returns whether the state was changed
-     */
-    setDuctState(isOpen) {
-        let cmd = isOpen ? 'ON' : 'OFF';
-        let changed = items.getItem(this.ductItemName).sendCommandIfDifferent(cmd);
-        if(changed) {
-            log.info("Setting duct " + this.ductItemName + " to " + cmd)
-        } 
-        return changed;
     }
 
     isZoneSealed() {
@@ -113,6 +98,27 @@ class HVACZone {
     shouldHeatOrCoolNow() {
         return this.shouldHeatOrCoolWithBounds(this.boundsConfig.boundsNow());
     }
+}
+
+class DuctedHVACZone extends HVACZone {
+    constructor(options, boundsConfig) {
+        super(options, boundsConfig);
+        this.ductItemName = options.duct; //API
+    }
+
+    /**
+     * Sets whether the ducts are open or not
+     * @param {Boolean} isOpen whether to set open (true=open, false=closed)
+     * @returns whether the state was changed
+     */
+    setDuctState(isOpen) {
+        let cmd = isOpen ? 'ON' : 'OFF';
+        let changed = items.getItem(this.ductItemName).sendCommandIfDifferent(cmd);
+        if(changed) {
+            log.info("Setting duct " + this.ductItemName + " to " + cmd)
+        } 
+        return changed;
+    }
 
     get isActiveHVACEnabled() {
         //todo: Kitchen will always be ON
@@ -120,7 +126,7 @@ class HVACZone {
     }
 }
 
-class UpstairsHVACZone extends HVACZone {
+class UpstairsHVACZone extends DuctedHVACZone {
 
     processPassiveHVAC(isActiveHVACEnabled) {
         if(typeof isActiveHVACEnabled === 'undefined') {
@@ -205,7 +211,7 @@ class UpstairsHVACZone extends HVACZone {
 
     get isWithinPassiveHVACTimes() {
         let time = LocalTime.now();
-        return time.isAfter(acsystem.SLEEP_TIME_END) && time.isBefore(acsystem.SLEEP_TIME_START);
+        return time.isAfter(SLEEP_TIME_END) && time.isBefore(SLEEP_TIME_START);
     }
 
     get blindsAreDown() {
@@ -246,6 +252,7 @@ let SLEEP_TIME_END = LocalTime.parse("08:00");
 
 module.exports = {
     HVACZone,
+    DuctedHVACZone,
     UpstairsHVACZone,
     SLEEP_TIME_START,
     SLEEP_TIME_END,

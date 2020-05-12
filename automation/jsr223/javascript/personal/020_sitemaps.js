@@ -45,7 +45,7 @@ function registerSitemap() {
                     Switch({item:"GamesDuct_Switch"}),
                     Switch({item:"UpstairsDuct_Switch"}),
                     Switch({item:"KidsRoomsDuct_Switch"}),
-                    Text({label:'Temperature Control', icon:"heating"}, Object.entries(require('acsystem').Zones).map(([zoneName, zoneConfig]) => 
+                    Text({label:'Temperature Control', icon:"heating"}, Object.entries(require('acsystem').house.Zones).map(([zoneName, zoneConfig]) => 
                         Text({item: zoneConfig.temperatureItemName, label:`${zoneName}[%.1f °C]`, icon:"group", labelColor:[`vOverrideMinsRemaining${zoneName}>0=red`]}, [
                             Setpoint({item:`vMaxTemp${zoneName}`, label:`${zoneName} Max [%.1f °C]`, icon:"temperature_hot", step:1, minValue:16, maxValue:30}),
                             Setpoint({item:`vMinTemp${zoneName}`, label:`${zoneName} Min [%.1f °C]`, icon:"temperature_cold", step:1, minValue:16, maxValue:30}),

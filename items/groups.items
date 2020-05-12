@@ -11,6 +11,7 @@ Group:Number:AVG  gKidsRoomsTemperature "Kids Rooms Temperature (Average)"
 Group:Number:AVG  gLivingRoomTemperature "Living Room Temperature"
 Group:Number:AVG  gUpstairsBedroomTemperature "Upstairs Bedroom Temperature"
 Group:Number:AVG  gGamesRoomTemperature "Games Room Temperature"
+Group:Number:AVG  gGrannyFlatTemperature "Granny Flat Temperature"
 
 Group gLyrasRoom "Lyra's Room" (gKidsRooms)
 Group gFelixsRoom "Felix's Room" (gKidsRooms)

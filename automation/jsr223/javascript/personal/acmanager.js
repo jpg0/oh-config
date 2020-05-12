@@ -1,8 +1,6 @@
 const log = require('ohj').log("acmanager");
 const { items, rules, fluent, triggers } = require('ohj');
-const acsystem = require('acsystem');
-
-const LocalTime = require('js-joda').LocalTime;
+const HouseHVAC = require('acsystem').house;
 
 //first wire up the switches
 with (fluent) {
@@ -39,95 +37,7 @@ with (fluent) {
         .then(copyAndSendState().fromItem('HVAC_SetTemp').toItem('HVAC_LowTemp'));
 }
  
-const calculateFanspeed = function (ductsOpenCount, time) {
-    var speed = ductsOpenCount > 1 ? 3 : 2;
 
-    if (time.isAfter(acsystem.SLEEP_TIME_START) || time.isBefore(acsystem.SLEEP_TIME_END)) {
-        speed -= 1;
-    }
- 
-    return speed;
-};
-
-const doExecute = function () {
-
-    let mode = null;
-    let zoneCmds = {
-        toOpen: [],
-        toClose: []
-    };
-
-    for (let zoneName in acsystem.Zones) {
-        let zone = acsystem.Zones[zoneName];
-
-        switch(zone.shouldHeatOrCoolNow()) {
-            case 'cool': {
-                if (mode == "heat") {
-                    log.warn("Zone " + zoneName + " needs cooling, but AC is heating another zone. Ignoring until heating complete.")
-                    zoneCmds.toClose.push(zone);
-                    continue;
-                }
-                mode = "cool"
-                zoneCmds.toOpen.push(zone);
-                log.debug("Zone {} marked for cooling", zoneName);
-                break;
-            }
-            case 'heat': {
-                if (mode == "cool") {
-                    log.warn("Zone " + zoneName + " needs heating, but AC is cooling another zone. Ignoring until cooling complete.")
-                    zoneCmds.toClose.push(zone);
-                    continue;
-                }
-                mode = "heat";
-                zoneCmds.toOpen.push(zone);
-                log.debug("Zone {} marked for heating", zoneName);
-                break;
-            }
-            case 'fan': {
-                if(mode === null) {               
-                    mode = "fan"; //cool or heat will override this, but the vent will remain open
-                }
-
-                zoneCmds.toOpen.push(zone);
-                log.debug("Zone {} marked for ventilation", zoneName);
-                break;
-            }
-            case null: {
-                zoneCmds.toClose.push(zone);
-                log.debug("Zone {} marked as within bounds", zoneName);
-            }
-        }
-    }
-
-    if (zoneCmds.toOpen.length == 0) { //don't close the last duct
-        zoneCmds.toOpen.push(zoneCmds.toClose.shift());
-        zoneCmds.allClosed = true;
-    }
-
-    //open/close the ducts
-    for (let z of zoneCmds.toOpen) {
-        z.setDuctState(true)
-    }
-    for (let z of zoneCmds.toClose) {
-        z.setDuctState(false)
-    }
-
-    if (zoneCmds.allClosed) {
-        items.getItem('HVAC_House').sendCommandIfDifferent("OFF") && log.info("Turning off AC");
-    } else {
-        log.debug("Setting HVAC mode to {}", mode);
-
-
-        var fanspeed = calculateFanspeed(zoneCmds.toOpen.length, LocalTime.now());
-
-        var temp = mode == "heat" ? 30 : 18;
-
-        items.getItem('HVAC_House').sendCommandIfDifferent("ON") && log.info("Turning on AC")
-        items.getItem('HVAC_Mode').sendCommandIfDifferent(mode) && log.info("Setting AC Mode to {}", mode)
-        items.getItem('HVAC_FanSpeed').sendCommandIfDifferent(fanspeed) && log.debug("Setting AC Fanspeed to {}", fanspeed)
-        items.getItem('HVAC_SetTemp').sendCommandIfDifferent(temp) && log.debug("Setting AC temp to {}", temp)
-    }
-};
 
 //start with the system off
 let houseItem = items.getItem('HVAC_House');
@@ -141,7 +51,7 @@ rules.SwitchableJSRule({
         triggers.GenericCronTrigger("0 */5 * * * *") //every 5 mins
         //TimerTrigger("0/15 * * * * ?") //every 15 secs
     ],
-    execute: doExecute
+    execute: HouseHVAC.processHvac
 });
 
 rules.SwitchableJSRule({
@@ -151,8 +61,8 @@ rules.SwitchableJSRule({
         triggers.GenericCronTrigger("0 */5 * * * *") //every 5 mins
         //TimerTrigger("0/15 * * * * ?") //every 15 secs
     ],
-    execute: () => acsystem.Zones['Upstairs'].processPassiveHVAC()
+    execute: HouseHVAC.processPassiveHvac
 });
 
 //start now
-acsystem.Zones['Upstairs'].processPassiveHVAC();
+HouseHVAC.processPassiveHvac();
