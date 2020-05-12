@@ -33,7 +33,7 @@ try {
 
         //Ooler
         when(cron("0 00 20 * * ? *")).then(sendOn().toItem("BedPump_Switch"), inGroup("Ooler"));
-        when(cron("0 30 3 * * ? *")).then(sendOff().toItem("BedPump_Switch"), inGroup("Ooler"));
+        when(cron("0 00 21 * * ? *")).then(sendOff().toItem("BedPump_Switch"), inGroup("Ooler"));
 
         //Upstairs Toilet
         when(cron("0 00 21 * * ? *")).then(sendOff().toItem("Upstairs_Toilet_Switch"), inGroup("Upstairs Toilet"));
