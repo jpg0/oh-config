@@ -5,8 +5,8 @@ try {
 
         //Pool Pump
         when(cron("0 0 9 * * ?")) .then(sendOn(). toItem("PoolPump_Switch", inGroup("Pool Pump")));
-        when(cron("0 0 11 * * ?")).then(sendOff().toItem("PoolPump_Switch", inGroup("Pool Pump")));
-        when(cron("0 0 15 * * ?")) .then(sendOn(). toItem("PoolPump_Switch", inGroup("Pool Pump")));
+        when(cron("0 0 10 * * ?")).then(sendOff().toItem("PoolPump_Switch", inGroup("Pool Pump")));
+        when(cron("0 0 16 * * ?")) .then(sendOn(). toItem("PoolPump_Switch", inGroup("Pool Pump")));
         when(cron("0 0 17 * * ?")).then(sendOff().toItem("PoolPump_Switch", inGroup("Pool Pump")));
 
         //Evening Lights
