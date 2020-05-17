@@ -1,0 +1,8 @@
+Group gHVAC2_Thermostat "AC Thermostat 2" ["Thermostat"]
+
+
+Switch HVAC2_House "A/C Power" (gHVAC2_Thermostat) [ "homekit:HeatingCoolingMode" ] { channel="mqtt:topic:mosquitto:hvac2:power", autoupdate="false"}  
+String HVAC2_Mode "A/C Mode" { channel="mqtt:topic:mosquitto:hvac2:mode" }
+Number HVAC2_FanSpeed "A/C Fan Speed" { channel="mqtt:topic:mosquitto:hvac2:fanspeed" }
+Number HVAC2_AmbientTemp "A/C Ambient Temperature" (gHVAC2_Thermostat) [ "CurrentTemperature" ] { channel="mqtt:topic:mosquitto:hvac2:ambienttemp" }
+Number HVAC2_SetTemp "A/C Target Temperature" (gHVAC2_Thermostat) [ "TargetTemperature" ] { channel="mqtt:topic:mosquitto:hvac2:setptemp" }

@@ -1,0 +1,36 @@
+/*
+stat/hvac/melview/building/13121/unit/119928/mode DRY
+stat/hvac/melview/building/13121/unit/119928/power OFF
+stat/hvac/melview/building/13121/unit/119928/fanSpeed 2
+stat/hvac/melview/building/13121/unit/119928/ambientTemperature 18
+stat/hvac/melview/building/13121/unit/119928/targetTemperature 18
+*/
+
+
+Thing mqtt:topic:mosquitto:hvac2  "MQTT Thing: Mitsu HVAC Unit"
+     (mqtt:broker:mosquitto)
+{
+    Channels:
+        Type switch : power "A/C Power" [
+            stateTopic = "stat/hvac/melview/building/13121/unit/119928/power",// transformationPattern="MAP:caps.map",
+            commandTopic = "cmnd/hvac/melview/building/13121/unit/119928/power", on="ON", off="OFF"
+        ]
+        Type string : mode "A/C Mode" [
+            stateTopic = "stat/hvac/melview/building/13121/unit/119928/mode",
+            commandTopic = "cmnd/hvac/melview/building/13121/unit/119928/mode",
+            allowedStates="COOL,HEAT,AUTO,FAN,DRY"
+        ]
+        Type number : fanspeed "A/C Fan Speed" [
+            stateTopic = "stat/hvac/melview/building/13121/unit/119928/fansp",
+            commandTopic = "cmnd/hvac/melview/building/13121/unit/119928/fansp",
+            formatBeforePublish = "%d"
+        ]
+        Type number : ambienttemp "A/C Ambient Temperature" [
+            stateTopic = "stat/hvac/melview/building/13121/unit/119928/ambientTemperature"
+        ]
+        Type number : setptemp "A/C SETPTEMP" [
+            stateTopic = "stat/hvac/melview/building/13121/unit/119928/temp",
+            commandTopic = "cmnd/hvac/melview/building/13121/unit/119928/temp",
+            formatBeforePublish = "%d"
+        ]
+}

@@ -34,7 +34,7 @@ let Zones = {
             duct: "KidsRoomsDuct_Switch",
             openings: "gKidsRoomsOpenings",
         },
-        new ZoneTemperatureBounds("Kids", [ //heatup rate of 0.2C/min
+        new ZoneTemperatureBounds("Kids", [
             ["06:15", "07:15", 20, 30],
             ["18:15", "19:45", 20, 23],
             ["19:45", "06:15", 15, 23]
@@ -47,7 +47,7 @@ let Zones = {
             openings: "gGamesRoomOpenings",
         },
         new ZoneTemperatureBounds("Games", [
-            ["18:30", "21:30", 20, 27]
+            ["18:30", "21:30", 20, 27],
         ])
     ),
     "Upstairs": new UpstairsHVACZone({
@@ -59,7 +59,8 @@ let Zones = {
         new ZoneTemperatureBounds("Upstairs", [
             ["06:15", "07:45", 18, 24],
             ["20:00", "21:30", 15, 20],
-            ["21:30", "06:15", 15, 19, true] //true -> ventilate if possible
+            ["21:30", "06:15", 15, 19] // no ventilation
+            //["21:30", "06:15", 15, 19, true] //true -> ventilate if possible
         ],
         [
             ["08:15", "20:00", 18, 35] //passive HVAC desires

@@ -45,6 +45,13 @@ function registerSitemap() {
                     Switch({item:"GamesDuct_Switch"}),
                     Switch({item:"UpstairsDuct_Switch"}),
                     Switch({item:"KidsRoomsDuct_Switch"}),
+                    Text({label:"Granny Flat"}, [
+                        Switch({item:"HVAC2_House", icon:"climate"}),
+                        Switch({item:"HVAC2_Mode", mappings:{cool:"Cool", heat:"Heat", auto:"Auto", fan:"Fan", dry:"Dry"}, icon:'flow'}),
+                        Switch({item:"HVAC2_FanSpeed", label:"Fan Speed [%s]", mappings:{1:"Low",2:"Med",3:"High"}}),
+                        Setpoint({item:"HVAC2_SetTemp", label:"Target Temp [%.1f °C]", step:1, minValue:16, maxValue:30}),
+                        Text({item:"HVAC2_AmbientTemp", label:"Ambient Temperature [%.1f °C]", icon:"temperature"}),
+                    ]),
                     Text({label:'Temperature Control', icon:"heating"}, Object.entries(require('acsystem').house.Zones).map(([zoneName, zoneConfig]) => 
                         Text({item: zoneConfig.temperatureItemName, label:`${zoneName}[%.1f °C]`, icon:"group", labelColor:[`vOverrideMinsRemaining${zoneName}>0=red`]}, [
                             Setpoint({item:`vMaxTemp${zoneName}`, label:`${zoneName} Max [%.1f °C]`, icon:"temperature_hot", step:1, minValue:16, maxValue:30}),
