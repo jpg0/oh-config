@@ -34,24 +34,26 @@ class HVACZone {
         let currentTemp = this.currentTemperature;
         let isSealed = respectSealed ? this.isZoneSealed() : false;
 
+        log.debug(`Zone ${this.label} is ${isSealed?'':'NOT '}sealed`);
+
         if ('min' in bounds && currentTemp < bounds.min) {
             if(isSealed) {
-                this.notifyClosed('heat');
+                respectSealed && this.notifyClosed('heat');
                 return 'heat';
             } else {
-                this.notifyOpen('heat', this.label, this.unsealedItems);
+                respectSealed && this.notifyOpen('heat', this.label, this.unsealedItems);
                 return null;
             }
         } else if (bounds.max && currentTemp > bounds.max) {
             if(isSealed) {
-                this.notifyClosed('cool');
+                respectSealed && this.notifyClosed('cool');
                 return 'cool';
             } else {
-                this.notifyOpen('cool', this.label, this.unsealedItems);
+                respectSealed && this.notifyOpen('cool', this.label, this.unsealedItems);
                 return null;
             }
         } else { //within bounds
-            this.notifyOpenNotRequired();
+            respectSealed && this.notifyOpenNotRequired();
 
             //possibly ventilate
             if(bounds.ventilate) {
@@ -178,7 +180,7 @@ class UpstairsHVACZone extends DuctedHVACZone {
                     case null: {  //we're currently within passive bounds
                         if('min' in passiveBounds && this.outdoorTemperature < passiveBounds.min) {
                             //too cold outside
-                            log.debug("Ensure windows open & shades closed as whilst it's good inside, it's too cold outside ({}°C)", this.outdoorTemperature);
+                            log.debug("Ensure windows closed & shades open as whilst it's good inside, it's too cold outside ({}°C)", this.outdoorTemperature);
                             this.setWindowsOpen(false);
                             this.setShadesOpen(true);
                         } else if('max' in passiveBounds && this.outdoorTemperature > passiveBounds.max) {
@@ -188,7 +190,7 @@ class UpstairsHVACZone extends DuctedHVACZone {
                             this.setShadesOpen(false);
                         } else {
                             //good inside and out
-                            log.debug("Ensure windows and shades open to get some air as it's good inside and out");
+                            log.debug("Ensure windows and shades open to get some air as it's good inside and out ({}°C)", this.outdoorTemperature);
                             this.setWindowsOpen(true);
                             this.setShadesOpen(true);
                         }

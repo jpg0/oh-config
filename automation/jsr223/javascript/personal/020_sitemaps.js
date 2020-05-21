@@ -45,12 +45,22 @@ function registerSitemap() {
                     Switch({item:"GamesDuct_Switch"}),
                     Switch({item:"UpstairsDuct_Switch"}),
                     Switch({item:"KidsRoomsDuct_Switch"}),
-                    Text({label:"Granny Flat"}, [
+                    Text({label:"Granny Flat"}, [ 
                         Switch({item:"HVAC2_House", icon:"climate"}),
                         Switch({item:"HVAC2_Mode", mappings:{cool:"Cool", heat:"Heat", auto:"Auto", fan:"Fan", dry:"Dry"}, icon:'flow'}),
                         Switch({item:"HVAC2_FanSpeed", label:"Fan Speed [%s]", mappings:{1:"Low",2:"Med",3:"High"}}),
                         Setpoint({item:"HVAC2_SetTemp", label:"Target Temp [%.1f °C]", step:1, minValue:16, maxValue:30}),
                         Text({item:"HVAC2_AmbientTemp", label:"Ambient Temperature [%.1f °C]", icon:"temperature"}),
+                        //same as below
+                        // [["GrannyFlat", require('acsystem').gf.Zone]].map(([zoneName, zoneConfig]) => Text({item: zoneConfig.temperatureItemName, label:`${zoneName}[%.1f °C]`, icon:"group", labelColor:[`vOverrideMinsRemaining${zoneName}>0=red`]}, [
+                        //     Setpoint({item:`vMaxTemp${zoneName}`, label:`${zoneName} Max [%.1f °C]`, icon:"temperature_hot", step:1, minValue:16, maxValue:30}),
+                        //     Setpoint({item:`vMinTemp${zoneName}`, label:`${zoneName} Min [%.1f °C]`, icon:"temperature_cold", step:1, minValue:16, maxValue:30}),
+                        //     Text({item: zoneConfig.temperatureItemName, label:`${zoneName} Current [%.1f °C]`, icon:"temperature"}),
+                        //     Setpoint({item:`vOverrideMinsRemaining${zoneName}`, label:`${zoneName} Override Remaining [%d Mins]`, icon:"time", step:15, minValue:0, maxValue:3600}),
+                        //     Text({item:`vOverrideEnd${zoneName}`, label:`${zoneName} Override End [%1$tI:%1$tM %1$Tp]`, icon:'time'}),
+                        //     //need is active item: Text({})   
+                        //     Default({item: zoneConfig.openingsItemName}),
+                        // ])),
                     ]),
                     Text({label:'Temperature Control', icon:"heating"}, Object.entries(require('acsystem').house.Zones).map(([zoneName, zoneConfig]) => 
                         Text({item: zoneConfig.temperatureItemName, label:`${zoneName}[%.1f °C]`, icon:"group", labelColor:[`vOverrideMinsRemaining${zoneName}>0=red`]}, [

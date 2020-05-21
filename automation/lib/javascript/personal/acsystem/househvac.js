@@ -48,6 +48,7 @@ let Zones = {
         },
         new ZoneTemperatureBounds("Games", [
             ["18:30", "21:30", 20, 27],
+            ["06:30", "18:30", 18, 30],
         ])
     ),
     "Upstairs": new UpstairsHVACZone({

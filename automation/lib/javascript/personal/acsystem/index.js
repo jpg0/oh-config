@@ -1,3 +1,4 @@
 module.exports = {
-    house: require('./househvac')
+    house: require('./househvac'),
+    gf: require('./gfhvac')
 };
