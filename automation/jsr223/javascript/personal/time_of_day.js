@@ -1,5 +1,5 @@
 'use strict';
- 
+
 const log = require('ohj').log('time_of_day');
 const { rules, items, triggers } = require('ohj');
 

@@ -37,5 +37,6 @@ module.exports = {
         ...require('./zigbeebuttontai'),
         ...require('./huezigbeetai'),
         ...require('./commontai'),
+        ...require('./dahuacam'),
     }
 }

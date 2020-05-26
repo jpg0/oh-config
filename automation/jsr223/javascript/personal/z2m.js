@@ -1,5 +1,6 @@
 'use strict';
 
+ 
 const log = require('ohj').log("z2m");
 const { rules, triggers, actions, utils } = require('ohj');
 const comms = require('comms');
@@ -28,3 +29,4 @@ rules.JSRule({
         }
     }
 });
+ 

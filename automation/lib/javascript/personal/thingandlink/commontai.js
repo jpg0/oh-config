@@ -47,6 +47,10 @@ class BaseTAI {
 
     }
 
+    async create() {
+        return this;
+    }
+
     activateRules() {
         
     }

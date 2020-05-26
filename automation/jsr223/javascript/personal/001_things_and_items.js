@@ -1,3 +1,6 @@
 const { addToSystem } = require('thingandlink');
+const logger = require('ohj').log("things_and_items")
 
-addToSystem(require('mythings').all);
+require('mythings').all()
+    .then(addToSystem)
+    .catch(logger.error)
