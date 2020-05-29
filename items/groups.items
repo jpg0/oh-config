@@ -70,3 +70,5 @@ Group:Contact:OR(OPEN, CLOSED) gUpstairsWindows "Upstairs Windows" <window> (gWi
 Group:Contact:OR(OPEN, CLOSED) gUpstairsDoors "Upstairs Doors" <door> (gDoors, gUpstairsOpenings)
 
 Group:Switch:OR(ON,OFF) gXmasLights "Xmas Lights" <light> ["Lighting"]
+
+Group:Number:SUM gCam

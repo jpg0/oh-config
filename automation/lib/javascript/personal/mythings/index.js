@@ -3,7 +3,8 @@ module.exports = {
             ...require('./tasmota'),
             ...require('./zigbee'),
             ...require('./roller'),
-            ...require('./433.js'),
-            ...require('./xiaomi.js'),
+            ...require('./433'),
+            ...require('./xiaomi'),
+            ...require('./dahua'),
         ].map(x => x.create()))
 }
