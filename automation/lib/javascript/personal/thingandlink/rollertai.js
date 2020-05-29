@@ -7,7 +7,7 @@ class NeoRollerTAI extends commontai.MQTTTAI {
         super.init(config);
         this.itemSuffix = config.itemSuffix || 'Roller';
         this.name = config.name;
-        log.info("Set rfCode as {} for {}", config.rfCode, config.name);
+        log.debug("Set rfCode as {} for {}", config.rfCode, config.name);
         this.rfCode = config.rfCode;
 
         this.thingBuilder.withLabel(this.name);
