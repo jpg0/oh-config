@@ -82,13 +82,15 @@ class ZigbeeColorBulbGroupTAI extends ZigbeeColorBulbTAI {
     }
 }
 
+
 module.exports = [
     new ZigbeeColorBulbGroupTAI({name: 'LivingRoomLights', groupId: 'LivingRoomLights', groups: ['gLivingRoom']}),
-
-    new ZigbeeColorBulbTAI({name: 'LivingRoom Corner', zigbeeId: '0x0017880104250673', zigbeeGroupId: "LivingRoomLights", groups: ["gColorLights","gLivingRoom","gEveningLights"]}),
-    new ZigbeeColorBulbTAI({name: 'TVLight', zigbeeId: '0x00158d0001dd7f3e', zigbeeGroupId: "LivingRoomLights", groups: ["gColorLights","gLivingRoom","gEveningLights"]}),
+    new ZigbeeColorBulbTAI({name: 'Living Room Corner', zigbeeId: '0x0017880104250673', zigbeeGroupId: "LivingRoomLights", groups: ["gColorLights","gLivingRoom","gEveningLights"]}),
+    new ZigbeeColorBulbTAI({name: 'Living Room Window Seat', zigbeeId: '0x00158d0001dd7f3e', zigbeeGroupId: "LivingRoomLights", groups: ["gColorLights","gLivingRoom","gEveningLights"]}),
     
-    new ZigbeeColorBulbTAI({name: 'FloorLamp', zigbeeId: '0x00158d0001dd7f00', groups: ["gColorLights","gEveningLights"]}),
+    new ZigbeeColorBulbGroupTAI({name: 'GamesRoomLights', groupId: 'GamesRoomLights', groups: ['gGamesRoom']}),
+    new ZigbeeColorBulbTAI({name: 'Games Room TV', zigbeeId: '0x0017880108b1efa4', zigbeeGroupId: "GamesRoomLights", groups: ["gColorLights","gGamesRoom","gEveningLights"]}),
+    new ZigbeeColorBulbTAI({name: 'Games Room Corner', zigbeeId: '0x00158d0001dd7f00', zigbeeGroupId: "GamesRoomLights", groups: ["gColorLights","gGamesRoom","gEveningLights"]}),
 
     new ZigbeeColorBulbTAI({name: 'Indis Closet', zigbeeId: '0x0017880103cfc584', groups: ["gIndisRoom"]}),
     new ZigbeeColorBulbTAI({name: 'Hallway', zigbeeId: '0x0017880104190686', groups: ["gColorLights"]}),

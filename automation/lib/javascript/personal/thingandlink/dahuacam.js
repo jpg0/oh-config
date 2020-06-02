@@ -64,21 +64,23 @@ class DahuaCamTAI extends commontai.MQTTTAI {
             triggers: this.channels.map(channel => triggers.ChannelEventTrigger(channel.uid, '')),
             execute: event => {
                 let data = JSON.parse(event.payload.event);
-                let number = 1 << data.index;
+                let mask = 1 << data.index;
                 let item = items.getItem(`${this.id}_${this.itemSuffix}_${data.code}`)
                 let state = item.state;
 
-                if(state == 'NULL') {
-                    state = 0;
+                state = parseInt(item.state, 16);
+
+                if(state == NaN) {
+                    state = 0x0;
                 }
 
                 if(data.action == "Stop") {
-                    state -= number;
+                    state &= ~mask;
                 } else {
-                    state += number;
+                    state |= mask;
                 }
                 
-                logger.debug("state: " + state);
+                logger.debug(`${this.id}_${this.itemSuffix}_${data.code}:${state}`);
                 item.postUpdate(state);
             }
         })

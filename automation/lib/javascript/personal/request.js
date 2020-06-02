@@ -18,21 +18,23 @@ class Request extends events.EventEmitter {
         this.auth = config.auth;
         this.headers = config.headers;
         this.cb = cb;
-
-        this.httpClient = new HttpClient();
-        this.httpClient.start();
         this.doRequest();
     }
 
     doRequest() {
+
+        let httpClient = new HttpClient();
+
         try
         {
+            httpClient.start();
+
             if(this.auth) {
-                this.httpClient.getAuthenticationStore().addAuthentication(
+                httpClient.getAuthenticationStore().addAuthentication(
                     new DigestAuthentication(new URI(this.uri), "<<ANY_REALM>>", this.auth.user, this.auth.password));
             }
 
-            let response = this.httpClient.newRequest(this.uri).send()
+            let response = httpClient.newRequest(this.uri).send()
             let status = response.getStatus();
 
             if(status >= 200 && status < 400) {
@@ -42,9 +44,10 @@ class Request extends events.EventEmitter {
             } else {
                 this.cb(new Error(`${status}: ${response.getContentAsString()}`));
             }
-        }
-        catch(e) {
+        } catch(e) {
             this.cb(e);
+        } finally {
+            httpClient.stop();
         }
     }
 }

@@ -17,6 +17,20 @@ let getColorForPeriod = function (periodInDay) {
     }
 };
 
+//ctx:{item,period}
+
+let COLOR_POLICY = {
+    WARM_WHITE = ctx => {
+        switch (ctx.periodInDay) {
+            case "NIGHT":
+            case "EVENING":
+                return constants.NIGHTTIME_LIGHT_COLOR;
+            default:
+                return constants.DAYTIME_LIGHT_COLOR;
+        }
+    }
+}
+
 rules.JSRule({
     name: "Update Current Light Color",
     description: "Updates the current light color",

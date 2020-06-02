@@ -5,6 +5,8 @@ Group gMeasurements "All Measurements"
 Group gZoneTemps "Zone Temperature Details"
 
 Group:Switch:OR(ON,OFF) gLivingRoom "Living Room Lights" <light> ["Lighting"]
+Group:Switch:OR(ON,OFF) gGamesRoom "Games Room Lights" <light> ["Lighting"]
+
 Group:Switch:OR(ON,OFF) gBedroom "Bedroom Lights" <light> ["Lighting"]
 
 Group:Number:AVG  gKidsRoomsTemperature "Kids Rooms Temperature (Average)"
