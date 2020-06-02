@@ -12,9 +12,13 @@ let zone = new HVACZone({
         temperature: "gLivingRoomTemperature",
         openings: "gGrannyFlatDoors",
     },
-    new ZoneTemperatureBounds("GrannyFlat", [
-        ["08:00", "17:30", 20, 28]
-    ])
+    new ZoneTemperatureBounds({
+        name: "GrannyFlat", 
+        bounds: [
+            ["08:00", "17:30", 20, 27]
+        ],
+        workdaysOnly: true
+    })
 );
 
 const processHvac = () => {

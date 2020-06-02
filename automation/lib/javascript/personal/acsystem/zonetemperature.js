@@ -1,16 +1,19 @@
 const LocalTime = require('js-joda').LocalTime;
 const log = require('ohj').log('zonetemperature');
 const JSJoda = require('js-joda');
-const { rules, triggers, items } = require('ohj');
+const { rules, triggers, items, osgi } = require('ohj');
 
 const ISO8601Formatter = JSJoda.DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSS[xxxx][xxxxx]");
 
+const Ephemeris = osgi.getService('org.eclipse.smarthome.core.ephemeris.EphemerisManager', 'org.openhab.core.ephemeris.EphemerisManager');
+const JavaZonedDateTime = Java.type('java.time.ZonedDateTime');
 
 class ZoneTemperatureBounds {
-    constructor(name, boundsConfig, passiveBoundsConfig) {
-        this.name = name;
-        this.boundsConfig = boundsConfig;
-        this.passiveBoundsConfig = passiveBoundsConfig;
+    constructor(config) {
+        this.name = config.name;
+        this.boundsConfig = config.bounds;
+        this.passiveBoundsConfig = config.passiveBound;
+        this.workdaysOnly = config.workdaysOnly || false;
         this.buildItems();
         this.updateItems();
         this.installRules();
@@ -39,8 +42,6 @@ class ZoneTemperatureBounds {
     get overideMinRemainingItem() {
         return items.getItem(`vOverrideMinsRemaining${this.name}`);
     }
-
-
 
     installRules() {
         rules.JSRule({
@@ -125,6 +126,13 @@ class ZoneTemperatureBounds {
     }
 
     boundsAtTimeForConfig(time, boundsConfig) {
+        if(this.workdaysOnly) {
+            let today = JavaZonedDateTime.now();
+            if(Ephemeris.isWeekend(today) || Ephemeris.isBankHoliday(today)) {
+                return {};
+            }
+        }
+
         for (let zoneRuleData of boundsConfig) {
             let from = LocalTime.parse(zoneRuleData[0]);
             let to = LocalTime.parse(zoneRuleData[1]);

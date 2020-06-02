@@ -24,9 +24,11 @@ let Zones = {
             duct: "KitchenDuct_Switch",
             openings: "gKitchenOpenings"
         },
-        new ZoneTemperatureBounds("Living", [
-            ["06:30", "21:00", 18, 30]
-        ])
+        new ZoneTemperatureBounds({
+            name: "Living", 
+            bounds: [
+                ["06:30", "21:00", 18, 30]
+        ]})
     ),
     "Kids": new DuctedHVACZone({
             label: "Kids Rooms",
@@ -34,11 +36,13 @@ let Zones = {
             duct: "KidsRoomsDuct_Switch",
             openings: "gKidsRoomsOpenings",
         },
-        new ZoneTemperatureBounds("Kids", [
+        new ZoneTemperatureBounds({
+            name: "Kids", 
+            bounds: [
             ["06:15", "07:15", 20, 30],
             ["18:15", "19:45", 20, 23],
             ["19:45", "06:15", 15, 23]
-        ])
+        ]})
     ),
     "Games": new DuctedHVACZone({
             label: "Games Room",
@@ -46,10 +50,12 @@ let Zones = {
             duct: "GamesDuct_Switch",
             openings: "gGamesRoomOpenings",
         },
-        new ZoneTemperatureBounds("Games", [
-            ["18:30", "21:30", 20, 27],
-            ["06:30", "18:30", 18, 30],
-        ])
+        new ZoneTemperatureBounds({
+            name: "Games", 
+            bounds: [
+                ["18:30", "21:30", 20, 27],
+                ["06:30", "18:30", 18, 30],
+        ]})
     ),
     "Upstairs": new UpstairsHVACZone({
             label: "Upstairs",
@@ -57,15 +63,17 @@ let Zones = {
             duct: "UpstairsDuct_Switch",
             openings: "gUpstairsOpenings",
         },
-        new ZoneTemperatureBounds("Upstairs", [
-            ["06:15", "07:45", 18, 24],
-            ["20:00", "21:30", 15, 20],
-            ["21:30", "06:15", 15, 19] // no ventilation
-            //["21:30", "06:15", 15, 19, true] //true -> ventilate if possible
-        ],
-        [
-            ["08:15", "20:00", 18, 35] //passive HVAC desires
-        ])
+        new ZoneTemperatureBounds({
+            name: "Upstairs", 
+            bounds: [
+                ["06:15", "07:45", 18, 24],
+                ["20:00", "21:30", 15, 20],
+                ["21:30", "06:15", 15, 19] // no ventilation
+                //["21:30", "06:15", 15, 19, true] //true -> ventilate if possible
+            ],
+            passiveBounds: [
+                ["08:15", "20:00", 18, 35] //passive HVAC desires
+        ]})
     )
 }
 
