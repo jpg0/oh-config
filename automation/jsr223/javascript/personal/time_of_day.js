@@ -3,7 +3,7 @@
 const log = require('ohj').log('time_of_day');
 const { rules, items, triggers } = require('ohj');
 
-const JSJoda = require('js-joda');
+const JSJoda = require('vendor/js-joda');
 const LocalDateTime = JSJoda.LocalDateTime;
 const LocalTime = JSJoda.LocalTime;
 
@@ -11,12 +11,12 @@ const ISO8601Formatter = JSJoda.DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:
 
 //these don't change
 const MORNING_START_STR = "06:00";
-const EVENING_START_STR = "20:00";
-const NIGHT_START_STR = "21:00";
+const EVENING_START_STR = "19:30";
+const NIGHT_START_STR = "20:30";
 
 const MORNING_START_CRON = "0 0 06 * * ? *";
-const EVENING_START_CRON = "0 0 20 * * ? *";
-const NIGHT_START_CRON = "0 0 21 * * ? *";
+const EVENING_START_CRON = "0 30 19 * * ? *";
+const NIGHT_START_CRON = "0 30 20 * * ? *";
 
 const MORNING_START = LocalTime.parse(MORNING_START_STR);
 const EVENING_START = LocalTime.parse(EVENING_START_STR);

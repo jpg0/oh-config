@@ -14,11 +14,17 @@
 	} else if(hsb.length == 3) {
 
 		return JSON.stringify({
-			"brightness": Math.round(hsb[2] / 100 * 255),
+			"brightness": Math.round(hsb[2] / 100 * 254),
 			"color": {
-					hue: hsb[0],
-					saturation: hsb[1]
+					hue: Number(hsb[0]),
+					saturation: Number(hsb[1])
 			}
 		});
+
+		// return JSON.stringify({
+		// 		"color": {
+		// 			"hsb": hsb_string
+		// 		}
+		// 	});
 	}
 })(input)

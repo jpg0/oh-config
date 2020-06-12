@@ -1,3 +1,6 @@
+const { transition } = require('transitioner');
+const { items } = require('ohj');
+
 try {
     require('ohj').log("schedules").info("Inserting schedules");
      
@@ -11,7 +14,9 @@ try {
 
         //Evening Lights
         when(timeOfDay("PRESUNSET")).then(sendOn().toItem("gEveningLights"), inGroup("Evening Lights"));
-        when(cron("0 20 21 * * ?")).then(sendOff().toItem("gEveningLights"), inGroup("Evening Lights"));
+        when(cron("0 20 21 * * ?")).then(() => {
+            items.getItem("gEveningLights").descendents.forEach(i => transition(i.name, 'OFF', 600))
+        }, inGroup("Evening Lights"));
 
         //Bedside Lights
         when(timeOfDay("SUNSET")).then(sendOn().toItem("Bedside_1_Light"), inGroup("Bedside Lights"));
@@ -24,7 +29,6 @@ try {
         //Flamingo Light
         when(timeOfDay("SUNSET")).then(sendOn().toItem("Flamingo_Switch"), inGroup("Flamingo"));
         when(cron("0 0 22 ? * * *")).then(sendOff().toItem("Flamingo_Switch"), inGroup("Flamingo"));
-
 
         //Indi's Closet Light
         when(cron("0 30 16 * * ? *")).then(send("300,100,100").toItem("Indis_Closet_Light"), inGroup("Kids Rooms Lights"));

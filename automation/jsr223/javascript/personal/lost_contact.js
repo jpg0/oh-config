@@ -1,7 +1,7 @@
 const { items, rules, triggers } = require('ohj');
 const alerteditems = require('alerteditems');
 const lastupdated = require('lastupdated');
-const JSJoda = require('js-joda');
+const JSJoda = require('vendor/js-joda');
 const log = require('ohj').log('lost_contact');
 
 const DATETIMETYPE_MIN = '2000-01-01T00:00:00.000+0000';

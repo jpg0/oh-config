@@ -1,5 +1,3 @@
-'use strict';
-
 const log = require('ohj').log("rollers");
 const { rules, triggers, items } = require('ohj');
 const rollerssystem = require('rollerssystem');
