@@ -1,5 +1,5 @@
 const { fluent, items } = require('ohj');
-const http = require('http');
+const http = require('jhttp');
 const log = require('ohj').log("phone-call-alerts");
 
 let placeCall = (toNumber, messageToSend) => () => {

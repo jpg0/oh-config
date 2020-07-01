@@ -3,7 +3,7 @@
 const log = require('ohj').log('time_of_day');
 const { rules, items, triggers } = require('ohj');
 
-const JSJoda = require('vendor/js-joda');
+const JSJoda = require('js-joda');
 const LocalDateTime = JSJoda.LocalDateTime;
 const LocalTime = JSJoda.LocalTime;
 

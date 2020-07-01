@@ -2,7 +2,7 @@
 
 let log = require('ohj').log("tasmota");
 let { rules, triggers, actions } = require('ohj');
-let http = require('http');
+let http = require('jhttp');
 
 rules.withNewRuleProvider(() => {
     rules.JSRule({

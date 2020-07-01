@@ -1,7 +1,7 @@
 const constants = require('constants');
 const log = require('ohj').log('buttons');
 const { fluent, actions, items, rules } = require('ohj');
-const LocalTime = require('vendor/js-joda').LocalTime;
+const LocalTime = require('js-joda').LocalTime;
 const comms = require('comms');
 
 with(fluent) {

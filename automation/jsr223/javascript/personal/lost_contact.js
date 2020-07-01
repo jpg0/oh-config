@@ -1,11 +1,11 @@
 const { items, rules, triggers } = require('ohj');
 const alerteditems = require('alerteditems');
 const lastupdated = require('lastupdated');
-const JSJoda = require('vendor/js-joda');
+const JSJoda = require('js-joda');
 const log = require('ohj').log('lost_contact');
 
 const DATETIMETYPE_MIN = '2000-01-01T00:00:00.000+0000';
-const ISO8601Formatter = JSJoda.DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSS[xxxx][xxxxx]");
+const ISO8601Formatter = JSJoda.DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss.[SSSSSS][SSS][xxxx][xxxxx]");
 
 
 rules.JSRule({

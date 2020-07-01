@@ -1,9 +1,9 @@
 const { items, triggers, rules } = require('ohj');
 const logger = require('ohj').log("cam_to_telegram");
-//const request = require('request');
+const request = require('request');
 
 let camCreds = require('secret').camCreds;
-let { DahuaCam } = require('vendor/dahua-cam');
+let { DahuaCam } = require('dahua-cam');
 
 rules.JSRule({
     name: "Propagate Cam Events to Telegram",
@@ -21,6 +21,9 @@ function pullAndSend({action, code, host}) {
                 password: camCreds.password,
                 host: host
             });
+
+            Java.type("org.slf4j.LoggerFactory").getLogger("script.js.dahua-cam").info("snapstart");
+
              
             cam.snapshot()
                 .then(a => logger.info("Len: " + a.length))
@@ -34,8 +37,3 @@ pullAndSend({
     code: "CrossLineDetection",
     host: "192.168.101.200"
 });
-
-
-
-
-
