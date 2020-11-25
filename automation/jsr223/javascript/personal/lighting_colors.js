@@ -24,7 +24,7 @@ rules.JSRule({
     description: "Transitions the light colours",
     triggers: [
         triggers.GenericCronTrigger("0 30/5 19 * * ? *"),
-        triggers.GenericCronTrigger("0 0,5,10,15,20,25,30 20 * * ? *"),
+        triggers.GenericCronTrigger("0 0,5,10,15,20,25 20 * * ? *"),
     ],
     execute: () => {
         for(let colorLight of items.getItem('gColorLights').descendents) {

@@ -17,6 +17,8 @@ const log = require('ohj').log('020_sitemaps');
 const { items, osgi, utils } = require('ohj');
 const alerteditems = require('alerteditems');
 
+//const humanizeDuration = require('humanize-duration');
+
 function registerSitemap() {
     let itemsNeedingAttention = alerteditems.getAlertedItems();
 
@@ -65,7 +67,7 @@ function registerSitemap() {
                         // ])),
                     ]),
                     Text({label:'Temperature Control', icon:"heating"}, Object.entries(require('acsystem').house.Zones).map(([zoneName, zoneConfig]) => 
-                        Text({item: zoneConfig.temperatureItemName, label:`${zoneName}[%.1f °C]`, icon:"group", labelColor:[`vOverrideMinsRemaining${zoneName}>0=red`]}, [
+                        Text({item: zoneConfig.temperatureItemName, label:`${zoneName} [%.1f °C]`, icon:"group", labelColor:[`vOverrideMinsRemaining${zoneName}>0=red`]}, [
                             Setpoint({item:`vMaxTemp${zoneName}`, label:`${zoneName} Max [%.1f °C]`, icon:"temperature_hot", step:1, minValue:16, maxValue:30}),
                             Setpoint({item:`vMinTemp${zoneName}`, label:`${zoneName} Min [%.1f °C]`, icon:"temperature_cold", step:1, minValue:16, maxValue:30}),
                             Text({item: zoneConfig.temperatureItemName, label:`${zoneName} Current [%.1f °C]`, icon:"temperature"}),
@@ -150,6 +152,8 @@ function registerSitemap() {
                     //Switch item:OutdoorWater_Switch_1 label:"Sprinkler" icon:"lawnmower"
                     Switch({item:'OutdoorWater_Switch_2', label:"Kids Kitchen Tap", icon:"faucet"}),
                     Switch({item:'OutdoorWater_Switch_3', label:"Back Garden Irrigation", icon:"lawnmower"}),
+                    Switch({item:'OutdoorWater_Switch_4', label:"Veggie Irrigation", icon:"lawnmower"}),
+
                 ]),
                 Text({label:"Solar", icon:"sun_clouds"}, [
                     Default({item:"AC_Power"}),
@@ -215,12 +219,12 @@ function registerSitemap() {
                     ),
                     Text({label:"History"}, [
                             Webview({height:20, url:"http://192.168.1.10:3000/d/vLhLKOjWz/default?orgId=1&panelId=2&fullscreen"})
-                    ]),
-                    Group({item:'gLastUpdated'}),
+                    ])
                 ]),
                 Group({item:'gBattery', label:"Battery Levels", icon:"battery"}),
                 Group({item:'gHumidity', label:"Humidity", icon:"water"}),
-                Group({item:'gPressure', label:"Pressure", icon:"pressure"}), 
+                Group({item:'gPressure', label:"Pressure", icon:"pressure"}),
+                Group({item:'gLastUpdated'})
             ]),
 
         ]
