@@ -1,0 +1,10 @@
+Thing mqtt:topic:mosquitto:gamesroomroller  "MQTT Thing: Games Room Roller" (mqtt:broker:mosquitto) {
+    Channels:
+
+        Type dimmer : dimmer "dimmer" [ 
+            stateTopic = "stat/tasmota_7DAB5C/POSITION",
+            commandTopic = "cmnd/tasmota_7DAB5C/Dimmer"]
+        
+        Type number : rssi "RSSI" [ stateTopic = "tele/tasmota_7DAB5C/STATE", transformationPattern="JSONPATH:$.Wifi.RSSI" ]
+        Type switch : reachable "Reachable" [ stateTopic = "tele/tasmota_7DAB5C/LWT", transformationPattern="MAP:reachable.map" ]
+}

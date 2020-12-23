@@ -1,0 +1,20 @@
+Group gWeather "Weather Observations"
+
+DateTime	Weather_epoch	"Time [%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS]"	(gWeather)	{ channel="weatherflowsmartweather:tempest:HB-00040712:ST-00021235:epoch" }
+Number  Weather_temperature	"Temperature [%.2f °C]"	(gWeather)	{ channel="weatherflowsmartweather:tempest:HB-00040712:ST-00021235:temperature" }
+Number	Weather_pressure	"Local Barometric Pressure [%.2f mb]"	(gWeather)	{ channel="weatherflowsmartweather:tempest:HB-00040712:ST-00021235:pressure" }
+Number	Weather_humidity	"Relative Humidity [%d %%]"	(gWeather)	{ channel="weatherflowsmartweather:tempest:HB-00040712:ST-00021235:humidity" }
+Number	Weather_strike_count	"Lightning Strike Count [%s]"	(gWeather)	{ channel="weatherflowsmartweather:tempest:HB-00040712:ST-00021235:strike_count" }
+Number	Weather_strike_distance	"Average Lightning Strike Distance [%s km]"	(gWeather)	{ channel="weatherflowsmartweather:tempest:HB-00040712:ST-00021235:strike_distance" }
+Number	Weather_illuminance	"Illuminance [%s]"	(gWeather)	{ channel="weatherflowsmartweather:tempest:HB-00040712:ST-00021235:illuminance" }
+Number	Weather_uv	"UV Index [%s]"	(gWeather)	{ channel="weatherflowsmartweather:tempest:HB-00040712:ST-00021235:uv" }
+Number	Weather_rain_accumulated	"Rain Accumulated [%s mm]"	(gWeather)	{ channel="weatherflowsmartweather:tempest:HB-00040712:ST-00021235:rain_accumulated" }
+Number	Weather_wind_lull	"Wind Lull [%s km/h]"	(gWeather)	{ channel="weatherflowsmartweather:tempest:HB-00040712:ST-00021235:wind_lull" }
+Number	Weather_wind_avg	"Wind Avg [%s km/h]"	(gWeather)	{ channel="weatherflowsmartweather:tempest:HB-00040712:ST-00021235:wind_avg" }
+Number	Weather_wind_gust	"Wind Gust [%s km/h]"	(gWeather)	{ channel="weatherflowsmartweather:tempest:HB-00040712:ST-00021235:wind_gust" }
+Number	Weather_wind_direction	"Wind Direction [%s]"	(gWeather)	{ channel="weatherflowsmartweather:tempest:HB-00040712:ST-00021235:wind_direction" }
+Number	Weather_report_interval	"Report Interval [%s]"	(gWeather)	{ channel="weatherflowsmartweather:tempest:HB-00040712:ST-00021235:report_interval" }
+Number	Weather_solar_radiation	"Solar Radiation [%s W/m\u00b2]"	(gWeather)	{ channel="weatherflowsmartweather:tempest:HB-00040712:ST-00021235:solar_radiation" }
+Number	Weather_precipitation_type	"Precipitation Type [%s]"	(gWeather)	{ channel="weatherflowsmartweather:tempest:HB-00040712:ST-00021235:precipitation_type" }
+Number	Weather_wind_sample_interval	"Wind Sample Interval [%s]"	(gWeather)	{ channel="weatherflowsmartweather:tempest:HB-00040712:ST-00021235:wind_sample_interval" }
+Number	Weather_battery_level	"Sensor Battery Level [%s V]"	(gWeather)	{ channel="weatherflowsmartweather:tempest:HB-00040712:ST-00021235:battery_level" }
