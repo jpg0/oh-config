@@ -155,6 +155,7 @@ function registerSitemap() {
                     Switch({item:'OutdoorWater_Switch_4', label:"Veggie Irrigation", icon:"lawnmower"}),
 
                 ]),
+                Default({item:'gWeather'}),
                 Text({label:"Solar", icon:"sun_clouds"}, [
                     Default({item:"AC_Power"}),
                     Default({item:"Day_Energy"}),
@@ -171,6 +172,14 @@ function registerSitemap() {
                 ]),
             ]), 
             Frame({label:"Other"}, [
+                Switch({item:'GamesRoomRoller_Dimmer', label:"Games Room Roller [CLOSED]",  mappings:{0:"Open",100:"Close"}, visibility:['GamesRoomRoller_Dimmer==100']}),
+                Switch({item:'GamesRoomRoller_Dimmer', label:"Games Room Roller [OPEN]",    mappings:{0:"Open",100:"Close"}, visibility:['GamesRoomRoller_Dimmer==0']}),
+                Switch({item:'GamesRoomRoller_Dimmer', label:"Games Room Roller [UNKNOWN]", mappings:{0:"Open",100:"Close"}, visibility:['GamesRoomRoller_Dimmer==NULL']}),
+                Switch({item:'GamesRoomRoller_Dimmer', label:"Games Room Roller [UNKNOWN]", mappings:{0:"Open",100:"Close"}, visibility:['GamesRoomRoller_Dimmer==UNDEF']}),
+        
+                // Default({item:"GamesRoomRoller_Dimmer"}),
+
+                
                 Switch({item:'Red_Hand', label:"Red Hand", icon:"light"}),
                 Switch({item:'3D_Printer_Switch'}),
                 Default({item:'Indis_Closet_Light', label:"Indi's Closet", icon:"light"}),
