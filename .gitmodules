@@ -1,3 +1,6 @@
 [submodule "automation/lib/javascript/personal/ohj"]
 	path = automation/lib/javascript/personal/ohj
 	url = git@github.com:/jpg0/ohj
+[submodule "automation/lib/javascript/personal/node_modules/ohj"]
+	path = automation/lib/javascript/personal/node_modules/ohj
+	url = git@github.com:/jpg0/ohj
