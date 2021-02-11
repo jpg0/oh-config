@@ -172,14 +172,11 @@ function registerSitemap() {
                 ]),
             ]), 
             Frame({label:"Other"}, [
-                Switch({item:'GamesRoomRoller_Dimmer', label:"Games Room Roller [CLOSED]",  mappings:{0:"Open",100:"Close"}, visibility:['GamesRoomRoller_Dimmer==100']}),
-                Switch({item:'GamesRoomRoller_Dimmer', label:"Games Room Roller [OPEN]",    mappings:{0:"Open",100:"Close"}, visibility:['GamesRoomRoller_Dimmer==0']}),
-                Switch({item:'GamesRoomRoller_Dimmer', label:"Games Room Roller [UNKNOWN]", mappings:{0:"Open",100:"Close"}, visibility:['GamesRoomRoller_Dimmer==NULL']}),
-                Switch({item:'GamesRoomRoller_Dimmer', label:"Games Room Roller [UNKNOWN]", mappings:{0:"Open",100:"Close"}, visibility:['GamesRoomRoller_Dimmer==UNDEF']}),
-        
-                // Default({item:"GamesRoomRoller_Dimmer"}),
+                Switch({item:'GamesRoomRoller_Dimmer', label:"Games Room Roller [CLOSED]",  mappings:{1:"Open",100:"Close"}, visibility:['GamesRoomRoller_Dimmer==100']}),
+                Switch({item:'GamesRoomRoller_Dimmer', label:"Games Room Roller [OPEN]",    mappings:{1:"Open",100:"Close"}, visibility:['GamesRoomRoller_Dimmer==1']}),
+                Switch({item:'GamesRoomRoller_Dimmer', label:"Games Room Roller [UNKNOWN]", mappings:{1:"Open",100:"Close"}, visibility:['GamesRoomRoller_Dimmer==NULL']}),
+                Switch({item:'GamesRoomRoller_Dimmer', label:"Games Room Roller [UNKNOWN]", mappings:{1:"Open",100:"Close"}, visibility:['GamesRoomRoller_Dimmer==UNDEF']}),
 
-                
                 Switch({item:'Red_Hand', label:"Red Hand", icon:"light"}),
                 Switch({item:'3D_Printer_Switch'}),
                 Default({item:'Indis_Closet_Light', label:"Indi's Closet", icon:"light"}),
