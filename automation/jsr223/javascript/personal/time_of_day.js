@@ -67,6 +67,12 @@ var update = function () {
 
   // Publish the current state
   log.info("Calculated time of day is " + curr);
+
+  if(items.getItem('vTimeOfDay').state == "PRESUNSET" && curr == "EVENING") {
+    log.debug("Transitioning time of day thru SUNSET"); //don't skip this stage
+    items.getItem('vTimeOfDay').sendCommandIfDifferent("SUNSET");
+  }
+
   items.getItem('vTimeOfDay').sendCommandIfDifferent(curr);
 }
 
