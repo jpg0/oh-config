@@ -1,0 +1,2 @@
+Switch FrontDoorLock "Front Door Lock State" { 
+    channel="mqtt:topic:mosquitto:frontdoorlock:locked" }
