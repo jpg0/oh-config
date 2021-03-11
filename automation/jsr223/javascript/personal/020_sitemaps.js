@@ -128,7 +128,7 @@ function registerSitemap() {
         
                 Switch({item:'UpstairsDoorLatch_Switch'}),
                 Switch({item:'Upstairs_Toilet_Switch'}),
-                Switch({item:'Ooler_Switch'}),
+                // Switch({item:'Ooler_Switch'}),
         
                 Switch({label:"Rollers", item:'vRollersScene', mappings:{UP:"Up", DOWN:"Down", SHADE:"Shade", MORNING:"Morning"}}),
                 Text({label:"Windows & Doors [%s]", item:'gUpstairsOpenings'}, [

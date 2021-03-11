@@ -4,7 +4,7 @@ let log = require('ohj').log("tasmota");
 let { rules, triggers, actions } = require('ohj');
 let http = require('jhttp');
 
-rules.withNewRuleProvider(() => {
+// rules.withNewRuleProvider(() => { //not yet working in OH3
     rules.JSRule({
         name: "tasmota backup",
         description: "tasmota - backup config on status5 message",
@@ -32,4 +32,4 @@ rules.withNewRuleProvider(() => {
             actions.get("mqtt", "mqtt:broker:mosquitto").publishMQTT("cmnd/tasmotas/status", "5");
         }
     })
-}); 
+// });
