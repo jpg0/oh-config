@@ -43,7 +43,7 @@ for(let item of items.getItemsByTag('ColorLight')) {
         description: `proxies commands to light ${item.name}, possibly introducing a transition`,
         triggers: [triggers.ItemCommandTrigger(item.name)],
         execute: args => {
-            let receivedCommand = args.receivedCommand.toString();
+            let receivedCommand = args.payload.value.toString();
             log.debug("proxy for {} received command {}", item.name, receivedCommand);
             
             if(receivedCommand === 'ON') { //use the current light colour
