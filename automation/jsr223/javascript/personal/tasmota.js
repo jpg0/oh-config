@@ -4,6 +4,8 @@ let log = require('ohj').log("tasmota");
 let { rules, triggers, actions } = require('ohj');
 let http = require('jhttp');
 
+let backupDir = Java.type("org.openhab.core.OpenHAB").getUserDataFolder() + "/tasmota";
+
 // rules.withNewRuleProvider(() => { //not yet working in OH3
     rules.JSRule({
         name: "tasmota backup",
@@ -18,7 +20,7 @@ let http = require('jhttp');
 
             log.debug("Backing up tasmota device: " + hostname + " (" + ipAddress + ")");
 
-            http.download("http://" + ipAddress + "/dl", "/var/backups/tasmota/" + hostname);
+            http.download(`http://${ipAddress}/dl`, `${backupDir}/${hostname}`);
         }
     });
 
