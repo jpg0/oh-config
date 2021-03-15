@@ -1,4 +1,4 @@
-sitemap default label="Home" {
+sitemap Old label="Old" {
     Frame label="Main" {
 	Switch item=vTimeOfDay label="[]" mappings=[MORNING="Morning", DAY="Day", SUNSET="Sunset", EVENING="Evening", NIGHT="Night"]
         Switch item=gLivingRoom icon="light"
