@@ -1,3 +1,13 @@
+//Floors
+Group gUpstairs "Upstairs" ["FirstFloor"]
+Group gDownstairs "Downstairs" ["GroundFloor"]
+
+//Rooms
+Group gUpstairsBedroom "Upstairs Bedroom" (gUpstairs) ["Bedroom"]
+Group gGamesRoom "Games Room" (gDownstairs) ["FamilyRoom"]
+
+
+
 Group gZ2M "Zigbee2MQTT Devices"
 
 Group gMeasurements "All Measurements"
@@ -5,7 +15,7 @@ Group gMeasurements "All Measurements"
 Group gZoneTemps "Zone Temperature Details"
 
 Group:Switch:OR(ON,OFF) gLivingRoom "Living Room Lights" <light> ["Lighting"]
-Group:Switch:OR(ON,OFF) gGamesRoom "Games Room Lights" <light> ["Lighting"]
+Group:Switch:OR(ON,OFF) gGamesRoomLights "Games Room Lights" <light> (gGamesRoom) ["Lighting"]
 
 Group:Switch:OR(ON,OFF) gBedroom "Bedroom Lights" <light> ["Lighting"]
 

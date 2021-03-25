@@ -34,7 +34,7 @@ function registerSitemap() {
             Frame({label:"Main"}, [ 
                 ...alerted,
                 Switch({item:'gLivingRoom', icon:"light"}),
-                Switch({item:'gGamesRoom', icon:"light"}),
+                Switch({item:'gGamesRoomLights', icon:"light"}),
 
                 Switch({item:'GarageSideDoor_Switch', label:"Garage Side Door", icon:"frontdoor", mappings:{ON:"Unlock"}, valueColor:["GarageSideDoor_Switch==ON=red","GarageSideDoor_Switch==OFF=green"]}),           
                 Switch({label:"Rollers", item:'vRollersScene', mappings:{UP:"Up", DOWN:"Down", SHADE:"Shade", MORNING:"Morning"}}),
