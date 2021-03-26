@@ -33,7 +33,7 @@ function registerSitemap() {
     registerSingleton(SitemapProvider([Sitemap({name:"default", label:"Home"}, [
             Frame({label:"Main"}, [ 
                 ...alerted,
-                Switch({item:'gLivingRoom', icon:"light"}),
+                Switch({item:'gLivingRoomLights', icon:"light"}),
                 Switch({item:'gGamesRoomLights', icon:"light"}),
 
                 Switch({item:'GarageSideDoor_Switch', label:"Garage Side Door", icon:"frontdoor", mappings:{ON:"Unlock"}, valueColor:["GarageSideDoor_Switch==ON=red","GarageSideDoor_Switch==OFF=green"]}),           
@@ -87,7 +87,7 @@ function registerSitemap() {
                 Default({item:"LivingRoom_Corner_Light", label:"Corner Light", icon:"light"}),
                 Default({item:"Hallway_Light", label:"Hallway Lamp"}),
                 Default({item:"HallwayLights_Switch", label:"Hallway Lights"}),
-                Default({item:"gLivingRoom", icon:"light"}),
+                Default({item:"gLivingRoomLights", icon:"light"}),
                 Default({item:"zgKitchenLeds_Light", label:"Kitchen LEDs", icon:"light"}),
                 Default({item:"Flamingo_Switch", label:"Flamingo", icon:"flamingo"}),
                 Text({label:"Individual Kitchen LEDs", icon:"light"}, [
@@ -127,7 +127,7 @@ function registerSitemap() {
                 Switch({item:'UpstairsLouvresLarge_Click', label:"Large Louvres [UNKNOWN]", mappings:{open:"Open",close:"Close"}, visibility:['UpstairsLouvresLarge_Contact==UNDEF']}),
         
                 Switch({item:'UpstairsDoorLatch_Switch'}),
-                Switch({item:'Upstairs_Toilet_Switch'}),
+                Switch({item:'Upstairs_Toilet_Switch_Switch'}),
                 // Switch({item:'Ooler_Switch'}),
         
                 Switch({label:"Rollers", item:'vRollersScene', mappings:{UP:"Up", DOWN:"Down", SHADE:"Shade", MORNING:"Morning"}}),
@@ -143,9 +143,9 @@ function registerSitemap() {
                 Switch({item:'GarageLights_Switch', label:"Garage Lights", icon:"light"}),
                 Default({item:'Garage_Side_Door_Occupancy', label:"Garage Occupied"}),
                 
-                Switch({item:'GarageCarDoor_Switch', label:"Garage Car Door [CLOSED]", mappings:{ON:"Open"}, icon:"garage", visibility:['Garage_Car_Door_Contact==CLOSED'], valueColor:["green"]}),
-                Switch({item:'GarageCarDoor_Switch', label:"Garage Car Door [OPEN]", mappings:{ON:"Close"}, icon:"garage", visibility:['Garage_Car_Door_Contact==OPEN'], valueColor:["red"]}),
-                Switch({item:'GarageCarDoor_Switch', label:"Garage Car Door [UNKNOWN]", mappings:{ON:"Activate"}, icon:"garage", visibility:['Garage_Car_Door_Contact==NULL'], valueColor:["red"]}),
+                Switch({item:'GarageCarDoor_Switch', label:"Garage Car Door [CLOSED]", mappings:{ON:"Open"}, icon:"garage", visibility:['Garage_Car_Door_Contact_Contact==CLOSED'], valueColor:["green"]}),
+                Switch({item:'GarageCarDoor_Switch', label:"Garage Car Door [OPEN]", mappings:{ON:"Close"}, icon:"garage", visibility:['Garage_Car_Door_Contact_Contact==OPEN'], valueColor:["red"]}),
+                Switch({item:'GarageCarDoor_Switch', label:"Garage Car Door [UNKNOWN]", mappings:{ON:"Activate"}, icon:"garage", visibility:['Garage_Car_Door_Contact_Contact==NULL'], valueColor:["red"]}),
                 Text({label:"Water"}, [
                     Switch({item:'FrontGardenIrrigation_Switch', label:"Front Garden Irrigation", icon:"lawnmower"}),
                     Switch({item:'Hose_Switch', label:"Back Garden Hose", icon:"faucet"}),
@@ -181,7 +181,7 @@ function registerSitemap() {
 
                 
                 Switch({item:'Red_Hand', label:"Red Hand", icon:"light"}),
-                Switch({item:'3D_Printer_Switch'}),
+                Switch({item:'3D_Printer_Switch_Switch'}),
                 Default({item:'Indis_Closet_Light', label:"Indi's Closet", icon:"light"}),
                 Text({label:"Sony Bravia"}, [
                     Selection({item:'Bravia_IR', mappings:{"Channel-Up":"Channel Up","Channel-Down":"Channel Down",Left:"Left"}}),

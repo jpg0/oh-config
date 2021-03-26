@@ -28,8 +28,8 @@ let log = require('ohj').log("octoprint");
 let { rules, triggers, items } = require('ohj');
 let comms = require('comms');
 
-let isPrintingItem = items.replaceItem('IsPrinting', 'Switch', null, [], 'Is Currently Printing');
-let isPrintClientOpenItem = items.replaceItem('IsPrintClientOpen', 'Switch', null, [], 'Is printer client currently open');
+let isPrintingItem = items.replaceItem('IsPrinting', 'Switch', null, ["threeDPrinter"], 'Is Currently Printing', ["PowerOutlet"]);
+let isPrintClientOpenItem = items.replaceItem('IsPrintClientOpen', 'Switch', null, ["g3DPrinter"], 'Is printer client currently open');
 
 rules.JSRule({
     name: "octoprint_power",
@@ -65,7 +65,7 @@ rules.JSRule({
 });
 
 with(require('ohj').fluent){
-    let printerPowerSwitch = items.getItem('3D_Printer_Switch');
+    let printerPowerSwitch = items.getItem('3D_Printer_Switch_Switch');
 
 
     when(item(isPrintingItem.name)    .changed().from('OFF').to('ON')).
