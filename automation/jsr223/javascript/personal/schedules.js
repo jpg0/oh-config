@@ -19,12 +19,12 @@ try {
         }, inGroup("Evening Lights"));
 
         //Bedside Lights
-        when(timeOfDay("SUNSET")).then(sendOn().toItem("Bedside_1_Light"), inGroup("Bedside Lights"));
-        when(cron("0 0 22 ? * * *")).then(sendOff().toItem("Bedside_1_Light"), inGroup("Bedside Lights"));
+        when(timeOfDay("SUNSET")).then(sendOn().toItem("Bedside_1_Light_Color"), inGroup("Bedside Lights"));
+        when(cron("0 0 22 ? * * *")).then(sendOff().toItem("Bedside_1_Light_Color"), inGroup("Bedside Lights"));
 
         //Hallway Lights
-        when(timeOfDay("SUNSET")).then(sendOn().toItem("Hallway_Light"), inGroup("Hallway Lights"));
-        when(timeOfDay("MORNING")).then(sendOff().toItem("Hallway_Light"), inGroup("Hallway Lights"));
+        when(timeOfDay("SUNSET")).then(sendOn().toItem("Hallway_Light_Color"), inGroup("Hallway Lights"));
+        when(timeOfDay("MORNING")).then(sendOff().toItem("Hallway_Light_Color"), inGroup("Hallway Lights"));
 
         //Flamingo Light
         when(timeOfDay("SUNSET")).then(sendOn().toItem("Flamingo_Switch"), inGroup("Flamingo"));
