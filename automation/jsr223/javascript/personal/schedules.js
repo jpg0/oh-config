@@ -31,9 +31,9 @@ try {
         when(cron("0 0 22 ? * * *")).then(sendOff().toItem("Flamingo_Switch"), inGroup("Flamingo"));
 
         //Indi's Closet Light
-        when(cron("0 30 16 * * ? *")).then(send("300,100,100").toItem("Indis_Closet_Light"), inGroup("Kids Rooms Lights"));
-        when(cron("0 15 19 * * ? *")).then(send("300,100,25" ).toItem("Indis_Closet_Light"), inGroup("Kids Rooms Lights"));
-        when(cron("0 00 07 * * ? *")).then(sendOff().          toItem("Indis_Closet_Light"), inGroup("Kids Rooms Lights"));
+        when(cron("0 30 16 * * ? *")).then(send("300,100,100").toItem("Indis_Closet_Light_Color"), inGroup("Kids Rooms Lights"));
+        when(cron("0 15 19 * * ? *")).then(send("300,100,25" ).toItem("Indis_Closet_Light_Color"), inGroup("Kids Rooms Lights"));
+        when(cron("0 00 07 * * ? *")).then(sendOff().          toItem("Indis_Closet_Light_Color"), inGroup("Kids Rooms Lights"));
 
         //Ooler
         when(cron("0 00 20 * * ? *")).then(sendOn().toItem("BedPump_Switch"), inGroup("Ooler"));

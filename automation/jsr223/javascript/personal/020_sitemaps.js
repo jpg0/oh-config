@@ -182,7 +182,7 @@ function registerSitemap() {
                 
                 Switch({item:'Red_Hand', label:"Red Hand", icon:"light"}),
                 Switch({item:'3D_Printer_Switch_Switch'}),
-                Default({item:'Indis_Closet_Light', label:"Indi's Closet", icon:"light"}),
+                Default({item:'Indis_Closet_Light_Color', label:"Indi's Closet", icon:"light"}),
                 Text({label:"Sony Bravia"}, [
                     Selection({item:'Bravia_IR', mappings:{"Channel-Up":"Channel Up","Channel-Down":"Channel Down",Left:"Left"}}),
                     Switch({item:'Bravia_Power'}),
