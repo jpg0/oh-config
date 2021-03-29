@@ -40,11 +40,11 @@ try {
         when(cron("0 00 21 * * ? *")).then(sendOff().toItem("BedPump_Switch"), inGroup("Ooler"));
 
         //Upstairs Toilet
-        when(cron("0 00 21 * * ? *")).then(sendOff().toItem("Upstairs_Toilet_Switch"), inGroup("Upstairs Toilet"));
-        when(cron("0 00 8 * * ? *")).then(sendOn().toItem("Upstairs_Toilet_Switch"), inGroup("Upstairs Toilet"));
+        when(cron("0 00 21 * * ? *")).then(sendOff().toItem("Upstairs_Toilet_Switch_Switch"), inGroup("Upstairs Toilet"));
+        when(cron("0 00 8 * * ? *")).then(sendOn().toItem("Upstairs_Toilet_Switch_Switch"), inGroup("Upstairs Toilet"));
         when(item('UpstairsBathroomLight_Switch').changed())
             .if(() => new Date().getHours() == 7)
-            .then(sendOn().toItem("Upstairs_Toilet_Switch"), inGroup("Upstairs Toilet"));
+            .then(sendOn().toItem("Upstairs_Toilet_Switch_Switch"), inGroup("Upstairs Toilet"));
         
     }
 } catch(e) {

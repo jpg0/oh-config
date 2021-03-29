@@ -1,0 +1,12 @@
+Thing mqtt:topic:mosquitto:frontdoorlock  "Front Door Lock"
+     (mqtt:broker:mosquitto) @ "Front Door"
+{
+    Channels:
+        Type switch : locked "Locked"
+            [
+                commandTopic = "zigbee2mqtt/0x000d6f0011193700/set",
+                transformationPattern = "JS:lock_actions.js",
+                stateTopic = "zigbee2mqtt/0x000d6f0011193700",
+                on="{\"state\":\"LOCK\"}", off="{\"state\":\"UNLOCK\"}"
+            ]
+}

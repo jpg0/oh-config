@@ -1,0 +1,9 @@
+// switch = FrontDoorLock
+// contact = Front_Door_Contact_Contact
+
+insert into ItemCommandOut (itemName, itemCommand)
+select 'FrontDoorLock' as itemName, 'ON' as itemCommand
+from pattern [
+    every ItemStateEvent(itemName='Front_Door_Contact_Contact', itemState.toFullString()='CLOSED') ->
+    (timer:interval(120 sec) and not ItemStateEvent(itemName='Front_Door_Contact_Contact', itemState.toFullString()='OPEN'))
+]
