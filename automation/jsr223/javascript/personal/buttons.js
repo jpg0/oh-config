@@ -16,7 +16,7 @@ with(fluent) {
     when(item('Indis_Closet_Button').changed().to("single")).then(sendToggle().toItem('Indis_Closet_Light_Color'), inGroup("Kids Bedrooms"));
     when(item('Indis_Closet_Button').changed().to("long")).then(send(constants.DAYTIME_LIGHT_COLOR.toString()).toItem('Indis_Closet_Light_Color'), inGroup("Kids Bedrooms"));   
 
-    when(item('Front_Door_Button').changed().to('single')).then(sendOn().toItem('GarageSideDoor_Switch'));
+    when(item('Front_Door_Button_Button').changed().to('single')).then(sendOn().toItem('GarageSideDoor_Switch'));
 
     when(item('UpstairsBathroomLight_Switch').receivedCommand()).then(sendToggle().toItem('Upstairs_Toilet_Light_Color'), inGroup("Upstairs"));
 
