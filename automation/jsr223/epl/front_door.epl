@@ -3,7 +3,7 @@
 
 insert into ItemCommandOut (itemName, itemCommand)
 select 'FrontDoorLock' as itemName, 'ON' as itemCommand
-from pattern [
+from pattern @SuppressOverlappingMatches [
     every ItemStateEvent(itemName='Front_Door_Contact_Contact', itemState.toFullString()='CLOSED') ->
-    (timer:interval(120 sec) and not ItemStateEvent(itemName='Front_Door_Contact_Contact', itemState.toFullString()='OPEN'))
+    (timer:interval(120 sec) and not ItemStateEvent(itemName='Front_Door_Contact_Contact'))
 ]

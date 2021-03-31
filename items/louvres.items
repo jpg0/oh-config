@@ -1,31 +1,34 @@
 
+Group gUpstairsLouvresSmall "Louvres (Small)" (gUpstairsBedroom) ["Blinds"]
+
 //switch to trigger bulk open/close
-Switch UpstairsLouvresSmall "Louvres (Small)" ["Tasmota"] { channel="mqtt:topic:mosquitto:louvres_s:openclose" }
+Switch UpstairsLouvresSmall "Louvres (Small) Control" (gUpstairsLouvresSmall) ["Tasmota", "Control", "Opening"] { channel="mqtt:topic:mosquitto:louvres_s:openclose" }
 //click item from tasmota
-String UpstairsLouvresSmall_Click "Louvres (Small) Clicks" <window> { channel="mqtt:topic:mosquitto:louvres_s:click", expire="2s" }
+String UpstairsLouvresSmall_Click "Louvres (Small) Clicks" <window> (gUpstairsLouvresSmall) { channel="mqtt:topic:mosquitto:louvres_s:click", expire="2s" }
 //contact proxy for openings
-Contact UpstairsLouvresSmall_Contact "Louvres (Small) Contact"
+Contact UpstairsLouvresSmall_Contact "Louvres (Small) Contact" (gUpstairsLouvresSmall) ["OpenState", "Opening"]
 //Switch reporting *current* opening motion
-Switch UpstairsLouvresSmall_Opening "Louvres (Small) Opening Motion" { channel="mqtt:topic:mosquitto:louvres_s:opening" }
+Switch UpstairsLouvresSmall_Opening "Louvres (Small) Opening Motion" (gUpstairsLouvresSmall) { channel="mqtt:topic:mosquitto:louvres_s:opening" }
 //Switch reporting *current* closing motion
-Switch UpstairsLouvresSmall_Closing "Louvres (Small) Closing Motion" { channel="mqtt:topic:mosquitto:louvres_s:closing" }
+Switch UpstairsLouvresSmall_Closing "Louvres (Small) Closing Motion" (gUpstairsLouvresSmall) { channel="mqtt:topic:mosquitto:louvres_s:closing" }
 
-Switch UpstairsLouvresSmall_Reachable "UpstairsLouvresSmall: reachable" (gReachable) { channel="mqtt:topic:mosquitto:louvres_s:reachable" }
+Switch UpstairsLouvresSmall_Reachable "UpstairsLouvresSmall: reachable" (gReachable, gUpstairsLouvresSmall) { channel="mqtt:topic:mosquitto:louvres_s:reachable" }
     
-Number UpstairsLouvresSmall_RSSI "UpstairsLouvresSmall: RSSI [%d %%]" (gRSSI) { channel="mqtt:topic:mosquitto:louvres_s:rssi" }
+Number UpstairsLouvresSmall_RSSI "UpstairsLouvresSmall: RSSI [%d %%]" (gRSSI, gUpstairsLouvresSmall) ["Measurement"] { channel="mqtt:topic:mosquitto:louvres_s:rssi" }
 
-
-
-
-Switch UpstairsLouvresLarge "Louvres (Large)" ["Tasmota"] { channel="mqtt:topic:mosquitto:louvres_l:openclose" }
-
-String UpstairsLouvresLarge_Click "Louvres (Large) Clicks" <window> { channel="mqtt:topic:mosquitto:louvres_l:click", expire="2s" }
  
-Contact UpstairsLouvresLarge_Contact "Louvres (Large) Contact"
+Group gUpstairsLouvresLarge "Louvres (Large)" (gUpstairsBedroom) ["Blinds"]
 
-Switch UpstairsLouvresLarge_Opening "Louvres (Large) Opening Motion" { channel="mqtt:topic:mosquitto:louvres_l:opening" }
-Switch UpstairsLouvresLarge_Closing "Louvres (Large) Closing Motion" { channel="mqtt:topic:mosquitto:louvres_l:closing" }
 
-Switch UpstairsLouvresLarge_Reachable "UpstairsLouvresLarge: reachable" (gReachable) { channel="mqtt:topic:mosquitto:louvres_l:reachable" }
+Switch UpstairsLouvresLarge "Louvres (Large) Control" (gUpstairsLouvresLarge) ["Tasmota", "Control", "Opening"] { channel="mqtt:topic:mosquitto:louvres_l:openclose" }
+
+String UpstairsLouvresLarge_Click "Louvres (Large) Clicks" <window> (gUpstairsLouvresLarge) { channel="mqtt:topic:mosquitto:louvres_l:click", expire="2s" }
+ 
+Contact UpstairsLouvresLarge_Contact "Louvres (Large) Contact" (gUpstairsLouvresLarge) ["OpenState", "Opening"]
+
+Switch UpstairsLouvresLarge_Opening "Louvres (Large) Opening Motion" (gUpstairsLouvresLarge) { channel="mqtt:topic:mosquitto:louvres_l:opening" }
+Switch UpstairsLouvresLarge_Closing "Louvres (Large) Closing Motion" (gUpstairsLouvresLarge) { channel="mqtt:topic:mosquitto:louvres_l:closing" }
+
+Switch UpstairsLouvresLarge_Reachable "UpstairsLouvresLarge: reachable" (gReachable, gUpstairsLouvresLarge) { channel="mqtt:topic:mosquitto:louvres_l:reachable" }
     
-Number UpstairsLouvresLarge_RSSI "UpstairsLouvresLarge: RSSI [%d %%]" (gRSSI) { channel="mqtt:topic:mosquitto:louvres_l:rssi" }
+Number UpstairsLouvresLarge_RSSI "UpstairsLouvresLarge: RSSI [%d %%]" (gRSSI, gUpstairsLouvresLarge) ["Measurement"] { channel="mqtt:topic:mosquitto:louvres_l:rssi" }
