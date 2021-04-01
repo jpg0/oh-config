@@ -28,7 +28,7 @@ let log = require('ohj').log("octoprint");
 let { rules, triggers, items } = require('ohj');
 let comms = require('comms');
 
-let isPrintingItem = items.replaceItem('IsPrinting', 'Switch', null, ["threeDPrinter"], 'Is Currently Printing', ["PowerOutlet"]);
+let isPrintingItem = items.replaceItem('IsPrinting', 'Switch', null, ["g3DPrinter"], 'Is Currently Printing', ["PowerOutlet"]);
 let isPrintClientOpenItem = items.replaceItem('IsPrintClientOpen', 'Switch', null, ["g3DPrinter"], 'Is printer client currently open');
 
 rules.JSRule({

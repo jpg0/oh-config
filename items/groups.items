@@ -1,23 +1,36 @@
+//Buildings
+Group gGrannyFlat "Granny Flat" ["SummerHouse"]
+Group gBluehouse "Blue House" ["House"]
+
 //Floors
-Group gUpstairs "Upstairs" ["FirstFloor"]
-Group gDownstairs "Downstairs" ["GroundFloor"]
+Group gUpstairs "Upstairs" (gBluehouse) ["FirstFloor"]
+Group gDownstairs "Downstairs" (gBluehouse) ["GroundFloor"]
+Group gOutside "Outside" (gBluehouse) ["Outdoor"]
 
 //Room Groups
 Group gKidsRooms "Kids' Rooms"
 
 //Rooms
 Group gUpstairsBedroom "Upstairs Bedroom" (gUpstairs) ["Bedroom"]
+Group gUpstairsToilet "Upstairs Toilet" (gUpstairs) ["Bathroom"]
+Group gUpstairsCloset "Upstairs Closet" (gUpstairs) ["Room"]
+
 Group gGamesRoom "Games Room" (gDownstairs) ["FamilyRoom"]
-Group gGarage "Garage" ['Garage']
+Group gGarage "Garage" (gBluehouse) ['Garage']
 Group gLyrasRoom "Lyra's Room" (gKidsRooms, gDownstairs) ["Bedroom"]
 Group gFelixsRoom "Felix's Room" (gKidsRooms, gDownstairs) ["Bedroom"]
 Group gIndisRoom "Indi's Room" (gKidsRooms, gDownstairs) ["Bedroom"]
 Group gLivingRoom "Living Room" (gDownstairs) ["LivingRoom"]
+Group gHallway "Hallway" (gDownstairs) ["Entry"]
+Group gKidsBathroom "Kid's Bathroom" (gDownstairs) ["Bathroom"]
 
+Group gGrannyFlatBedroom "Granny Flat Bedroom" (gGrannyFlat) ["Bedroom"]
+Group gGrannyFlatOffice "Granny Flat Office" (gGrannyFlat) ["Office"]
 
 //Equipment
 Group g3DPrinter "3D Printer" (gGarage) ["NetworkAppliance"]
 Group gGarageCarDoor "Garage Car Door" (gGarage) ["GarageDoor"]
+Group gFrontDoor "Front Door" (gHallway) ["FrontDoor"]
 
 //Light Groups
 Group:Switch:OR(ON,OFF) gLivingRoomLights "Living Room Lights" <light> (gLivingRoom) ["Lighting"]

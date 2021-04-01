@@ -1,8 +1,10 @@
-Switch Hose_Switch "Hose Switch" ["Tasmota"] { autoupdate="false" }
+Group gHoseControl "Hose Control" (gOutside) ["Pump"]
 
-Switch Hose_Contact { channel="mqtt:topic:mosquitto:autoaqua:contact", autoupdate="false" }
-Switch Hose_Motor ["Switchable", "Pump"] { channel="mqtt:topic:mosquitto:autoaqua:motor", autoupdate="false" }
+Switch Hose_Switch "Hose Switch" (gHoseControl) ["Tasmota"] { autoupdate="false" }
 
-Switch Hose_Switch_Reachable "Hose Switch: reachable" (gReachable) ["Sensor"] { channel="mqtt:topic:mosquitto:autoaqua:reachable" }
+Switch Hose_Contact (gHoseControl) { channel="mqtt:topic:mosquitto:autoaqua:contact", autoupdate="false" }
+Switch Hose_Motor (gHoseControl) ["Switchable", "Switch"] { channel="mqtt:topic:mosquitto:autoaqua:motor", autoupdate="false" }
+
+Switch Hose_Switch_Reachable "Hose Switch: reachable" (gReachable, gHoseControl) ["Sensor", "Measurement"] { channel="mqtt:topic:mosquitto:autoaqua:reachable" }
     
-Number Hose_Switch_RSSI "Hose Switch: RSSI [%d %%]" (gRSSI) ["Sensor"] { channel="mqtt:topic:mosquitto:autoaqua:rssi" }
+Number Hose_Switch_RSSI "Hose Switch: RSSI [%d %%]" (gRSSI, gHoseControl) ["Sensor"] { channel="mqtt:topic:mosquitto:autoaqua:rssi" }
