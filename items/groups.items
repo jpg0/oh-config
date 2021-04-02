@@ -1,6 +1,6 @@
 //Buildings
-Group gGrannyFlat "Granny Flat" ["SummerHouse"]
 Group gBluehouse "Blue House" ["House"]
+Group gGrannyFlat "Granny Flat" (gBluehouse) ["SummerHouse"]
 
 //Floors
 Group gUpstairs "Upstairs" (gBluehouse) ["FirstFloor"]
@@ -55,7 +55,7 @@ Group:Number:AVG  gGrannyFlatTemperature "Granny Flat Temperature"
 Group gZ2M "Zigbee2MQTT Devices"
 Group gMeasurements "All Measurements"
 Group gZoneTemps "Zone Temperature Details"
-
+Group gUnscreened "Unscreened Openings" (gOpenings)
 
 Group gAlerted "Alerted Items"
 
@@ -106,7 +106,5 @@ Group:Contact:OR(OPEN, CLOSED) gGrannyFlatDoors "Granny Flat Doors" <door> (gOpe
 Group:Contact:OR(OPEN, CLOSED) gUpstairsOpenings "Upstairs Openings" <window> (gOpenings)
 Group:Contact:OR(OPEN, CLOSED) gUpstairsWindows "Upstairs Windows" <window> (gWindows, gUpstairsOpenings)
 Group:Contact:OR(OPEN, CLOSED) gUpstairsDoors "Upstairs Doors" <door> (gDoors, gUpstairsOpenings)
-
-Group:Switch:OR(ON,OFF) gXmasLights "Xmas Lights" <light> ["LightStripe"]
 
 Group:Number:SUM gCam

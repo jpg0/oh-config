@@ -1,7 +1,9 @@
-Switch UpstairsBathroomLight_Relay "Upstairs Bathroom Light Relay" { channel="mqtt:topic:mosquitto:upbathlight:relay" }
+Group gUpstairsBathroomLightSwitch "Upstairs Bathroom Wall Switch" (gUpstairsToilet) ["WallSwitch"]
 
-Switch UpstairsBathroomLight_Switch "Upstairs Bathroom Light" { channel="mqtt:topic:mosquitto:upbathlight:switch" }
+Switch UpstairsBathroomLight_Relay "Upstairs Bathroom Light Relay" (gUpstairsBathroomLightSwitch) { channel="mqtt:topic:mosquitto:upbathlight:relay" }
 
-Switch UpstairsBathroomLight_Reachable "UpstairsBathroomLight: reachable" (gReachable) { channel="mqtt:topic:mosquitto:upbathlight:reachable" }
+Switch UpstairsBathroomLight_Switch "Upstairs Bathroom Light" (gUpstairsBathroomLightSwitch) ["Switch"] { channel="mqtt:topic:mosquitto:upbathlight:switch" }
+
+Switch UpstairsBathroomLight_Reachable "UpstairsBathroomLight: reachable" (gReachable, gUpstairsBathroomLightSwitch) { channel="mqtt:topic:mosquitto:upbathlight:reachable" }
     
-Number UpstairsBathroomLight_RSSI "UpstairsBathroomLight: RSSI [%d %%]" (gRSSI) { channel="mqtt:topic:mosquitto:upbathlight:rssi" }
+Number UpstairsBathroomLight_RSSI "UpstairsBathroomLight: RSSI [%d %%]" (gRSSI, gUpstairsBathroomLightSwitch) ["Measurement"] { channel="mqtt:topic:mosquitto:upbathlight:rssi" }

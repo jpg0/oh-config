@@ -1,6 +1,6 @@
 Group:Switch:OR(ON,OFF) gDucts //on if any are open, off if all are closed
 
-Switch KitchenDuct_Switch "Kitchen AC Duct" (gDucts)
-Switch GamesDuct_Switch "Games Room AC Duct" (gDucts)
-Switch UpstairsDuct_Switch "Upstairs AC Duct" (gDucts)
-Switch KidsRoomsDuct_Switch "Kids Rooms AC Duct" (gDucts)
+Switch KitchenDuct_Switch "Kitchen AC Duct" (gDucts, gLivingRoom) ["HVAC", "Opening"]
+Switch GamesDuct_Switch "Games Room AC Duct" (gDucts, gGamesRoom) ["HVAC", "Opening"]
+Switch UpstairsDuct_Switch "Upstairs AC Duct" (gDucts, gUpstairs) ["HVAC", "Opening"]
+Switch KidsRoomsDuct_Switch "Kids Rooms AC Duct" (gDucts, gDownstairs) ["HVAC", "Opening"]
