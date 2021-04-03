@@ -1,1 +1,1 @@
-Dimmer GamesRoomRoller_Dimmer "Games Room Roller" (gGamesRoom) ["Blind"] { channel="mqtt:topic:mosquitto:gamesroomroller:relay" }
+Dimmer GamesRoomRoller_Dimmer "Games Room Roller" (gGamesRoom) ["Blind"] { channel="mqtt:topic:mosquitto:gamesroomroller:dimmer" }

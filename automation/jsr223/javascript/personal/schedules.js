@@ -35,9 +35,9 @@ try {
         when(cron("0 15 19 * * ? *")).then(send("300,100,25" ).toItem("Indis_Closet_Light_Color"), inGroup("Kids Rooms Lights"));
         when(cron("0 00 07 * * ? *")).then(sendOff().          toItem("Indis_Closet_Light_Color"), inGroup("Kids Rooms Lights"));
 
-        //Ooler
-        when(cron("0 00 20 * * ? *")).then(sendOn().toItem("BedPump_Switch"), inGroup("Ooler"));
-        when(cron("0 00 21 * * ? *")).then(sendOff().toItem("BedPump_Switch"), inGroup("Ooler"));
+        //Games Room Blinds
+        when(cron("0 00 08 * * ? *")).then(send("1").toItem("GamesRoomRoller_Dimmer"), inGroup("Games Room"));
+        when(cron("0 30 21 * * ? *")).then(sendOff("100").toItem("GamesRoomRoller_Dimmer"), inGroup("Games Room"));
 
         //Upstairs Toilet
         when(cron("0 00 21 * * ? *")).then(sendOff().toItem("Upstairs_Toilet_Switch_Switch"), inGroup("Upstairs Toilet"));
