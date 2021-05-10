@@ -33,10 +33,10 @@ Group gGarageCarDoor "Garage Car Door" (gGarage) ["GarageDoor"]
 Group gFrontDoor "Front Door" (gHallway) ["FrontDoor"]
 
 //Light Groups
-Group:Switch:OR(ON,OFF) gLivingRoomLights "Living Room Lights" <light> (gLivingRoom) ["Lighting"]
-Group:Switch:OR(ON,OFF) gGamesRoomLights "Games Room Lights" <light> (gGamesRoom) ["Lighting"]
-Group:Switch:OR(ON,OFF) gUpstairsBedroomLights "Upstairs Bedroom Lights" <light> (gUpstairsBedroom) ["Lighting"]
-Group:Switch:OR(ON,OFF) gIndisRoomLights "Indi's Room Lights" (gIndisRoom) ["Lighting"]
+Group:Switch:OR(ON,OFF) gLivingRoomLights "Living Room Lights" <light> (gLivingRoom) ["Lighting", "Lightbulb"]
+Group:Switch:OR(ON,OFF) gGamesRoomLights "Games Room Lights" <light> (gGamesRoom) ["Lighting", "Lightbulb"]
+Group:Switch:OR(ON,OFF) gUpstairsBedroomLights "Upstairs Bedroom Lights" <light> (gUpstairsBedroom) ["Lighting", "Lightbulb"]
+Group:Switch:OR(ON,OFF) gIndisRoomLights "Indi's Room Lights" (gIndisRoom) ["Lighting", "Lightbulb"]
 
 
 //Temp groups
@@ -56,6 +56,10 @@ Group gZ2M "Zigbee2MQTT Devices"
 Group gMeasurements "All Measurements"
 Group gZoneTemps "Zone Temperature Details"
 Group gUnscreened "Unscreened Openings" (gOpenings)
+Group gStartOff "Start Turned Off"
+
+Group gRSSI "RSSI measurement"
+Group gReachable "Reports reachability"
 
 Group gAlerted "Alerted Items"
 

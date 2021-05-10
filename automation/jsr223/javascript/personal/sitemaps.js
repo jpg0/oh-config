@@ -85,7 +85,7 @@ function registerSitemap() {
                 Default({item:"TVLight_Light", label:"TV Light", icon:"light"}),
                 Default({item:"FloorLamp_Light", label:"Floor Lamp", icon:"light"}),
                 Default({item:"LivingRoom_Corner_Light", label:"Corner Light", icon:"light"}),
-                Default({item:"Hallway_Light", label:"Hallway Lamp"}),
+                Default({item:"Hallway_Light_Color", label:"Hallway Lamp"}),
                 Default({item:"HallwayLights_Switch", label:"Hallway Lights"}),
                 Default({item:"gLivingRoomLights", icon:"light"}),
                 Default({item:"zgKitchenLeds_Light", label:"Kitchen LEDs", icon:"light"}),
@@ -102,9 +102,9 @@ function registerSitemap() {
             ]),
             Frame({label:"Upstairs"}, [
                 Text({item:'gUpstairsBedroomTemperature', icon:"temperature", label:"Bedroom [%.1f °C]"}),
-                Default({item:'Bedside_1_Light'}),
-                Default({item:'Bedside_2_Light'}),
-                Default({item:'Upstairs_Toilet_Light'}),
+                Default({item:'Bedside_1_Light_Color'}),
+                Default({item:'Bedside_2_Light_Color'}),
+                Default({item:'Upstairs_Toilet_Light_Color'}),
 
                 Default({item:'BedPump_Switch'}),
 
@@ -147,7 +147,7 @@ function registerSitemap() {
                 Switch({item:'GarageCarDoor_Switch', label:"Garage Car Door [OPEN]", mappings:{ON:"Close"}, icon:"garage", visibility:['Garage_Car_Door_Contact_Contact==OPEN'], valueColor:["red"]}),
                 Switch({item:'GarageCarDoor_Switch', label:"Garage Car Door [UNKNOWN]", mappings:{ON:"Activate"}, icon:"garage", visibility:['Garage_Car_Door_Contact_Contact==NULL'], valueColor:["red"]}),
                 Text({label:"Water"}, [
-                    Switch({item:'FrontGardenIrrigation_Switch', label:"Front Garden Irrigation", icon:"lawnmower"}),
+                    Switch({item:'FrontGardenIrrigation_Switch_Switch', label:"Front Garden Irrigation", icon:"lawnmower"}),
                     Switch({item:'Hose_Switch', label:"Back Garden Hose", icon:"faucet"}),
                     //Switch item:OutdoorWater_Switch_1 label:"Sprinkler" icon:"lawnmower"
                     Switch({item:'OutdoorWater_Switch_2', label:"Kids Kitchen Tap", icon:"faucet"}),
@@ -246,4 +246,4 @@ alerteditems.onChanged(() => {
     registerSitemap()
 });
 registerSitemap();
- 
+

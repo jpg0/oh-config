@@ -16,3 +16,4 @@ with(fluent) {
     when(item('UpstairsLouvresLarge_Closing').changed().from('OFF').to('ON')).then(postUpdate('CLOSED').toItem('UpstairsLouvresLarge_Contact'));
     when(item('UpstairsLouvresLarge_Click').changed().to("close")).then(postUpdate('CLOSED').toItem('UpstairsLouvresLarge_Contact'));
 }
+

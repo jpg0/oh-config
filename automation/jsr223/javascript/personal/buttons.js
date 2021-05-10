@@ -34,3 +34,4 @@ with(fluent) {
     when(item('Bedside_2_Button').changed().to("button_1_single")).then(send('OFF').toItem('Bedside_2_Light_Color'));
     
 }
+
